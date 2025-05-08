@@ -75,58 +75,132 @@ CompanyHRManagement/
 * Chi tiết cấu trúc:
 CompanyHRManagement/
 │
-├── src/                            # Mã nguồn chính của ứng dụng
-│   ├── Common/                     # Chứa các lớp và chức năng chung (Utilities, Helpers)
-│   ├── Data/                       # Chứa lớp dữ liệu (Data Access Layer)
-│   │   ├── ADO/                    # Lớp ADO.NET
-│   │   │   ├── AdoEmployee.cs      # Quản lý nhân viên (Employee)
-│   │   │   ├── AdoDepartment.cs    # Quản lý phòng ban (Department)
-│   │   │   ├── AdoPosition.cs      # Quản lý chức vụ (Position)
-│   │   │   ├── AdoContract.cs      # Quản lý hợp đồng (Contract)
-│   │   │   ├── AdoSalary.cs        # Quản lý lương (SalaryRecord)
-│   │   │   ├── AdoIncomeStatistics.cs # Quản lý thống kê thu nhập (IncomeStatistics)
-│   │   ├── EF/                     # Lớp Entity Framework
-│   │   │   ├── EfEmployee.cs       # Quản lý nhân viên (Employee)
-│   │   │   ├── EfDepartment.cs     # Quản lý phòng ban (Department)
-│   │   │   ├── EfPosition.cs       # Quản lý chức vụ (Position)
-│   │   │   ├── EfContract.cs       # Quản lý hợp đồng (Contract)
-│   │   │   ├── EfSalary.cs         # Quản lý lương (SalaryRecord)
-│   │   │   ├── EfIncomeStatistics.cs # Quản lý thống kê thu nhập (IncomeStatistics)
-│   │   ├── Database/               # Các lớp quản lý kết nối cơ sở dữ liệu (DB Connection)
-│   │   │   ├── DatabaseHelper.cs    # Quản lý kết nối chung cho cả ADO.NET và EF
-│   │
-│   ├── Business/                   # Lớp logic nghiệp vụ (Business Logic Layer)
-│   │   ├── EmployeeManager.cs       # Quản lý logic nhân viên
-│   │   ├── DepartmentManager.cs     # Quản lý logic phòng ban
-│   │   ├── PositionManager.cs       # Quản lý logic chức vụ
-│   │   ├── ContractManager.cs       # Quản lý logic hợp đồng
-│   │   ├── SalaryManager.cs         # Quản lý logic lương
-│   │   ├── IncomeStatisticsManager.cs # Quản lý logic thống kê thu nhập
-│   │
-│   ├── UI/                          # Giao diện người dùng (User Interface)
-│   │   ├── EmployeeForm.cs          # Form quản lý nhân viên
-│   │   ├── DepartmentForm.cs        # Form quản lý phòng ban
-│   │   ├── PositionForm.cs          # Form quản lý chức vụ
-│   │   ├── ContractForm.cs          # Form quản lý hợp đồng
-│   │   ├── SalaryForm.cs            # Form quản lý lương
-│   │   ├── IncomeStatisticsForm.cs  # Form thống kê thu nhập
-│   │
-│   ├── App/                         # Chứa các thành phần ứng dụng (Chạy ứng dụng)
-│   │   ├── Program.cs               # Điểm khởi đầu của ứng dụng
-│   │   ├── AppSettings.cs           # Cấu hình ứng dụng
+├── GUI/                        # Giao diện WinForms
+│   ├── frmLogin.cs
+│   ├── frmDashboard.cs
+│   ├── frmEmployee.cs
+│   ├── frmAttendance.cs
+│   ├── frmSalary.cs
+│   └── frmStatistics.cs
 │
-├── Database/                        # Chứa các tệp cơ sở dữ liệu (SQL scripts)
-│   ├── DatabaseScript.sql           # Tạo cơ sở dữ liệu và bảng dữ liệu mẫu
+├── BUS/                        # Xử lý nghiệp vụ
+│   ├── EmployeeBUS.cs
+│   ├── AttendanceBUS.cs
+│   └── SalaryBUS.cs
 │
-├── Docs/                            # Tài liệu liên quan đến dự án
-│   ├── Readme.md                    # Hướng dẫn cài đặt và sử dụng dự án
-│   ├── DatabaseDesign.md             # Thiết kế cơ sở dữ liệu
-│   ├── ProjectRoadmap.md             # Lộ trình phát triển dự án
+├── DAL_ADO/                    # ADO.NET (Version 1)
+│   ├── DBConnection.cs
+│   ├── EmployeeDAO.cs
+│   ├── AttendanceDAO.cs
+│   └── SalaryDAO.cs
 │
-├── .gitignore                       # Các tệp và thư mục cần bỏ qua khi sử dụng Git
-├── CompanyHRManagement.sln          # Tệp giải pháp Visual Studio
-├── README.md                        # Tóm tắt dự án và thông tin cài đặt
-└── LICENSE                          # Giấy phép sử dụng mã nguồn
+├── DAL_EF/                     # Entity Framework (Version 2)
+│   ├── AppDbContext.cs
+│   ├── EmployeeRepository.cs
+│   └── AttendanceRepository.cs
+│
+├── Models/                     # Định nghĩa các lớp thực thể
+│   ├── Employee.cs
+│   ├── Attendance.cs
+│   └── Salary.cs
+│
+├── Reports/                    # Báo cáo RDLC / Xuất Excel
+│   └── EmployeeStatisticsReport.rdlc
+│
+├── Scripts/                    # SQL khởi tạo + dữ liệu mẫu
+│   └── InitDatabase.sql
+│
+├── Resources/                  # Icon, ảnh, logo,...
+│
+├── README.md                   # Mô tả dự án
+├── .gitignore
+└── Program.cs
+
+* Nâng cấp:
+* CompanyHRManagement/
+│
+├── GUI/                            # Giao diện người dùng (WinForms)
+│   ├── Login/                      # Form đăng nhập, loading, phân quyền
+│   │   └── LoginForm.cs
+│   │   └── SplashScreen.cs
+│   │   └── ChangePasswordForm.cs
+│   │
+│   ├── Employee/                   # Quản lý nhân sự, nhân viên, thử việc, bị đuổi
+│   │   └── EmployeeListForm.cs
+│   │   └── ProbationForm.cs
+│   │   └── FiredEmployeeForm.cs
+│   │
+│   ├── Department/                # Quản lý phòng ban, bộ phận
+│   │   └── DepartmentForm.cs
+│   │   └── DivisionForm.cs
+│   │
+│   ├── Payroll/                   # Lương, chấm công, khen thưởng, kỷ luật
+│   │   └── AttendanceForm.cs
+│   │   └── SalaryForm.cs
+│   │   └── BonusForm.cs
+│   │   └── DisciplineForm.cs
+│   │   └── SalaryCalculationForm.cs
+│   │   └── SalaryIncreaseForm.cs
+│   │
+│   ├── Reports/                   # Báo cáo thống kê
+│   │   └── EmployeeStatsChart.cs
+│   │   └── SearchForm.cs
+│   │
+│   ├── System/                    # Quản lý tài khoản, tham số hệ thống
+│   │   └── UserManagementForm.cs
+│   │   └── ParameterSettingsForm.cs
+│   │
+│   └── MainForm.cs                # Giao diện chính sau đăng nhập
+│
+├── BUS/                            # Business Logic Layer
+│   ├── AuthenticationBUS.cs
+│   ├── EmployeeBUS.cs
+│   ├── DepartmentBUS.cs
+│   ├── PayrollBUS.cs
+│   ├── ReportBUS.cs
+│   ├── UserBUS.cs
+│   └── Utils/                     # Tiện ích như mã hóa mật khẩu
+│       └── EncryptionUtil.cs
+│
+├── DAL_ADO/                        # Data Access Layer - ADO.NET
+│   ├── DBConnection.cs
+│   ├── EmployeeDAO.cs
+│   ├── DepartmentDAO.cs
+│   ├── PayrollDAO.cs
+│   ├── UserDAO.cs
+│   ├── AttendanceDAO.cs
+│   └── ...
+│
+├── DAL_EF/                         # Data Access Layer - Entity Framework
+│   ├── AppDbContext.cs
+│   ├── Repositories/
+│   │   ├── EmployeeRepository.cs
+│   │   ├── DepartmentRepository.cs
+│   │   ├── PayrollRepository.cs
+│   │   └── UserRepository.cs
+│   └── Migrations/
+│
+├── Models/                         # Lớp POCO (thực thể dữ liệu)
+│   ├── Employee.cs
+│   ├── Department.cs
+│   ├── Attendance.cs
+│   ├── Salary.cs
+│   ├── Bonus.cs
+│   ├── Discipline.cs
+│   ├── User.cs
+│   └── ...
+│
+├── Reports/                        # File .rdlc hoặc báo cáo Excel
+│   └── IncomeStatistics.rdlc
+│   └── ExportUtils.cs
+│
+├── Resources/                      # Icon, ảnh, file cấu hình
+│
+├── .gitignore                      # Bỏ qua .vs, bin, obj, ...
+├── README.md                       # Mô tả dự án, phân công thành viên
+└── Program.cs                      # Entry point
+
+
 
 
 ---
@@ -155,5 +229,5 @@ CompanyHRManagement/
 ## 📬 Liên hệ nhóm
 
 - Trưởng nhóm: [MinhCHuong] – Email: chuongminh3225@gmail.com
-- GitHub: [github.com/your-team]
+- GitHub: https://github.com/chuongminh32/Company-human-resource-management
 

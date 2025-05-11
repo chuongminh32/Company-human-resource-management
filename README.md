@@ -42,7 +42,7 @@ Hệ thống được phát triển bằng ngôn ngữ **C# WinForms**, sử d�
 ## 🔧 Công nghệ sử dụng
 
 - **Ngôn ngữ**: C# (.NET Framework)
-- **Giao diện**: WinForms
+- **Giao diện**: thư viện Guna.UI2.WinForms
 - **Database**: SQL Server
 - **ADO.NET & Entity Framework**
 - **Crystal Reports / Chart Control (thống kê)**

@@ -24,8 +24,8 @@ namespace CompanyHRManagement.GUI.Login
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                guna2MessageDialog.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
-                guna2MessageDialog.Show("Bạn vui lòng nhập cả mật khẩu và tên đăng nhập nha.", "Nhập thiếu rồi!");
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Bạn vui lòng nhập cả mật khẩu và tên đăng nhập nha.", "Nhập thiếu rồi!");
                 return;
             }
 
@@ -35,16 +35,16 @@ namespace CompanyHRManagement.GUI.Login
 
         if (isValid)
         {
-            guna2MessageDialog.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
-            guna2MessageDialog.Show("Đăng nhập thành công!");
+            guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+            guna2MessageDialog2.Show("Chào bạn đã quay lại ", " Đăng nhập thành công !");
             this.Hide();
             MainForm mainForm = new MainForm();
             mainForm.Show();
         }
         else
         {
-                guna2MessageDialog.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
-                guna2MessageDialog.Show("Sai tên đăng nhập hoặc mật khẩu rồi.", "Lỗi rồi!");
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Sai tên đăng nhập hoặc mật khẩu rồi.", "Lỗi rồi!");
         }
         }
 
@@ -61,5 +61,9 @@ namespace CompanyHRManagement.GUI.Login
             }
         }
 
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

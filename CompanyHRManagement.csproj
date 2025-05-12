@@ -42,6 +42,7 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,101 +54,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BUS\AuthenticationBUS.cs" />
-    <Compile Include="BUS\Utils.cs" />
-    <Compile Include="BUS\EmployeeBUS.cs" />
-    <Compile Include="BUS\AttendanceBUS.cs" />
-    <Compile Include="BUS\SalaryBUS.cs" />
-    <Compile Include="DAL_ADO\UserDAO.cs" />
-    <Compile Include="GUI\Department\DepartmentForm.cs">
+    <Compile Include="BUS\_ado\AuthenticationBUS.cs" />
+    <Compile Include="BUS\_ado\DashBoardBUS.cs" />
+    <Compile Include="BUS\_ado\EmployeeBUS.cs" />
+    <Compile Include="BUS\_ado\AttendanceBUS.cs" />
+    <Compile Include="BUS\_ado\SalaryBUS.cs" />
+    <Compile Include="DAL\_ado\DashBoardDAO.cs" />
+    <Compile Include="DAL\_ado\UserDAO.cs" />
+    <Compile Include="GUI\admin\MainForm_admin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Department\DepartmentForm.Designer.cs">
-      <DependentUpon>DepartmentForm.cs</DependentUpon>
+    <Compile Include="GUI\admin\MainForm_admin.Designer.cs">
+      <DependentUpon>MainForm_admin.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Department\DivisionForm.cs">
+    <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Department\DivisionForm.Designer.cs">
-      <DependentUpon>DivisionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Employee\EmployeeListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Employee\EmployeeListForm.Designer.cs">
-      <DependentUpon>EmployeeListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Employee\ProbationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Employee\ProbationForm.Designer.cs">
-      <DependentUpon>ProbationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Employee\FiredEmployeeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Employee\FiredEmployeeForm.Designer.cs">
-      <DependentUpon>FiredEmployeeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Login\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Login\LoginForm.Designer.cs">
+    <Compile Include="GUI\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Payroll\AttendanceForm.cs">
+    <Compile Include="GUI\user\MainForm_user.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\Payroll\AttendanceForm.Designer.cs">
-      <DependentUpon>AttendanceForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Payroll\SalaryForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Payroll\SalaryForm.Designer.cs">
-      <DependentUpon>SalaryForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Payroll\BonusForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Payroll\BonusForm.Designer.cs">
-      <DependentUpon>BonusForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Payroll\DisciplineForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Payroll\DisciplineForm.Designer.cs">
-      <DependentUpon>DisciplineForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Payroll\SalaryCalculationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Payroll\SalaryCalculationForm.Designer.cs">
-      <DependentUpon>SalaryCalculationForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Payroll\SalaryIncreaseForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Payroll\SalaryIncreaseForm.Designer.cs">
-      <DependentUpon>SalaryIncreaseForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Reports\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Reports\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Reports\Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\Reports\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="GUI\user\MainForm_user.Designer.cs">
+      <DependentUpon>MainForm_user.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -157,34 +87,46 @@
     </Compile>
     <Compile Include="Reports\ExportUtils.cs" />
     <None Include="ERD.md" />
-    <Compile Include="DAL_ADO\SalaryDAO.cs" />
-    <Compile Include="DAL_ADO\DBConnection.cs" />
-    <Compile Include="DAL_ADO\EmployeeDAO.cs" />
-    <Compile Include="DAL_ADO\AttendanceDAO.cs" />
-    <Compile Include="DAL_EF\AppDbContext.cs" />
-    <Compile Include="DAL_EF\AttendanceRepository.cs" />
-    <Compile Include="DAL_EF\EmployeeRepository.cs" />
+    <Compile Include="DAL\_ado\SalaryDAO.cs" />
+    <Compile Include="DAL\_ado\DBConnection.cs" />
+    <Compile Include="DAL\_ado\EmployeeDAO.cs" />
+    <Compile Include="DAL\_ado\AttendanceDAO.cs" />
+    <Compile Include="DAL\_ef\AppDbContext.cs" />
+    <Compile Include="DAL\_ef\AttendanceRepository.cs" />
+    <Compile Include="DAL\_ef\EmployeeRepository.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Salary.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Resources\staff_icon.png" />
+    <None Include="Resources\fiter.png" />
+    <None Include="Resources\setting.png" />
+    <None Include="Resources\home.png" />
+    <None Include="Resources\staff.png" />
+    <None Include="Resources\sun.png" />
+    <None Include="Resources\welcome.png" />
+    <None Include="Resources\admin.png" />
+    <None Include="Resources\staff_total_icon.png" />
+    <None Include="Resources\rank_total_icon.png" />
+    <None Include="Resources\room_total_icon.png" />
+    <None Include="Resources\staff_intern_total_icon.png" />
+    <None Include="Resources\logout.png" />
+    <None Include="Resources\salary_total_icon.png" />
+    <None Include="Resources\insurance.png" />
     <Content Include="Scripts\StoredProcedures.sql" />
     <Content Include="Scripts\InsertSampleData.sql" />
     <Content Include="Scripts\InitDatabase.sql" />
     <None Include="packages.config" />
     <None Include="Reports\EmployeeStatisticsReport.rdlc" />
-    <EmbeddedResource Include="GUI\Employee\EmployeeListForm.resx">
-      <DependentUpon>EmployeeListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Login\LoginForm.resx">
+    <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\admin\MainForm_admin.resx">
+      <DependentUpon>MainForm_admin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Payroll\SalaryForm.resx">
-      <DependentUpon>SalaryForm.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\user\MainForm_user.resx">
+      <DependentUpon>MainForm_user.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -211,7 +153,7 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Folder Include="BUS\_ef\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

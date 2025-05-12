@@ -37,6 +37,113 @@ Hệ thống được phát triển bằng ngôn ngữ **C# WinForms**, sử d�
 - Xuất báo cáo Excel / PDF (tuỳ chọn)
 - Tự động cập nhật trạng thái hợp đồng hết hạn
 
+
+	### chi tiết :
+	1. Management Operations (Thao tác quản lý: Thêm, sửa, xóa)
+	Đây là các chức năng CRUD (Create, Read, Update, Delete) cốt lõi trong mọi hệ thống quản lý:
+
+	Insert (Thêm mới):
+
+	Thêm nhân viên mới, phòng ban, chức vụ, hệ số lương, loại hợp đồng, ...
+
+	Giao diện nhập thông tin chi tiết và nút lưu.
+
+	Update (Cập nhật):
+
+	Cho phép chỉnh sửa thông tin nhân sự khi có thay đổi như địa chỉ, chức vụ, mức lương,...
+
+	Cần kiểm tra hợp lệ và có log nếu cần.
+
+	Delete (Xóa):
+
+	Xóa nhân viên nghỉ việc, phòng ban không còn hoạt động.
+
+	Nên kiểm tra ràng buộc và xác nhận trước khi xóa (soft delete nếu cần giữ lịch sử).
+
+	🔧 Áp dụng công nghệ: WinForms GUI hoặc Web UI + ADO.NET/EF để thao tác với CSDL (SQL Server,...)
+
+	2. Calculation Operations (Tính toán)
+	Các chức năng tính toán nghiệp vụ là xương sống của hệ thống nhân sự:
+
+	Tính lương nhân viên:
+
+	Công thức: Lương = Hệ số lương * Lương cơ bản + Phụ cấp - Các khoản khấu trừ
+
+	Kết hợp với dữ liệu chấm công (số ngày làm việc/thưởng/phạt).
+
+	Tính bảo hiểm xã hội, y tế:
+
+	Tính theo phần trăm lương, tuân theo quy định pháp luật.
+
+	Tính thuế TNCN:
+
+	Nếu mức lương đủ điều kiện, cần trừ thuế theo biểu thuế luỹ tiến từng phần.
+
+	🧮 Có thể tạo lớp SalaryCalculator, hoặc stored procedure SQL để tối ưu hiệu suất.
+
+	3. Searching Operations (Tìm kiếm)
+	Giúp người dùng dễ dàng truy xuất dữ liệu:
+
+	Tìm kiếm nhân viên theo:
+
+	Tên, mã nhân viên, phòng ban, địa chỉ (VD: HCM), chức vụ, giới tính, trạng thái làm việc, ...
+
+	Tìm kiếm nâng cao:
+
+	Kết hợp nhiều điều kiện (AND/OR): phòng ban A + chức vụ B + đang làm việc.
+
+	Lọc dữ liệu theo tháng/năm:
+
+	Để chuẩn bị báo cáo hoặc thống kê.
+
+	🔍 Sử dụng TextBox + ComboBox lọc + LINQ (Entity Framework) hoặc câu truy vấn SQL động.
+
+	4. Statistical Operations using Reports (Thống kê & Báo cáo)
+	Thống kê giúp lãnh đạo đưa ra quyết định:
+
+	Thống kê thu nhập nhân viên theo năm:
+
+	Tổng thu nhập, lương, thưởng trong năm.
+
+	Hiển thị biểu đồ cột, biểu đồ tròn.
+
+	Thống kê số lượng nhân viên theo phòng ban, giới tính, độ tuổi.
+
+	Thống kê ngày công, số giờ làm thêm,...
+
+	Xuất báo cáo:
+
+	PDF, Excel, hoặc in trực tiếp.
+
+	Dùng thư viện như Microsoft Report Viewer, Crystal Reports hoặc EPPlus.
+
+	📊 Biểu đồ hỗ trợ: Pie Chart, Bar Chart, Line Chart (sử dụng thư viện Chart trong WinForms/Web).
+
+	5. Other Advanced Operations (Chức năng nâng cao khác)
+	Một hệ thống mạnh mẽ thường có thêm các tính năng sau:
+
+	Phân quyền người dùng:
+
+	Admin, nhân viên, trưởng phòng: mỗi nhóm có quyền hạn khác nhau.
+
+	Mã hóa mật khẩu người dùng:
+
+	Bảo vệ đăng nhập bằng bcrypt, SHA256,...
+
+	Ghi log thao tác người dùng (audit trail):
+
+	Ai đã cập nhật/xoá thông tin gì, khi nào.
+
+	Tự động tính lương cuối tháng / nhắc nhở hợp đồng hết hạn.
+
+	Đồng bộ dữ liệu với hệ thống khác (nếu có):
+
+	Ví dụ: hệ thống chấm công vân tay, HRM hiện tại.
+
+	Tích hợp AI gợi ý/thống kê nâng cao:
+
+	Dự báo nhân sự nghỉ việc, gợi ý tuyển dụng,...
+
 ---
 
 ## 🔧 Công nghệ sử dụng
@@ -53,9 +160,9 @@ Hệ thống được phát triển bằng ngôn ngữ **C# WinForms**, sử d�
 
 | Thành viên | Vai trò | Nhiệm vụ |
 |------------|---------|----------|
-| **Thành viên 1** | Trưởng nhóm + Giao diện | - Thiết kế giao diện người dùng (WinForms)<br> - Điều hướng Form<br> - Kết nối GUI với tầng nghiệp vụ |
-| **Thành viên 2** | Backend – Dữ liệu | - Thiết kế cơ sở dữ liệu<br> - Xây dựng tầng truy xuất dữ liệu (DAL) cho ADO.NET và EF<br> - Tạo Stored Procedure |
-| **Thành viên 3** | Backend – Nghiệp vụ | - Xử lý tính lương, thống kê, tìm kiếm<br> - Viết tầng nghiệp vụ (BUS)<br> - Kết nối dữ liệu với giao diện |
+| **Chương** | Trưởng nhóm + Giao diện | - Thiết kế giao diện người dùng (WinForms)<br> - Điều hướng Form<br> - Kết nối GUI với tầng nghiệp vụ |
+| **Minh** | Backend – Dữ liệu | - Thiết kế cơ sở dữ liệu<br> - Xây dựng tầng truy xuất dữ liệu (DAL) cho ADO.NET và EF<br> - Tạo Stored Procedure |
+| **Thùy** | Backend – Nghiệp vụ | - Xử lý tính lương, thống kê, tìm kiếm<br> - Viết tầng nghiệp vụ (BUS)<br> - Kết nối dữ liệu với giao diện |
 
 ---
 
@@ -65,122 +172,63 @@ CompanyHRManagement/
 │
 ├── GUI/ → Giao diện người dùng (WinForms)
 ├── BUS/ → Xử lý nghiệp vụ
-├── DAL_ADO/ → Truy xuất dữ liệu bằng ADO.NET
-├── DAL_EF/ → Truy xuất dữ liệu bằng Entity Framework
+├── DAL/ → Truy xuất dữ liệu 
 ├── Models/ → Các lớp đối tượng (POCO classes)
 ├── Reports/ → Báo cáo thống kê
-├── DatabaseScript.sql → File tạo CSDL
+├── Scripts →  tạo CSDL
 └── README.md
 
-* Chi tiết cấu trúc:
-CompanyHRManagement/
-│
-├── GUI/                        # Giao diện WinForms
+- Mẫu đặt tên form
+GUI
 │   ├── frmLogin.cs
 │   ├── frmDashboard.cs
 │   ├── frmEmployee.cs
 │   ├── frmAttendance.cs
 │   ├── frmSalary.cs
 │   └── frmStatistics.cs
-│
-├── BUS/                        # Xử lý nghiệp vụ
-│   ├── EmployeeBUS.cs
-│   ├── AttendanceBUS.cs
-│   └── SalaryBUS.cs
-│
-├── DAL_ADO/                    # ADO.NET (Version 1)
-│   ├── DBConnection.cs
-│   ├── EmployeeDAO.cs
-│   ├── AttendanceDAO.cs
-│   └── SalaryDAO.cs
-│
-├── DAL_EF/                     # Entity Framework (Version 2)
-│   ├── AppDbContext.cs
-│   ├── EmployeeRepository.cs
-│   └── AttendanceRepository.cs
-│
-├── Models/                     # Định nghĩa các lớp thực thể
-│   ├── Employee.cs
-│   ├── Attendance.cs
-│   └── Salary.cs
-│
-├── Reports/                    # Báo cáo RDLC / Xuất Excel
-│   └── EmployeeStatisticsReport.rdlc
-│
-├── Scripts/                    # SQL khởi tạo + dữ liệu mẫu
-│   └── InitDatabase.sql
-│
-├── Resources/                  # Icon, ảnh, logo,...
-│
-├── README.md                   # Mô tả dự án
-├── .gitignore
-└── Program.cs
 
-* Nâng cấp:
+
 * CompanyHRManagement/
 │
 ├── GUI/                            # Giao diện người dùng (WinForms)
-│   ├── Login/                      # Form đăng nhập, loading, phân quyền
-│   │   └── LoginForm.cs
-│   │   └── SplashScreen.cs
-│   │   └── ChangePasswordForm.cs
+│   ├── admin/                      
+│   │   └── MainForm.cs
 │   │
-│   ├── Employee/                   # Quản lý nhân sự, nhân viên, thử việc, bị đuổi
-│   │   └── EmployeeListForm.cs
-│   │   └── ProbationForm.cs
-│   │   └── FiredEmployeeForm.cs
+│   ├── user/                 
+│   │   └── MainForm.cs
 │   │
-│   ├── Department/                # Quản lý phòng ban, bộ phận
-│   │   └── DepartmentForm.cs
-│   │   └── DivisionForm.cs
-│   │
-│   ├── Payroll/                   # Lương, chấm công, khen thưởng, kỷ luật
-│   │   └── AttendanceForm.cs
-│   │   └── SalaryForm.cs
-│   │   └── BonusForm.cs
-│   │   └── DisciplineForm.cs
-│   │   └── SalaryCalculationForm.cs
-│   │   └── SalaryIncreaseForm.cs
-│   │
-│   ├── Reports/                   # Báo cáo thống kê
-│   │   └── EmployeeStatsChart.cs
-│   │   └── SearchForm.cs
-│   │
-│   ├── System/                    # Quản lý tài khoản, tham số hệ thống
-│   │   └── UserManagementForm.cs
-│   │   └── ParameterSettingsForm.cs
-│   │
-│   └── MainForm.cs                # Giao diện chính sau đăng nhập
+│   └── Login.cs                   # Giao diện đăng nhập
 │
-├── BUS/                            # Business Logic Layer
-│   ├── AuthenticationBUS.cs
-│   ├── EmployeeBUS.cs
-│   ├── DepartmentBUS.cs
-│   ├── PayrollBUS.cs
-│   ├── ReportBUS.cs
-│   ├── UserBUS.cs
-│   └── Utils/                     # Tiện ích như mã hóa mật khẩu
-│       └── EncryptionUtil.cs
+├── BUS/                           # Tầng nghiệp vụ (Business Logic Layer)
+│   ├── common/                    # Logic dùng chung cho cả ADO & EF (nếu có)
+│   │   ├── SalaryCalculator.cs    # Lớp tính lương, bảo hiểm, thuế...
+│   │   
+│   ├── _ado/                      # Nghiệp vụ sử dụng ADO.NET
+│   │   ├── EmployeeBUS.cs
+│   │   ├── AttendanceBUS.cs	
+│   │   ├── AuthenticationBUS.cs   # xửa lý cho xác thực đăng nhập	
+│   │   └── DashBoard.cs           # xử lý dữ liệu để hiện lên dashboard(MainForm-Trangchu)
+│   │   └── SalaryBUS.cs
+│   │   └── EmployeeBUS.cs	
+│   └── _ef/                       # Nghiệp vụ sử dụng Entity Framework
+│       ├── EmployeeBUS.cs
+│       ├── AttendanceBUS.cs
+│       └── SalaryBUS.cs
 │
-├── DAL_ADO/                        # Data Access Layer - ADO.NET
-│   ├── DBConnection.cs
-│   ├── EmployeeDAO.cs
-│   ├── DepartmentDAO.cs
-│   ├── PayrollDAO.cs
-│   ├── UserDAO.cs
-│   ├── AttendanceDAO.cs
-│   └── ...
+├── DAL/                           # Tầng truy xuất dữ liệu (Data Access Layer: Giao tiếp CSDL (chứa DAO)) -  DAO: Data Access Object (	Truy vấn CSDL (chứa SQL))
+│   ├── _ado/                      # Truy xuất dữ liệu bằng ADO.NET
+│   │   ├── DBConnection.cs        # Kết nối DB
+│   │   ├── DashBoardDAO.cs
+│   │   ├── EmployeeDAO.cs
+│   │   ├── AttendanceDAO.cs
+│   │   └── SalaryDAO.cs
+│   └── _ef/                       # Truy xuất dữ liệu bằng Entity Framework
+│       ├── AppDbContext.cs        # DbContext
+│       ├── EmployeeRepository.cs
+│       ├── AttendanceRepository.cs
+│       └── SalaryRepository.cs
 │
-├── DAL_EF/                         # Data Access Layer - Entity Framework
-│   ├── AppDbContext.cs
-│   ├── Repositories/
-│   │   ├── EmployeeRepository.cs
-│   │   ├── DepartmentRepository.cs
-│   │   ├── PayrollRepository.cs
-│   │   └── UserRepository.cs
-│   └── Migrations/
-│
-├── Models/                         # Lớp POCO (thực thể dữ liệu)
+├── Models/                         # Lớp thực thể dùng chung
 │   ├── Employee.cs
 │   ├── Department.cs
 │   ├── Attendance.cs
@@ -195,6 +243,12 @@ CompanyHRManagement/
 │   └── ExportUtils.cs
 │
 ├── Resources/                      # Icon, ảnh, file cấu hình
+|
+|
+├── Scripts/                        # Tạo CSDL
+│   └── InitDatabase.sql
+│   └── InsertSampleData.sql
+│   └── StoredProcedures.sql
 │
 ├── .gitignore                      # Bỏ qua .vs, bin, obj, ...
 ├── README.md                       # Mô tả dự án, phân công thành viên
@@ -206,7 +260,6 @@ CompanyHRManagement/
 ---
 
 ## ✅ Yêu cầu triển khai
-
 - [x] Phát triển 2 phiên bản (ADO.NET và EF)
 - [x] Áp dụng kiến trúc 3 tầng rõ ràng
 - [x] Dùng chung giao diện cho cả 2 phiên bản

@@ -89,15 +89,6 @@ Amount
 
 DisciplineDate
 
-7. User (Tài khoản người dùng)
-
-UserID (PK)
-
-Username
-
-PasswordHash
-
-Role (Admin, Employee)
 
 8. Parameter (Tham số hệ thống)
 
@@ -136,6 +127,7 @@ ERD Mô tả:
 | Position       |                                  +----------------+
 | HireDate       |
 | SalaryID(FK)   |
+| Password       |
 +----------------+
        |
        | 
@@ -152,14 +144,7 @@ ERD Mô tả:
 | AbsenceStatus  |
 +----------------+
 
-+----------------+
-|      User      |
-|----------------|
-| UserID (PK)    |
-| Username       |
-| PasswordHash   |
-| Role           |
-+----------------+
+
 
 +----------------+
 |   Parameter    |

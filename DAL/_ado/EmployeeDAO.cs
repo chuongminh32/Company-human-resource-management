@@ -5,67 +5,119 @@ public class EmployeeDAO
 {
     private DBConnection dbConnection = new DBConnection();
 
-    public List<Employee> GetAllEmployees()
+    // lấy nhân viên theo ID - dùng cho bảng thông tin của employee 
+    public Employee GetEmployeeById(int employeeID)
     {
-        List<Employee> employees = new List<Employee>();
-        string query = "SELECT * FROM Employee";
+        string query = "SELECT * FROM Employees WHERE EmployeeID = @EmployeeID";
+        using (var conn = DBConnection.GetConnection())
+        {
+            conn.Open();
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    return new Employee()
+                    {
+                        EmployeeID = reader.GetInt32(0),
+                        FullName = reader.GetString(1),
+                        DateOfBirth = reader.GetDateTime(2),
+                        Gender = reader.GetString(3),
+                        Address = reader.GetString(4),
+                        Phone = reader.GetString(5),
+                        Email = reader.GetString(6),
+                        DepartmentID = reader.GetInt32(7),
+                        PositionID = reader.GetInt32(8),
+                        HireDate = reader.GetDateTime(9),
+                        isProbation = reader.GetBoolean(10) ? 1 : 0,
+                        isFired = reader.GetBoolean(11) ? 1 : 0,
+                        password = reader.GetString(12),
+                    };
+
+                }
+            }
+        }
+        return null;
+    }
+
+
+    // lấy nhân viên theo ID - dùng cho bảng thông tin của employee 
+    public Employee GetEmployeeByEmail(string email)
+    {
+        string query = "SELECT * FROM Employees WHERE Email = @Email";
+        using (var conn = DBConnection.GetConnection())
+        {
+            conn.Open();
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@Email", email);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    return new Employee()
+                    {
+                        EmployeeID = reader.GetInt32(0),
+                        FullName = reader.GetString(1),
+                        DateOfBirth = reader.GetDateTime(2),
+                        Gender = reader.GetString(3),
+                        Address = reader.GetString(4),
+                        Phone = reader.GetString(5),
+                        Email = reader.GetString(6),
+                        DepartmentID = reader.GetInt32(7),
+                        PositionID = reader.GetInt32(8),
+                        HireDate = reader.GetDateTime(9),
+                        isProbation = reader.GetBoolean(10) ? 1 : 0,
+                        isFired = reader.GetBoolean(11) ? 1 : 0,
+                        password = reader.GetString(12),
+                    };
+
+                }
+            }
+        }
+        return null;
+    }
+
+    // Cập nhật thông tin nhân viên theo ID
+    public bool UpdateEmployee(Employee emp)
+    {
+        string query = @"
+        UPDATE Employees SET 
+            FullName = @FullName,
+            BirthDate = @DateOfBirth,
+            Gender = @Gender,
+            Address = @Address,
+            Phone = @Phone,
+            Email = @Email,
+            DepartmentID = @DepartmentID,
+            PositionID = @PositionID,
+            HireDate = @HireDate,
+            IsProbation = @IsProbation,
+            IsFired = @IsFired
+        WHERE EmployeeID = @EmployeeID";
 
         using (var conn = DBConnection.GetConnection())
         {
             conn.Open();
             using (var cmd = new SqlCommand(query, conn))
             {
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Employee employee = new Employee()
-                    {
-                        EmployeeID = reader.GetInt32(0),
-                        FullName = reader.GetString(1),
-                        Gender = reader.GetString(2),
-                        DateOfBirth = reader.GetDateTime(3),
-                        Email = reader.GetString(4),
-                        Phone = reader.GetString(5),
-                        Department = reader.GetString(6),
-                        Position = reader.GetString(7),
-                        HireDate = reader.GetDateTime(8),
-                        SalaryID = reader.GetInt32(9)
-                    };
-                    employees.Add(employee);
-                }
+                cmd.Parameters.AddWithValue("@FullName", emp.FullName);
+                cmd.Parameters.AddWithValue("@DateOfBirth", emp.DateOfBirth);
+                cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+                cmd.Parameters.AddWithValue("@Address", emp.Address);
+                cmd.Parameters.AddWithValue("@Phone", emp.Phone);
+                cmd.Parameters.AddWithValue("@Email", emp.Email);
+                cmd.Parameters.AddWithValue("@DepartmentID", emp.DepartmentID);
+                cmd.Parameters.AddWithValue("@PositionID", emp.PositionID);
+                cmd.Parameters.AddWithValue("@HireDate", emp.HireDate);
+                cmd.Parameters.AddWithValue("@IsProbation", emp.isProbation); // bool
+                cmd.Parameters.AddWithValue("@IsFired", emp.isFired);         // bool
+                cmd.Parameters.AddWithValue("@EmployeeID", emp.EmployeeID);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0;
             }
         }
-        return employees;
     }
 
-    //public Employee GetEmployeeById(int employeeID)
-    //{
-    //    string query = "SELECT * FROM Employee WHERE EmployeeID = @EmployeeID";
-    //    using (var conn = DBConnection.GetConnection())
-    //    {
-    //        conn.Open();
-    //        using (var cmd = new SqlCommand(query, conn))
-    //        {
-    //            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
-    //            SqlDataReader reader = cmd.ExecuteReader();
-    //            if (reader.Read())
-    //            {
-    //                return new Employee()
-    //                {
-    //                    EmployeeID = reader.GetInt32(0),
-    //                    FullName = reader.GetString(1),
-    //                    Gender = reader.GetString(2),
-    //                    DateOfBirth = reader.GetDateTime(3),
-    //                    Email = reader.GetString(4),
-    //                    Phone = reader.GetString(5),
-    //                    Department = reader.GetString(6),
-    //                    Position = reader.GetString(7),
-    //                    HireDate = reader.GetDateTime(8),
-    //                    SalaryID = reader.GetInt32(9)
-    //                };
-    //            }
-    //        }
-    //    }
-    //    return null;
-    //}
 }

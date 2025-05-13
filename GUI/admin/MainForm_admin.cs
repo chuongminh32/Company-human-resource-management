@@ -18,14 +18,17 @@ namespace CompanyHRManagement.GUI.admin
         //private UserDAO userDAO = new UserDAO();
         private DashBoardBUS db_BUS = new DashBoardBUS();
         private UserBUS userBUS = new UserBUS();
+        private EmployeeBUS employeeBUS = new EmployeeBUS();
+        private Employee emp = new Employee();
         private string fullname;
         private string role;
 
 
-        public MainForm_admin(string username)
+        public MainForm_admin(string email)
         {
-            this.fullname = userBUS.getInfoUser(username).FullName;
-            this.role = userBUS.getInfoUser(username).Role;
+            this.emp = employeeBUS.GetEmployeeByEmail(email);
+            this.fullname = emp.FullName;
+            this.role = db_BUS.GetPositionNameById(emp.PositionID);
             InitializeComponent();
         }
 

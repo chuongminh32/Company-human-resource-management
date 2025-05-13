@@ -9,7 +9,7 @@ namespace CompanyHRManagement.BUS
 {
     public class AuthenticationBUS
     {
-        private UserDAO userDAO = new UserDAO();
+        private EmployeeBUS em_BUS = new EmployeeBUS();
 
         // Hàm MD5 hash
         public string MD5Hash(string input)
@@ -29,15 +29,13 @@ namespace CompanyHRManagement.BUS
             }
         }
 
-        public bool ValidateUser(string username, string password)
+        public bool ValidateUser(string email, string password)
         {
-            // Mã hóa mật khẩu người dùng nhập vào
-            string hashedPassword = MD5Hash(password);
 
             // Lấy thông tin người dùng từ UserDAO
-            User u = userDAO.GetUserByUsername(username);
+            Employee e = em_BUS.GetEmployeeByEmail(email);
 
-            if (u != null && u.PasswordHash == hashedPassword) // So sánh mật khẩu đã mã hóa
+            if (e != null && e.password == password) // So sánh mật khẩu
             {
                 return true; // Đăng nhập thành công
             }

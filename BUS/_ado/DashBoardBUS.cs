@@ -39,6 +39,10 @@ namespace CompanyHRManagement.BUS
         {
             return db_DAO.GetDepartmentNameByUserId(userID);
         }
+        public string GetPositionNameById(int userID)
+        {
+            return db_DAO.GetPositionNameById(userID);
+        }
 
 
         // Employee dashboard 

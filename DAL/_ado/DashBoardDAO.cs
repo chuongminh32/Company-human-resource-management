@@ -111,24 +111,39 @@ namespace CompanyHRManagement.DAL._ado
         }
 
 
+
+
+        //---------- Employee DashBoard -----------
+
+
+        public string GetPositionNameById(int posID)
+        {
+            string query = @"       
+                SELECT PositionName
+                FROM Positions
+                WHERE PositionID = @posID
+            ";
+
+            SqlParameter[] parameters = { new SqlParameter("@posID", posID) };
+            object result = DBConnection.ExecuteScalar(query, parameters);
+            return result?.ToString();
+        }
+
+
         public string GetDepartmentNameByUserId(int userId)
         {
             string query = @"       
-        SELECT D.DepartmentName
-        FROM Users U
-        JOIN Employees E ON U.UserID = E.EmployeeID
-        JOIN Departments D ON E.DepartmentID = D.DepartmentID
-        WHERE U.UserID = @UserID
-    ";
+                SELECT D.DepartmentName
+                FROM Users U
+                JOIN Employees E ON U.UserID = E.EmployeeID
+                JOIN Departments D ON E.DepartmentID = D.DepartmentID
+                WHERE U.UserID = @UserID
+            ";
 
-            SqlParameter[] parameters = {
-        new SqlParameter("@UserID", userId)
-    };
+            SqlParameter[] parameters = { new SqlParameter("@UserID", userId) };
             object result = DBConnection.ExecuteScalar(query, parameters);
             return result?.ToString(); // tránh lỗi ép kiểu nếu result là int/null
         }
-
-        //---------- Employee DashBoard Chart -----------
         // 1. Tổng lương theo tháng của 1 nhân viên
         public List<(int Month, int Year, decimal TotalSalary)> GetMonthlySalary(int employeeId)
         {

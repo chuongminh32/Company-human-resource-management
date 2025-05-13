@@ -9,7 +9,7 @@ namespace CompanyHRManagement.GUI
         private System.ComponentModel.IContainer components = null;
 
         // Guna UI2 controls
-        private Guna.UI2.WinForms.Guna2TextBox txtUsername;
+        private Guna.UI2.WinForms.Guna2TextBox txtEmail;
         private Guna.UI2.WinForms.Guna2TextBox txtPassword;
         private Guna.UI2.WinForms.Guna2GradientButton btnLogin;
         private Guna.UI2.WinForms.Guna2HtmlLabel lblTitle;
@@ -36,7 +36,7 @@ namespace CompanyHRManagement.GUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
             this.guna2BorderlessForm1 = new Guna.UI2.WinForms.Guna2BorderlessForm(this.components);
-            this.txtUsername = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtEmail = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
             this.btnLogin = new Guna.UI2.WinForms.Guna2GradientButton();
             this.lblTitle = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -66,19 +66,19 @@ namespace CompanyHRManagement.GUI
             this.guna2BorderlessForm1.DockIndicatorTransparencyValue = 0.6D;
             this.guna2BorderlessForm1.TransparentWhileDrag = true;
             // 
-            // txtUsername
+            // txtEmail
             // 
-            this.txtUsername.BorderRadius = 10;
-            this.txtUsername.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtUsername.DefaultText = "";
-            this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtUsername.Location = new System.Drawing.Point(73, 149);
-            this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.PlaceholderText = "Enter username";
-            this.txtUsername.SelectedText = "";
-            this.txtUsername.Size = new System.Drawing.Size(320, 40);
-            this.txtUsername.TabIndex = 2;
+            this.txtEmail.BorderRadius = 10;
+            this.txtEmail.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtEmail.DefaultText = "";
+            this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtEmail.Location = new System.Drawing.Point(73, 149);
+            this.txtEmail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.PlaceholderText = "Enter your email";
+            this.txtEmail.SelectedText = "";
+            this.txtEmail.Size = new System.Drawing.Size(320, 40);
+            this.txtEmail.TabIndex = 2;
             // 
             // txtPassword
             // 
@@ -126,9 +126,9 @@ namespace CompanyHRManagement.GUI
             this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.lblUsername.Location = new System.Drawing.Point(73, 119);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(80, 25);
+            this.lblUsername.Size = new System.Drawing.Size(44, 25);
             this.lblUsername.TabIndex = 1;
-            this.lblUsername.Text = "Username";
+            this.lblUsername.Text = "Email";
             // 
             // lblPassword
             // 
@@ -158,7 +158,9 @@ namespace CompanyHRManagement.GUI
             this.guna2MessageDialog.Parent = this;
             this.guna2MessageDialog.Style = Guna.UI2.WinForms.MessageDialogStyle.Light;
             this.guna2MessageDialog.Text = null;
-
+            // 
+            // guna2MessageDialog2
+            // 
             this.guna2MessageDialog2.Buttons = Guna.UI2.WinForms.MessageDialogButtons.OK;
             this.guna2MessageDialog2.Caption = null;
             this.guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
@@ -174,7 +176,7 @@ namespace CompanyHRManagement.GUI
             this.guna2ShadowPanel1.Controls.Add(this.txtPassword);
             this.guna2ShadowPanel1.Controls.Add(this.lblUsername);
             this.guna2ShadowPanel1.Controls.Add(this.lblPassword);
-            this.guna2ShadowPanel1.Controls.Add(this.txtUsername);
+            this.guna2ShadowPanel1.Controls.Add(this.txtEmail);
             this.guna2ShadowPanel1.FillColor = System.Drawing.Color.White;
             this.guna2ShadowPanel1.Location = new System.Drawing.Point(48, 41);
             this.guna2ShadowPanel1.Name = "guna2ShadowPanel1";

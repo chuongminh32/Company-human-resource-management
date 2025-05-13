@@ -11,7 +11,9 @@ namespace CompanyHRManagement.GUI
     {
 
         private AuthenticationBUS authenticationBUS = new AuthenticationBUS();
-        private UserBUS user = new UserBUS();
+        private DashBoardBUS db_BUS = new DashBoardBUS();
+        private EmployeeBUS employeeBUS = new EmployeeBUS();
+        Employee emp = new Employee();
         public LoginForm()
         {
             InitializeComponent();
@@ -19,58 +21,62 @@ namespace CompanyHRManagement.GUI
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
-            txtUsername.Focus();
+
+            txtEmail.Focus();
         }
 
-        public void check_role(string username)
+        public void check_role(string email)
         {
-            string role = user.getInfoUser(username).Role;
-            if (role == "Employee")
+            string name_position = db_BUS.GetPositionNameById(emp.PositionID);
+            if (name_position == "Admin")
             {
-                MainForm_user mf = new MainForm_user(username);
-                mf.Show();
-                this.Hide();
-            }
-            else if (role == "Admin")
-            {
-                MainForm_admin mf = new MainForm_admin(username);
-                mf.Show();
+                MainForm_admin m = new MainForm_admin(email);
+                m.Show();
                 this.Hide();
             }
             else
             {
-                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
-                guna2MessageDialog2.Show("Tên đăng nhập không tồn tại", "Lỗi rồi!");
-
+                MainForm_user m_u = new MainForm_user(email);
+                m_u.Show();
+                this.Hide();
             }
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text.Trim();
-            string password = txtPassword.Text.Trim();
-            string role = user.getInfoUser(username).Role;
-            bool isValid = authenticationBUS.ValidateUser(username, password);// Kiểm tra tên đăng nhập và mật khẩu
 
-            //  bỏ trống username và password
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            string email = txtEmail.Text.Trim();
+            string password = txtPassword.Text;
+            emp = employeeBUS.GetEmployeeByEmail(email);
+
+            // Kiểm tra xem email có tồn tại trong hệ thống không
+            if (emp == null)
             {
-                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
-                guna2MessageDialog2.Show("Bạn vui lòng nhập cả mật khẩu và tên đăng nhập nha.", "Nhập thiếu rồi!");
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Email không tồn tại trong hệ thống!", "Đăng nhập thất bại");
                 return;
             }
 
-            // Kiểm tra tên đăng nhập và mật khẩu
+            bool isValid = authenticationBUS.ValidateUser(email, password);// Kiểm tra tên đăng nhập và mật khẩu
+                                                                           //  bỏ trống email và password
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Bạn vui lòng nhập cả mật khẩu và Email nha.", "Nhập thiếu rồi!");
+                return;
+            }
+
+            // Kiểm tra email đăng nhập và mật khẩu
             if (isValid)
             {
                 guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
                 guna2MessageDialog2.Show("Chào bạn đã quay lại ", " Đăng nhập thành công !");
-                check_role(username); // kiểm tra quyền của người dùng
+                check_role(email); // kiểm tra quyền của người dùng
             }
             else
             {
                 guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
-                guna2MessageDialog2.Show("Sai tên đăng nhập hoặc mật khẩu rồi.", "Lỗi rồi!");
+                guna2MessageDialog2.Show("Sai Email hoặc mật khẩu rồi.", "Lỗi rồi!");
             }
         }
 

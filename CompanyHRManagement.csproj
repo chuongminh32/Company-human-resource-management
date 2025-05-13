@@ -115,6 +115,7 @@
     <None Include="Resources\logout.png" />
     <None Include="Resources\salary_total_icon.png" />
     <None Include="Resources\insurance.png" />
+    <None Include="Resources\reload.png" />
     <Content Include="Scripts\StoredProcedures.sql" />
     <Content Include="Scripts\InsertSampleData.sql" />
     <Content Include="Scripts\InitDatabase.sql" />

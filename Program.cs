@@ -20,7 +20,7 @@ namespace CompanyHRManagement
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new LoginForm());
-            Application.Run(new MainForm_admin("admin"));
+            Application.Run(new MainForm_user("nv01"));
         }
     }
 }

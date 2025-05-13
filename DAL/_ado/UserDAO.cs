@@ -37,6 +37,26 @@ namespace CompanyHRManagement.DAL._ado
             }
             return null;
         }
+
+        // Hàm lấy tên phòng ban thông qua id phòng ban: 
+        //public string GetDepartmentNameById(int departmentId)
+        //{
+        //    string query = "SELECT DepartmentName FROM Departments WHERE DepartmentID = @DepartmentID";
+        //    using (var conn = DBConnection.GetConnection())
+        //    {
+        //        conn.Open();
+        //        using (var cmd = new SqlCommand(query, conn))
+        //        {
+        //            cmd.Parameters.AddWithValue("@DepartmentID", departmentId);
+        //            var reader = cmd.ExecuteReader();
+        //            if (reader.Read())
+        //            {
+        //                return reader.GetString(reader.GetOrdinal("DepartmentName"));
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
     }
 }
 

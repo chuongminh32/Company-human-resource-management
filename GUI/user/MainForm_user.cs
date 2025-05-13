@@ -2,55 +2,104 @@
 using System;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-
-
+using CompanyHRManagement.BUS._ado;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Drawing;
 
 namespace CompanyHRManagement.GUI.user
 {
     public partial class MainForm_user : Form
     {
         private DashBoardBUS db_BUS = new DashBoardBUS();
-        private AuthenticationBUS authenticationBUS = new AuthenticationBUS();
+        private UserBUS userBUS = new UserBUS();
 
         private string fullname;
+        private string username;
         private string role;
+        private string name_dapartment;
 
 
         public MainForm_user(string username)
         {
-            this.fullname = authenticationBUS.GetFullName(username);
-            this.role = authenticationBUS.GetRole(username);
+            var userInfo = userBUS.getInfoUser(username);
+            this.username = userInfo.Username;
+            this.fullname = userInfo.FullName;
+            this.role = userInfo.Role;
+            this.name_dapartment = db_BUS.GetDepartmentNameById(userInfo.UserID);
             InitializeComponent();
         }
 
         private void LoadDashboardData()
         {
-            lblTongNhanVien.Text = db_BUS.GetTotalEmployees().ToString();
-            lblSoPhongBan.Text = db_BUS.GetTotalDepartments().ToString();
-            lblSoChucVu.Text = db_BUS.GetTotalPositions().ToString();
-            lblNhanVienThuViec.Text = db_BUS.GetProbationCount().ToString();
+            lblHoTen.Text = "Họ tên: " + this.fullname;
+            lblChucVu.Text = "Chức vụ: Nhân viên";
+            lblPhongBan.Text = "Phòng ban: " + name_dapartment;
         }
 
 
-        private void LoadChart()
+        private void LoadSalaryChart()
         {
-            chartNhanVienPhongBan.Series.Clear();
-            chartNhanVienPhongBan.ChartAreas.Clear();
-            chartNhanVienPhongBan.ChartAreas.Add(new ChartArea("MainArea"));
-            chartNhanVienPhongBan.Series.Add("Nhân viên");
-            chartNhanVienPhongBan.Series["Nhân viên"].ChartType = SeriesChartType.Column;
+            var data = db_BUS.GetSalaryChartData(userBUS.getInfoUser(this.username).UserID);
 
-            // Ví dụ: thêm dữ liệu
-            chartNhanVienPhongBan.Series["Nhân viên"].Points.AddXY("Phòng IT", 10);
-            chartNhanVienPhongBan.Series["Nhân viên"].Points.AddXY("Phòng Kế toán", 6);
-            chartNhanVienPhongBan.Series["Nhân viên"].Points.AddXY("Phòng Nhân sự", 4);
+            chartSalary.Series.Clear();
+            chartSalary.ChartAreas.Clear();
+            chartSalary.ChartAreas.Add(new ChartArea("Area"));
+
+            ChartArea chartArea = chartSalary.ChartAreas[0];
+
+            // Định dạng trục Y hiển thị đơn vị tiền (VD: 10,000 VNĐ)
+            chartArea.AxisY.LabelStyle.Format = "#,##0 'VNĐ'";
+            chartArea.AxisY.Title = "Tổng lương (VNĐ)";
+            chartArea.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+            chartArea.AxisY.TitleForeColor = Color.DarkGreen;
+
+            // Đặt tiêu đề trục X nếu cần
+            chartArea.AxisX.Title = "Tháng";
+            chartArea.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+
+            Series series = new Series("Tổng lương")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.Orange
+            };
+
+            foreach (var item in data)
+            {
+                series.Points.AddXY(item.MonthYear, item.TotalSalary);
+            }
+
+            chartSalary.Series.Add(series);
         }
+
+
+        private void LoadAttendanceChart()
+        {
+            var data = db_BUS.GetAttendanceChartData(userBUS.getInfoUser(this.username).UserID);
+
+            chartAttendance.Series.Clear();
+            chartAttendance.ChartAreas.Clear();
+            chartAttendance.ChartAreas.Add(new ChartArea("Area"));
+
+            Series series = new Series("Ngày công") { ChartType = SeriesChartType.Column };
+
+            foreach (var item in data)
+            {
+                series.Points.AddXY(item.MonthYear, item.WorkDays);
+            }
+
+            chartAttendance.Series.Add(series);
+
+            // Đơn vị trục Y
+            chartAttendance.ChartAreas[0].AxisY.Title = "Số ngày công";
+        }
+
 
 
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            LoadChart();
+            LoadSalaryChart();
+            LoadAttendanceChart();
             LoadDashboardData();
             lblUsername.Text = this.fullname;
             lblRole.Text = "Quyền hạn: " + this.role;
@@ -62,20 +111,26 @@ namespace CompanyHRManagement.GUI.user
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Tạo Guna2MessageDialog và cài đặt các thuộc tính
-            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất ?", "Xác nhận thoát");
+            var result = guna2MessageDialog.Show("Bạn thực sự muốn thoát ?", "Xác nhận thoát");
 
             // xử lý kết quả
-            if (result == DialogResult.Yes)
+            if (result == DialogResult.No)
             {
-                Application.Exit();
-
+                e.Cancel = true; // Hủy bỏ việc đóng form
             }
-
+            else
+            {
+                // Thoát toàn bộ ứng dụng sau khi form đóng xong
+                this.BeginInvoke(new Action(() =>
+                {
+                    Application.Exit();
+                }));
+            }
         }
 
         private void HideAllPanels()
         {
-            panelTrangChu.Visible = false;
+            panelTrangChu_user.Visible = false;
             panelNhanVien.Visible = false;
         }
 
@@ -96,29 +151,15 @@ namespace CompanyHRManagement.GUI.user
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panelTrangChu.Visible = true;
+            panelTrangChu_user.Visible = true;
             //panelTrangChu.BringToFront(); // Quan trọng nếu các panel chồng lên nhau
         }
 
-        private void guna2Panel3_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void guna2HtmlLabel11_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelTrangChu_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
             // Tạo Guna2MessageDialog và cài đặt các thuộc tính
-            var result = guna2MessageDialog.Show("Bạn thực sự muốn thoát ?", "Xác nhận thoát");
+            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất ?", "Xác nhận thoát");
 
             // xử lý kết quả
             if (result == DialogResult.Yes)

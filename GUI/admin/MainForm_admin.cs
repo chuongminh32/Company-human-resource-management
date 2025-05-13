@@ -1,4 +1,5 @@
 ﻿using CompanyHRManagement.BUS;
+using CompanyHRManagement.BUS._ado;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,16 +17,15 @@ namespace CompanyHRManagement.GUI.admin
     {
         //private UserDAO userDAO = new UserDAO();
         private DashBoardBUS db_BUS = new DashBoardBUS();
-        private AuthenticationBUS authenticationBUS = new AuthenticationBUS();
-
+        private UserBUS userBUS = new UserBUS();
         private string fullname;
         private string role;
 
 
         public MainForm_admin(string username)
         {
-            this.fullname = authenticationBUS.GetFullName(username);
-            this.role = authenticationBUS.GetRole(username);
+            this.fullname = userBUS.getInfoUser(username).FullName;
+            this.role = userBUS.getInfoUser(username).Role;
             InitializeComponent();
         }
 
@@ -142,17 +142,6 @@ namespace CompanyHRManagement.GUI.admin
             chartSalary.ChartAreas[0].Area3DStyle.Enable3D = true;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-            LoadChart();
-            LoadDashboardData();
-            LoadSalaryPieChart();
-            lblUsername.Text = this.fullname;
-            lblRole.Text = "Quyền hạn: " + this.role;
-            lblXinChao.Text = "Xin chào: " + this.fullname + " !";
-            timerClock.Start();
-        }
-
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -176,7 +165,7 @@ namespace CompanyHRManagement.GUI.admin
 
         private void HideAllPanels()
         {
-            panelTrangChu.Visible = false;
+            panelTrangChu_admin.Visible = false;
             panelNhanVien.Visible = false;
         }
 
@@ -196,14 +185,8 @@ namespace CompanyHRManagement.GUI.admin
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panelTrangChu.Visible = true;
+            panelTrangChu_admin.Visible = true;
         }
-
-        private void guna2HtmlLabel11_Click(object sender, EventArgs e)
-        {
-
-        }
-
 
         private void guna2Button19_Click(object sender, EventArgs e)
         {
@@ -217,6 +200,17 @@ namespace CompanyHRManagement.GUI.admin
                 lg.Show();
                 this.Hide();
             }
+        }
+
+        private void MainForm_user_Load(object sender, EventArgs e)
+        {
+            LoadChart();
+            LoadDashboardData();
+            LoadSalaryPieChart();
+            lblUsername.Text = this.fullname;
+            lblRole.Text = "Quyền hạn: " + this.role;
+            lblXinChao.Text = "Xin chào: " + this.fullname + " !";
+            timerClock.Start();
         }
     }
 }

@@ -11,48 +11,40 @@ public class DBConnection
         return new SqlConnection(connectionString);
     }
 
-    public static object ExecuteScalar(string query)
+    public static object ExecuteScalar(string query, SqlParameter[] parameters = null)
     {
         using (SqlConnection conn = GetConnection())
         {
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                conn.Open();
-                object result = cmd.ExecuteScalar();
-                return result ?? 0; // Trả về 0 nếu NULL trong DB
-            }
-        }
-    }
-
-    public static DataTable ExecuteQuery(string query)
-    {
-        using (SqlConnection conn = GetConnection())
-        {
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                if (parameters != null)
                 {
-                    DataTable dt = new DataTable();
-                    adapter.Fill(dt);
-                    return dt;
+                    cmd.Parameters.AddRange(parameters);
                 }
-            }
-        }
-    }
 
-
-    // Nếu muốn có hàm overload hỗ trợ tham số
-    public static object ExecuteScalar(string query, SqlParameter[] parameters)
-    {
-        using (SqlConnection conn = GetConnection())
-        {
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddRange(parameters);
                 conn.Open();
                 object result = cmd.ExecuteScalar();
-                return result ?? 0;
+                return result ?? 0; // Trả về 0 nếu DB trả về NULL
             }
         }
     }
+
+    public static SqlDataReader ExecuteReader(string query, SqlParameter[] parameters = null)
+    {
+        SqlConnection conn = GetConnection();
+        SqlCommand cmd = new SqlCommand(query, conn);
+
+        if (parameters != null)
+        {
+            cmd.Parameters.AddRange(parameters);
+        }
+
+        conn.Open();
+        // Sử dụng CommandBehavior.CloseConnection để khi reader bị đóng thì connection cũng tự đóng
+        return cmd.ExecuteReader(CommandBehavior.CloseConnection);
+    }
+
+
+
+
 }

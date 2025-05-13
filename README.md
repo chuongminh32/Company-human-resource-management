@@ -38,7 +38,33 @@ Hệ thống được phát triển bằng ngôn ngữ **C# WinForms**, sử d�
 - Tự động cập nhật trạng thái hợp đồng hết hạn
 
 
-	### chi tiết :
+### Phân công : 
+- Chương : làm phần user (FE + BE) :D 
+- Minh + Thùy :
+##  Minh [1,2] - Giao diện + Backend (Admin)
+
+Thiết kế giao diện Admin (quản trị)
+
+Viết BUS cho Admin:
+
+Quản lý nhân sự (thêm/sửa/xóa)
+
+Duyệt khen thưởng, kỷ luật
+
+Tìm kiếm và thống kê
+
+## Thùy[3,4] - DAL hỗ trợ + Kiểm thử + Báo cáo
+
+Viết DAL cho các chức năng Admin hỗ trợ Minh:
+
+Truy vấn SQL
+
+Stored Procedure, View
+
+Viết test case kiểm thử chức năng User + Admin
+
+Viết báo cáo tổng hợp, hướng dẫn sử dụng
+## chi tiết :
 	1. Management Operations (Thao tác quản lý: Thêm, sửa, xóa)
 	Đây là các chức năng CRUD (Create, Read, Update, Delete) cốt lõi trong mọi hệ thống quản lý:
 
@@ -160,9 +186,10 @@ Hệ thống được phát triển bằng ngôn ngữ **C# WinForms**, sử d�
 
 | Thành viên | Vai trò | Nhiệm vụ |
 |------------|---------|----------|
-| **Chương** | Trưởng nhóm + Giao diện | - Thiết kế giao diện người dùng (WinForms)<br> - Điều hướng Form<br> - Kết nối GUI với tầng nghiệp vụ |
+| **Chương** | Giao diện user | - Thiết kế giao diện người dùng (WinForms)<br> - Điều hướng Form<br> - Kết nối GUI với tầng nghiệp vụ |
 | **Minh** | Backend – Dữ liệu | - Thiết kế cơ sở dữ liệu<br> - Xây dựng tầng truy xuất dữ liệu (DAL) cho ADO.NET và EF<br> - Tạo Stored Procedure |
 | **Thùy** | Backend – Nghiệp vụ | - Xử lý tính lương, thống kê, tìm kiếm<br> - Viết tầng nghiệp vụ (BUS)<br> - Kết nối dữ liệu với giao diện |
+
 
 ---
 

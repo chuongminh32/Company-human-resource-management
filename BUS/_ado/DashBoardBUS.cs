@@ -35,5 +35,24 @@ namespace CompanyHRManagement.BUS
         public int GetTotalDepartments() => db_DAO.GetTotalDepartments();
         public int GetTotalPositions() => db_DAO.GetTotalPositions();
         public int GetProbationCount() => db_DAO.GetProbationCount();
+        public string GetDepartmentNameById(int userID)
+        {
+            return db_DAO.GetDepartmentNameByUserId(userID);
+        }
+
+
+        // Employee dashboard 
+
+        public List<(string MonthYear, decimal TotalSalary)> GetSalaryChartData(int employeeId)
+        {
+            var raw = db_DAO.GetMonthlySalary(employeeId);
+            return raw.Select(r => ($"{r.Month}/{r.Year}", r.TotalSalary)).ToList();
+        }
+
+        public List<(string MonthYear, int WorkDays)> GetAttendanceChartData(int employeeId)
+        {
+            var raw = db_DAO.GetMonthlyAttendance(employeeId);
+            return raw.Select(r => ($"{r.Month}/{r.Year}", r.WorkDays)).ToList();
+        }
     }
 }

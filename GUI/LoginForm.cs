@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using CompanyHRManagement.BUS;
 using CompanyHRManagement.GUI.user;
 using CompanyHRManagement.GUI.admin;
+using CompanyHRManagement.BUS._ado;
 
 namespace CompanyHRManagement.GUI
 {
@@ -10,6 +11,7 @@ namespace CompanyHRManagement.GUI
     {
 
         private AuthenticationBUS authenticationBUS = new AuthenticationBUS();
+        private UserBUS user = new UserBUS();
         public LoginForm()
         {
             InitializeComponent();
@@ -22,7 +24,7 @@ namespace CompanyHRManagement.GUI
 
         public void check_role(string username)
         {
-            string role = authenticationBUS.GetRole(username);
+            string role = user.getInfoUser(username).Role;
             if (role == "Employee")
             {
                 MainForm_user mf = new MainForm_user(username);
@@ -47,7 +49,7 @@ namespace CompanyHRManagement.GUI
         {
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
-            string role = authenticationBUS.GetRole(username);
+            string role = user.getInfoUser(username).Role;
             bool isValid = authenticationBUS.ValidateUser(username, password);// Kiểm tra tên đăng nhập và mật khẩu
 
             //  bỏ trống username và password
@@ -81,6 +83,14 @@ namespace CompanyHRManagement.GUI
             if (result == DialogResult.No)
             {
                 e.Cancel = true; // Hủy bỏ việc đóng form
+            }
+            else
+            {
+                // Thoát toàn bộ ứng dụng sau khi form đóng xong
+                this.BeginInvoke(new Action(() =>
+                {
+                    Application.Exit();
+                }));
             }
 
         }

@@ -109,5 +109,80 @@ namespace CompanyHRManagement.DAL._ado
             string query = "SELECT COUNT(*) FROM Employees WHERE IsProbation = 1 AND IsFired = 0";
             return (int)DBConnection.ExecuteScalar(query);
         }
+
+
+        public string GetDepartmentNameByUserId(int userId)
+        {
+            string query = @"       
+        SELECT D.DepartmentName
+        FROM Users U
+        JOIN Employees E ON U.UserID = E.EmployeeID
+        JOIN Departments D ON E.DepartmentID = D.DepartmentID
+        WHERE U.UserID = @UserID
+    ";
+
+            SqlParameter[] parameters = {
+        new SqlParameter("@UserID", userId)
+    };
+            object result = DBConnection.ExecuteScalar(query, parameters);
+            return result?.ToString(); // tránh lỗi ép kiểu nếu result là int/null
+        }
+
+        //---------- Employee DashBoard Chart -----------
+        // 1. Tổng lương theo tháng của 1 nhân viên
+        public List<(int Month, int Year, decimal TotalSalary)> GetMonthlySalary(int employeeId)
+        {
+            string query = @"
+        SELECT SalaryMonth, SalaryYear,
+               (BaseSalary + Allowance + Bonus - Penalty) AS TotalSalary
+        FROM Salaries
+        WHERE EmployeeID = @EmployeeID
+        ORDER BY SalaryYear, SalaryMonth";
+
+            SqlParameter[] parameters = { new SqlParameter("@EmployeeID", employeeId) };
+
+            var result = new List<(int, int, decimal)>();
+            using (var reader = DBConnection.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    int month = (int)reader["SalaryMonth"];
+                    int year = (int)reader["SalaryYear"];
+                    decimal salary = (decimal)reader["TotalSalary"];
+                    result.Add((month, year, salary));
+                }
+            }
+            return result;
+        }
+
+        // 2. Số ngày công theo tháng
+        public List<(int Month, int Year, int WorkDays)> GetMonthlyAttendance(int employeeId)
+        {
+            string query = @"
+        SELECT MONTH(WorkDate) AS Month, YEAR(WorkDate) AS Year, COUNT(*) AS WorkDays
+        FROM Attendance
+        WHERE EmployeeID = @EmployeeID
+        GROUP BY MONTH(WorkDate), YEAR(WorkDate)
+        ORDER BY Year, Month";
+
+            SqlParameter[] parameters = { new SqlParameter("@EmployeeID", employeeId) };
+
+            var result = new List<(int, int, int)>();
+            using (var reader = DBConnection.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    int month = (int)reader["Month"];
+                    int year = (int)reader["Year"];
+                    int days = (int)reader["WorkDays"];
+                    result.Add((month, year, days));
+                }
+            }
+            return result;
+        }
+
+
+
+
     }
 }

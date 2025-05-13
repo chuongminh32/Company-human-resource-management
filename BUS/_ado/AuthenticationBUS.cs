@@ -3,6 +3,7 @@ using System;
 using CompanyHRManagement.DAL._ado;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
 
 namespace CompanyHRManagement.BUS
 {
@@ -28,14 +29,6 @@ namespace CompanyHRManagement.BUS
             }
         }
 
-
-        // Hàm so sánh mật khẩu đã mã hóa
-        public bool VerifyPassword(string enteredPassword, string storedHash)
-        {
-            string hashedPassword = MD5Hash(enteredPassword);
-            return hashedPassword == storedHash;
-        }
-
         public bool ValidateUser(string username, string password)
         {
             // Mã hóa mật khẩu người dùng nhập vào
@@ -51,24 +44,6 @@ namespace CompanyHRManagement.BUS
             return false; // Đăng nhập thất bại
         }
 
-        public string GetRole(string username)
-        {
-            User u = userDAO.GetUserByUsername(username);
-            if (u != null)
-            {
-                return u.Role;
-            }
-            return "";
-        }
 
-        public string GetFullName(string username)
-        {
-            User u = userDAO.GetUserByUsername(username);
-            if (u != null)
-            {
-                return u.FullName;
-            }
-            return "";
-        }
     }
 }

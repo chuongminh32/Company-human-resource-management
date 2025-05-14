@@ -1,39 +1,75 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 public class SalaryDAO
 {
     private DBConnection dbConnection = new DBConnection();
 
-    public List<Salary> GetAllSalaries()
+    public decimal TinhTongLuongTheoThangNam(int employeeId, int month, int year)
     {
-        List<Salary> salaries = new List<Salary>();
-        string query = "SELECT * FROM Salary";
+        string query = @"
+    SELECT 
+        SUM(BaseSalary + Allowance + Bonus - Penalty + (OvertimeHours * 50000)) AS TotalSalary
+    FROM 
+        Salaries
+    WHERE 
+        EmployeeID = @EmployeeID AND SalaryMonth = @Month AND SalaryYear = @Year";
 
-        using (var conn = DBConnection.GetConnection())
+        using (SqlConnection conn = DBConnection.GetConnection())
+        {
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
+            cmd.Parameters.AddWithValue("@Month", month);
+            cmd.Parameters.AddWithValue("@Year", year);
+
+            conn.Open();
+            var result = cmd.ExecuteScalar();
+            return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+        }
+    }
+
+
+    public List<Salary> LayThongTinLuongTheoID(int employeeId)
+    {
+        List<Salary> list = new List<Salary>();
+        string query = @"
+        SELECT SalaryID, EmployeeID, BaseSalary, Allowance, Bonus, Penalty, 
+               OvertimeHours, SalaryMonth, SalaryYear
+        FROM Salaries
+        WHERE EmployeeID = @EmployeeID";
+
+        using (SqlConnection conn = DBConnection.GetConnection())
         {
             conn.Open();
-            using (var cmd = new SqlCommand(query, conn))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    Salary salary = new Salary()
+                    while (reader.Read())
                     {
-                        SalaryID = reader.GetInt32(0),
-                        EmployeeID = reader.GetInt32(1),
-                        BaseSalary = reader.GetDecimal(2),
-                        Allowance = reader.GetDecimal(3),
-                        Bonus = reader.GetDecimal(4),
-                        Penalty = reader.GetDecimal(5),
-                        Overtime = reader.GetDecimal(6),
-                        SalaryMonth = reader.GetInt32(7),
-                        SalaryYear = reader.GetInt32(8)
-                    };
-                    salaries.Add(salary);
+                        Salary s = new Salary()
+                        {
+                            SalaryID = reader.GetInt32(0),
+                            EmployeeID = reader.GetInt32(1),
+                            BaseSalary = reader.GetDecimal(2),
+                            Allowance = reader.GetDecimal(3),
+                            Bonus = reader.GetDecimal(4),
+                            Penalty = reader.GetDecimal(5),
+                            OvertimeHours = reader.GetInt32(6),
+                            SalaryMonth = reader.GetInt32(7),
+                            SalaryYear = reader.GetInt32(8)
+                        };
+                        list.Add(s);
+                    }
                 }
             }
         }
-        return salaries;
+
+        return list;
     }
+
 }

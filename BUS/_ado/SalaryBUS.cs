@@ -2,10 +2,17 @@
 
 public class SalaryBUS
 {
-    //private SalaryDAO salaryDAO = new SalaryDAO();
+    // SalaryBUS.cs
+    private SalaryDAO salaryDAO = new SalaryDAO();
+    public List<Salary> LayLuongTheoNhanVien(int employeeId)
+    {
+        return salaryDAO.LayThongTinLuongTheoID(employeeId);
+    }
 
-    //public List<Salary> GetAllSalaries()
-    //{
-    //    return salaryDAO.GetAllSalaries();
-    //}
+    public decimal TinhTongLuongTheoThangNam(int emID, int month, int year)
+    {
+        return salaryDAO.TinhTongLuongTheoThangNam(emID, month, year);
+    }
+
+
 }

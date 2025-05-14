@@ -6,7 +6,8 @@
     public decimal Allowance { get; set; }
     public decimal Bonus { get; set; }
     public decimal Penalty { get; set; }
-    public decimal Overtime { get; set; }
+    public int OvertimeHours { get; set; }
     public int SalaryMonth { get; set; }
     public int SalaryYear { get; set; }
+
 }

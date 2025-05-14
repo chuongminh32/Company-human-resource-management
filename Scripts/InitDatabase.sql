@@ -1,6 +1,6 @@
 ﻿-- CreateTables.sql - Tạo cấu trúc bảng CSDL cho hệ thống quản lý nhân sự
 
-	
+-- Bảng nghỉ phép	
 	CREATE TABLE Leave (
     leaveID INT PRIMARY KEY,       -- Mã nghỉ phép (tự tăng)
     employeeID INT NOT NULL,                      -- Mã nhân viên (liên kết tới bảng Employee)
@@ -13,17 +13,6 @@
     FOREIGN KEY (employeeID) REFERENCES Employees(EmployeeID)
 );
 
-
--- Bảng users đăng nhập
-CREATE TABLE Users (
-    UserID INT IDENTITY(1,1) PRIMARY KEY,
-    Username NVARCHAR(50) NOT NULL UNIQUE,
-    PasswordHash NVARCHAR(255) NOT NULL,        -- Mật khẩu đã mã hóa (hash)
-    FullName NVARCHAR(100) NOT NULL,
-    Role NVARCHAR(20) NOT NULL CHECK (Role IN ('Admin', 'Employee')),  -- Phân quyền
-    CreatedAt DATETIME DEFAULT GETDATE(),
-    IsActive BIT DEFAULT 1                      -- 1: hoạt động, 0: bị khóa
-);
 
 
 -- Bảng phòng ban
@@ -52,19 +41,11 @@ CREATE TABLE Employees (
     HireDate DATE,
     IsProbation BIT,
     IsFired BIT DEFAULT 0,
+    password NVARCHAR(255) NOT NULL,  -- Mật khẩu đã mã hóa (hash)
     FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID),
     FOREIGN KEY (PositionID) REFERENCES Positions(PositionID)
 );
 
--- Bảng người dùng đăng nhập
-CREATE TABLE Users (
-    UserID INT PRIMARY KEY IDENTITY(1,1),
-    Username NVARCHAR(50) UNIQUE NOT NULL,
-    PasswordHash NVARCHAR(255) NOT NULL,
-    Role NVARCHAR(20) NOT NULL, -- 'Admin' hoặc 'Employee'
-    EmployeeID INT,
-    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
-);
 
 -- Bảng lương cơ bản và hệ số
 CREATE TABLE Salaries (

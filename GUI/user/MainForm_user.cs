@@ -9,6 +9,7 @@ using Guna.UI2.WinForms;
 using OfficeOpenXml;
 using System.IO;
 using OfficeOpenXml.Style;
+using System.Linq;
 
 namespace CompanyHRManagement.GUI.user
 {
@@ -16,6 +17,7 @@ namespace CompanyHRManagement.GUI.user
     {
         private readonly DashBoardBUS db_BUS = new DashBoardBUS();
         private readonly EmployeeBUS employeeBUS = new EmployeeBUS();
+        private AttendanceBUS attendanceBUS = new AttendanceBUS();
 
         private string fullname;
         private int user_id;
@@ -24,6 +26,7 @@ namespace CompanyHRManagement.GUI.user
         private string name_position;
         private List<Guna2Button> navButtons;
 
+        // Constructor
         public MainForm_user(string email)
         {
             Employee emp = employeeBUS.GetEmployeeByEmail(email);
@@ -36,6 +39,7 @@ namespace CompanyHRManagement.GUI.user
             InitializeComponent();
         }
 
+        // Load form
         private void MainForm_Load(object sender, EventArgs e)
         {
             ReloadAllData();
@@ -48,6 +52,8 @@ namespace CompanyHRManagement.GUI.user
             InitNavButtons();
         }
 
+
+        // Form đóng
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             // Tạo Guna2MessageDialog và cài đặt các thuộc tính
@@ -68,12 +74,15 @@ namespace CompanyHRManagement.GUI.user
             }
         }
 
+        // --------- BUTTON ---------
+        // Khởi tạo các nút điều hướng
         private void InitNavButtons()
         {
             navButtons = new List<Guna2Button> { btnThongTin, btnTrangChu, btnNghiPhep, btnNhanTin, btnDangXuat };
             navButtons.ForEach(btn => btn.Click += NavButton_Click);
         }
 
+        // Xử lý sự kiện khi nhấn nút điều hướng
         private void NavButton_Click(object sender, EventArgs e)
         {
             var clickedBtn = sender as Guna2Button;
@@ -90,6 +99,7 @@ namespace CompanyHRManagement.GUI.user
             clickedBtn.Font = new Font(clickedBtn.Font, FontStyle.Bold);
         }
 
+        // -------- LOAD DATA DASHBOARD---------
         private void LoadEmployeeInfo(int employeeID)
         {
             Employee emp = employeeBUS.GetEmployeeById(employeeID);
@@ -157,18 +167,6 @@ namespace CompanyHRManagement.GUI.user
             chartAttendance.ChartAreas[0].AxisY.Title = "Số ngày công";
         }
 
-        private void timerClock_Tick(object sender, EventArgs e)
-        {
-            lblTime.Text = "Time:  " + DateTime.Now.ToString("hh:mm:ss tt");
-            lblDate.Text = "Today:  " + DateTime.Now.ToString("dd/MM/yyyy");
-        }
-
-        private void btnThongTin_Click(object sender, EventArgs e)
-        {
-            HideAllPanels();
-            panelThongTin.Visible = true;
-        }
-
         private void upload_new_data()
         {
             Employee emp = employeeBUS.GetEmployeeByEmail(email);
@@ -180,10 +178,40 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
+        private void ReloadAllData()
+        {
+            LoadSalaryChart();  // Tải lại biểu đồ lương
+            LoadAttendanceChart();  // Tải lại biểu đồ ngày công
+            LoadDashboardData();  // Tải lại các thông tin tổng quan như tên, chức vụ
+            LoadEmployeeInfo(user_id); // Tải lại thông tin nhân viên
+
+            // Reset panel giao diện
+            HideAllPanels();
+            panelTrangChu_user.Visible = true;
+        }
+
+
+        // Đồng hồ
+        private void timerClock_Tick(object sender, EventArgs e)
+        {
+            lblTime.Text = "Time:  " + DateTime.Now.ToString("hh:mm:ss tt");
+            lblDate.Text = "Today:  " + DateTime.Now.ToString("dd/MM/yyyy");
+        }
+
+        // -------- BUTTON - CLICK --------- 
+        private void btnThongTin_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panelThongTin.Visible = true;
+            panelThongTin_CaNhan.Visible = true;
+
+        }
+
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
             HideAllPanels();
             panelTrangChu_user.Visible = true;
+
         }
 
         private void btnDangXuat_Click(object sender, EventArgs e)
@@ -236,26 +264,8 @@ namespace CompanyHRManagement.GUI.user
         {
             ReloadAllData();
             panelThongTin.Visible = true;
+            panelThongTin_CaNhan.Visible = true;
         }
-
-        private void HideAllPanels()
-        {
-            panelTrangChu_user.Visible = false;
-            panelThongTin.Visible = false;
-        }
-
-        private void ReloadAllData()
-        {
-            LoadSalaryChart();  // Tải lại biểu đồ lương
-            LoadAttendanceChart();  // Tải lại biểu đồ ngày công
-            LoadDashboardData();  // Tải lại các thông tin tổng quan như tên, chức vụ
-            LoadEmployeeInfo(user_id); // Tải lại thông tin nhân viên
-
-            // Reset panel giao diện
-            HideAllPanels();
-            panelTrangChu_user.Visible = true;
-        }
-
 
         private void btnReload_Click(object sender, EventArgs e)
         {
@@ -263,118 +273,126 @@ namespace CompanyHRManagement.GUI.user
             ReloadAllData();
         }
 
-        private void btnXuatExcel_Click(object sender, EventArgs e)
+        private void btnChamCong_Click(object sender, EventArgs e)
         {
-            try
+            HideAllPanels();
+            panelThongTin.Visible = true;
+            panelThongTin_ChamCong.Visible = true;
+            TaiDuLieuBangChamCong();  // Tải lại bảng dữ liệu chấm công
+
+
+        }
+
+        private void btnBangLuongCaNhan_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panelThongTin.Visible = true;
+            panelThongTin_BangLuong.Visible = true;
+        }
+
+        private void TaiDuLieuBangChamCong()
+        {
+            var list = attendanceBUS.GetAttendancesByEmployee(user_id);
+            dgvBangChamCong.DataSource = list;
+            // cập nhật lại các thông tin chấm công 
+            lblID.Text = user_id.ToString();
+            lblNgayHomNay.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            lblSoNgayCong.Text = attendanceBUS.laySoNgayCongTrongThangHienTaiTheoID(user_id).ToString();
+            lblTongGioLam.Text = attendanceBUS.layTongGioLamTrongThangHienTaiTheoID(user_id).ToString();
+
+            FormatDGV();
+        }
+
+
+
+        private void FormatDGV()
+        {
+
+            // Tắt cho phép chỉnh sửa
+            dgvBangChamCong.ReadOnly = true;
+            dgvBangChamCong.AllowUserToAddRows = false;
+            dgvBangChamCong.AllowUserToDeleteRows = false;
+            dgvBangChamCong.AllowUserToOrderColumns = false;
+
+            // Hiển thị header ngay cả khi không có dữ liệu
+            dgvBangChamCong.ColumnHeadersVisible = true;
+
+            // Nếu không có dữ liệu, đảm bảo header vẫn hiển thị
+            if (dgvBangChamCong.Rows.Count == 0)
             {
-                // Validate Employee ID
-                if (string.IsNullOrEmpty(lblIDNhanVien.Text) || !int.TryParse(lblIDNhanVien.Text, out int employeeID))
-                {
-                    MessageBox.Show("ID nhân viên không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                dgvBangChamCong.Rows.Add();  // Thêm một dòng trống nếu không có dữ liệu
+            }
 
-                // Get employee data
-                Employee emp = employeeBUS.GetEmployeeById(employeeID);
-                if (emp == null)
-                {
-                    MessageBox.Show("Không tìm thấy nhân viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
 
-                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
-                {
-                    saveFileDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
-                    saveFileDialog.FileName = "ThongTinNhanVien.xlsx";
+            dgvBangChamCong.Columns["AttendanceID"].HeaderText = "Mã chấm công";
+            dgvBangChamCong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvBangChamCong.Columns["WorkDate"].HeaderText = "Ngày";
+            dgvBangChamCong.Columns["CheckIn"].HeaderText = "Giờ vào";
+            dgvBangChamCong.Columns["CheckOut"].HeaderText = "Giờ ra";
+            dgvBangChamCong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
+            dgvBangChamCong.Columns["AbsenceStatus"].HeaderText = "Trạng thái";
+        }
 
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+
+
+        // Ẩn tất cả các panel
+        private void HideAllPanels()
+        {
+            panelThongTin_CaNhan.Visible = false;
+            panelThongTin_BangLuong.Visible = false;
+            panelThongTin_ChamCong.Visible = false;
+            panelTrangChu_user.Visible = false;
+            panelThongTin.Visible = false;
+        }
+
+        private void dgvBangChamCong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Kiểm tra nếu cột hiện tại là cột AbsenceStatus (giả sử cột AbsenceStatus là cột thứ 6)
+            if (dgvBangChamCong.Columns[e.ColumnIndex].Name == "AbsenceStatus")
+            {
+                if (e.Value != null)
+                {
+                    // Thay đổi giá trị hiển thị
+                    if (e.Value.ToString() == "Absent")
                     {
-                        ExportEmployeeToExcel(emp, saveFileDialog.FileName);
-
-                        // Thông báo sau khi export
-                        MessageBox.Show("Xuất file Excel thành công!\nĐã lưu tại:\n" + saveFileDialog.FileName,
-                                        "Thông báo",
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Information);
+                        e.Value = "Vắng";
+                    }
+                    else if (e.Value.ToString() == "Present")
+                    {
+                        e.Value = "Có mặt";
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi xử lý: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
-        private void ExportEmployeeToExcel(Employee emp, string filePath)
+        private void btnChamCongHomNay_Click(object sender, EventArgs e)
         {
-            try
+            string ketQua = attendanceBUS.ChamCong(user_id);
+
+            // Hiển thị thông báo tùy vào nội dung trả về
+            if (ketQua.ToLower().Contains("check-in"))
             {
-                using (var package = new ExcelPackage())
-                {
-                    // Thêm worksheet vào workbook
-                    var sheet = package.Workbook.Worksheets.Add("Thông tin nhân viên");
-
-                    // Ghi header
-                    sheet.Cells[1, 1].Value = "Thuộc tính";
-                    sheet.Cells[1, 2].Value = "Giá trị";
-                    sheet.Cells[1, 1, 1, 2].Style.Font.Bold = true;
-                    sheet.Cells[1, 1, 1, 2].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    sheet.Cells[1, 1, 1, 2].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.DarkCyan);
-                    sheet.Cells[1, 1, 1, 2].Style.Font.Color.SetColor(System.Drawing.Color.White);
-
-                    // Ghi dữ liệu nhân viên
-                    sheet.Cells[2, 1].Value = "Mã NV";
-                    sheet.Cells[2, 2].Value = emp.EmployeeID;
-
-                    sheet.Cells[3, 1].Value = "Tên";
-                    sheet.Cells[3, 2].Value = emp.FullName;
-
-                    sheet.Cells[4, 1].Value = "Email";
-                    sheet.Cells[4, 2].Value = emp.Email;
-
-                    sheet.Cells[5, 1].Value = "SĐT";
-                    sheet.Cells[5, 2].Value = emp.Phone;
-
-                    sheet.Cells[6, 1].Value = "Giới tính";
-                    sheet.Cells[6, 2].Value = emp.Gender;
-
-                    sheet.Cells[7, 1].Value = "Địa chỉ";
-                    sheet.Cells[7, 2].Value = emp.Address;
-
-                    sheet.Cells[8, 1].Value = "Ngày sinh";
-                    sheet.Cells[8, 2].Value = emp.DateOfBirth.ToString("dd/MM/yyyy");
-
-                    sheet.Cells[9, 1].Value = "Ngày vào làm";
-                    sheet.Cells[9, 2].Value = emp.HireDate.ToString("dd/MM/yyyy");
-
-                    sheet.Cells[10, 1].Value = "Chức vụ";
-                    sheet.Cells[10, 2].Value = emp.PositionID;
-
-                    sheet.Cells[11, 1].Value = "Phòng ban";
-                    sheet.Cells[11, 2].Value = emp.DepartmentID;
-
-                    sheet.Cells[12, 1].Value = "Thử việc";
-                    sheet.Cells[12, 2].Value = emp.isProbation == 1 ? "Có" : "Không";
-
-                    sheet.Cells[13, 1].Value = "Đã nghỉ việc";
-                    sheet.Cells[13, 2].Value = emp.isFired == 1 ? "Có" : "Không";
-
-                    // Tự động căn cột
-                    sheet.Cells[sheet.Dimension.Address].AutoFitColumns();
-
-                    // Lưu file
-                    var fileInfo = new System.IO.FileInfo(filePath);
-                    package.SaveAs(fileInfo);
-                }
-
-                MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                guna2MessageDialog2.Show("Bạn đã Check - in, nhớ Check - out nha !", "Thành công!");
+                btnChamCongHomNay.Text = "Check - out";
             }
-            catch (Exception ex)
+            else if (ketQua.ToLower().Contains("check-out"))
             {
-                MessageBox.Show("Lỗi khi xuất Excel: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                guna2MessageDialog2.Show("Check - out thành công, Bạn đã chấm công ngày hôm nay !", "Thành công!");
+                btnChamCongHomNay.Text = "Đã chấm công !";
+                btnChamCongHomNay.Enabled = false;
+                lblTrangThai.Text = "Đã chấm công";
             }
+            else
+            {
+                // Nếu đã chấm công cả hai lần
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Bạn đã chấm công xong hôm nay.", "Thông báo");
+            }
+
+            // Load lại bảng dữ liệu
+            TaiDuLieuBangChamCong();
         }
-
-
     }
 }

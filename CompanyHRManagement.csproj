@@ -110,6 +110,10 @@
     <Compile Include="GUI\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\user\controls\ChamCongControl.cs" />
+    <Compile Include="GUI\user\controls\BangLuongControl.cs" />
+    <Compile Include="GUI\user\controls\DashboardControl.cs" />
+    <Compile Include="GUI\user\controls\ThongTinNhanVienControl.cs" />
     <Compile Include="GUI\user\MainForm_user.cs">
       <SubType>Form</SubType>
     </Compile>

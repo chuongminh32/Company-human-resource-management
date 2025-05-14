@@ -1,5 +1,17 @@
 ﻿-- CreateTables.sql - Tạo cấu trúc bảng CSDL cho hệ thống quản lý nhân sự
 
+	
+	CREATE TABLE Leave (
+    leaveID INT PRIMARY KEY,       -- Mã nghỉ phép (tự tăng)
+    employeeID INT NOT NULL,                      -- Mã nhân viên (liên kết tới bảng Employee)
+    startDate DATE NOT NULL,                      -- Ngày bắt đầu nghỉ
+    endDate DATE NOT NULL,                        -- Ngày kết thúc nghỉ
+    reason VARCHAR(255),                          -- Lý do nghỉ
+    status VARCHAR(50) DEFAULT 'Pending',         -- Trạng thái (Pending, Approved, Rejected)
+
+    -- Ràng buộc khóa ngoại liên kết đến bảng Employee
+    FOREIGN KEY (employeeID) REFERENCES Employees(EmployeeID)
+);
 
 
 -- Bảng users đăng nhập

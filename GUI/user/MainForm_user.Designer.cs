@@ -488,6 +488,7 @@ namespace CompanyHRManagement.GUI.user
             this.guna2Button22.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button22.BorderRadius = 10;
             this.guna2Button22.BorderThickness = 2;
+            this.guna2Button22.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2Button22.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button22.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button22.ForeColor = System.Drawing.Color.White;
@@ -497,6 +498,7 @@ namespace CompanyHRManagement.GUI.user
             this.guna2Button22.Name = "guna2Button22";
             this.guna2Button22.Size = new System.Drawing.Size(69, 53);
             this.guna2Button22.TabIndex = 61;
+            this.guna2Button22.Click += new System.EventHandler(this.btnThongTin_Click);
             // 
             // panelInfoDB_admin
             // 
@@ -1027,6 +1029,7 @@ namespace CompanyHRManagement.GUI.user
             this.guna2HtmlLabel11.Size = new System.Drawing.Size(127, 22);
             this.guna2HtmlLabel11.TabIndex = 64;
             this.guna2HtmlLabel11.Text = "Thông tin cá nhân";
+            this.guna2HtmlLabel11.Click += new System.EventHandler(this.btnThongTin_Click);
             // 
             // guna2Button10
             // 
@@ -1109,6 +1112,7 @@ namespace CompanyHRManagement.GUI.user
             this.btnXuatExcel.Size = new System.Drawing.Size(100, 40);
             this.btnXuatExcel.TabIndex = 53;
             this.btnXuatExcel.Text = "Xuất Excel";
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // timerClock
             // 
@@ -1128,8 +1132,8 @@ namespace CompanyHRManagement.GUI.user
             // MainForm_user
             // 
             this.ClientSize = new System.Drawing.Size(1275, 787);
-            this.Controls.Add(this.panelTrangChu_user);
             this.Controls.Add(this.panelThongTin);
+            this.Controls.Add(this.panelTrangChu_user);
             this.Controls.Add(this.sidebarPanel);
             this.Name = "MainForm_user";
             this.Text = "Quản lý nhân sự";

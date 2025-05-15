@@ -11,6 +11,10 @@ using System.IO;
 using OfficeOpenXml.Style;
 using System.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Data;
+using CompanyHRManagement.DAL._ado;
+using CompanyHRManagement.Models;
+
 
 namespace CompanyHRManagement.GUI.user
 {
@@ -20,6 +24,7 @@ namespace CompanyHRManagement.GUI.user
         private readonly EmployeeBUS employeeBUS = new EmployeeBUS();
         private AttendanceBUS attendanceBUS = new AttendanceBUS();
         private SalaryBUS salaryBUS = new SalaryBUS();
+        private LeavesBUS leaveBUS = new LeavesBUS();
 
         private string fullname;
         private int user_id;
@@ -28,6 +33,7 @@ namespace CompanyHRManagement.GUI.user
         private string name_position;
         private List<Guna2Button> navButtons;
 
+        private int editingLeaveID = -1;
         // Constructor
         public MainForm_user(string email)
         {
@@ -44,11 +50,19 @@ namespace CompanyHRManagement.GUI.user
         // Load form
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ReloadAllData();
+            TaiLaiTatCaDuLieu();
 
             lblUsername.Text = fullname;
             lblRole.Text = "Quyền hạn: USER";
             lblXinChao.Text = "Xin chào: " + fullname + " !";
+
+            // Gán mặc định là hôm nay
+            dtpNgayBatDau.Value = DateTime.Today;
+            dtpNgayKetThuc.Value = DateTime.Today;
+
+            // Gán luôn cho label tương ứng
+            lblNgayBatDau.Text = dtpNgayBatDau.Value.ToString("dd/MM/yyyy");
+            lblNgayKetThuc.Text = dtpNgayKetThuc.Value.ToString("dd/MM/yyyy");
 
 
             timerClock.Start();
@@ -103,7 +117,7 @@ namespace CompanyHRManagement.GUI.user
         }
 
         // -------- LOAD DATA DASHBOARD---------
-        private void LoadEmployeeInfo(int employeeID)
+        private void TaiThongTinNhanVien(int employeeID)
         {
             Employee emp = employeeBUS.GetEmployeeById(employeeID);
             if (emp == null)
@@ -126,7 +140,7 @@ namespace CompanyHRManagement.GUI.user
             lblDaNghiViec.Text = emp.isFired == 1 ? "Có" : "Không";
         }
 
-        private void LoadDashboardData()
+        private void TaiDuLieuLenDashBoard()
         {
             lblUsername.Text = fullname;
             lblXinChao.Text = "Xin chào: " + fullname + " !";
@@ -135,7 +149,7 @@ namespace CompanyHRManagement.GUI.user
             lblPhongBan.Text = "Phòng ban: " + name_dapartment;
         }
 
-        private void LoadSalaryChart()
+        private void TaiBieuDoLuong()
         {
             var data = db_BUS.GetSalaryChartData(user_id);
 
@@ -156,7 +170,7 @@ namespace CompanyHRManagement.GUI.user
             chartSalary.Series.Add(series);
         }
 
-        private void LoadAttendanceChart()
+        private void TaiBieuDoCong()
         {
             var data = db_BUS.GetAttendanceChartData(user_id);
             chartAttendance.Series.Clear();
@@ -170,26 +184,26 @@ namespace CompanyHRManagement.GUI.user
             chartAttendance.ChartAreas[0].AxisY.Title = "Số ngày công";
         }
 
-        private void upload_new_data()
+        private void TaiDuLieuMoiCapNhat()
         {
             Employee emp = employeeBUS.GetEmployeeByEmail(email);
             fullname = emp.FullName;
             name_dapartment = db_BUS.GetDepartmentNameById(emp.EmployeeID);
             name_position = db_BUS.GetPositionNameById(emp.PositionID);
 
-            LoadDashboardData();
+            TaiDuLieuLenDashBoard();
 
         }
 
-        private void ReloadAllData()
+        private void TaiLaiTatCaDuLieu()
         {
-            LoadSalaryChart();  // Tải lại biểu đồ lương
-            LoadAttendanceChart();  // Tải lại biểu đồ ngày công
-            LoadDashboardData();  // Tải lại các thông tin tổng quan như tên, chức vụ
-            LoadEmployeeInfo(user_id); // Tải lại thông tin nhân viên
+            TaiBieuDoLuong();  // Tải lại biểu đồ lương
+            TaiBieuDoCong();  // Tải lại biểu đồ ngày công
+            TaiDuLieuLenDashBoard();  // Tải lại các thông tin tổng quan như tên, chức vụ
+            TaiThongTinNhanVien(user_id); // Tải lại thông tin nhân viên
 
             // Reset panel giao diện
-            HideAllPanels();
+            AnTatCaPanel();
             panelTrangChu_user.Visible = true;
         }
 
@@ -204,7 +218,7 @@ namespace CompanyHRManagement.GUI.user
         // -------- BUTTON - CLICK --------- 
         private void btnThongTin_Click(object sender, EventArgs e)
         {
-            HideAllPanels();
+            AnTatCaPanel();
             panelThongTin.Visible = true;
             panelThongTin_CaNhan.Visible = true;
 
@@ -212,7 +226,7 @@ namespace CompanyHRManagement.GUI.user
 
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
-            HideAllPanels();
+            AnTatCaPanel();
             panelTrangChu_user.Visible = true;
 
         }
@@ -259,13 +273,13 @@ namespace CompanyHRManagement.GUI.user
             if (success)
             {
                 // Load lại dữ liệu mới nhất từ DB
-                upload_new_data();
+                TaiDuLieuMoiCapNhat();
             }
         }
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            ReloadAllData();
+            TaiLaiTatCaDuLieu();
             panelThongTin.Visible = true;
             panelThongTin_CaNhan.Visible = true;
         }
@@ -273,23 +287,26 @@ namespace CompanyHRManagement.GUI.user
         private void btnReload_Click(object sender, EventArgs e)
         {
 
-            ReloadAllData();
+            TaiLaiTatCaDuLieu();
         }
 
         private void btnChamCong_Click(object sender, EventArgs e)
         {
-            HideAllPanels();
+            AnTatCaPanel();
             panelThongTin.Visible = true;
             panelThongTin_ChamCong.Visible = true;
             TaiDuLieuBangChamCong();  // Tải lại bảng dữ liệu chấm công
+            DinhDangDGV(dgvBangChamCong);
         }
 
         private void btnBangLuongCaNhan_Click(object sender, EventArgs e)
         {
-            HideAllPanels();
+            AnTatCaPanel();
             panelThongTin.Visible = true;
             panelThongTin_BangLuong.Visible = true;
             TaiLuongNhanVien(user_id);
+            DinhDangDGV(dgvLuong);
+
 
         }
 
@@ -298,7 +315,6 @@ namespace CompanyHRManagement.GUI.user
         {
             var list = salaryBUS.LayLuongTheoNhanVien(employeeId);
             dgvLuong.DataSource = list;
-            FormatFontForAllDGV(dgvLuong);
             // (Tùy chọn) Đổi tiêu đề cột cho dễ hiểu
             dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
             dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
@@ -312,7 +328,7 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
-        private void FormatFontForAllDGV(DataGridView dgv)
+        private void DinhDangDGV(DataGridView dgv)
         {
             // Tạo kiểu định dạng dùng chung
             DataGridViewCellStyle commonStyle = new DataGridViewCellStyle();
@@ -347,17 +363,16 @@ namespace CompanyHRManagement.GUI.user
         }
 
 
-
-
-
         // Ẩn tất cả các panel
-        private void HideAllPanels()
+        private void AnTatCaPanel()
         {
             panelThongTin_CaNhan.Visible = false;
             panelThongTin_BangLuong.Visible = false;
             panelThongTin_ChamCong.Visible = false;
             panelTrangChu_user.Visible = false;
             panelThongTin.Visible = false;
+            panelNghiPhep.Visible = false;
+            panelChat.Visible = false;
         }
 
 
@@ -379,34 +394,7 @@ namespace CompanyHRManagement.GUI.user
             dgvBangChamCong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
             dgvBangChamCong.Columns["AbsenceStatus"].HeaderText = "Trạng thái";
 
-            FormatFontForAllDGV(dgvBangChamCong);
         }
-
-
-
-        private void FormatDGV()
-        {
-
-            // Tắt cho phép chỉnh sửa
-            dgvBangChamCong.ReadOnly = true;
-            dgvBangChamCong.AllowUserToAddRows = false;
-            dgvBangChamCong.AllowUserToDeleteRows = false;
-            dgvBangChamCong.AllowUserToOrderColumns = false;
-
-            // Hiển thị header ngay cả khi không có dữ liệu
-            dgvBangChamCong.ColumnHeadersVisible = true;
-
-            // Nếu không có dữ liệu, đảm bảo header vẫn hiển thị
-            if (dgvBangChamCong.Rows.Count == 0)
-            {
-                dgvBangChamCong.Rows.Add();  // Thêm một dòng trống nếu không có dữ liệu
-            }
-
-
-
-        }
-
-
 
 
         private void dgvBangChamCong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -485,6 +473,226 @@ namespace CompanyHRManagement.GUI.user
                 guna2MessageDialog2.Show("Đã xảy ra lỗi khi tính tổng lương:\n" + ex.Message, "Lỗi");
             }
 
+        }
+
+        private void btnNghiPhep_Click(object sender, EventArgs e)
+        {
+            AnTatCaPanel();
+            panelNghiPhep.Visible = true;
+
+            TaiDuLuNghiPhepNhanVien();
+            DinhDangDGV(dgvNghiPhep);
+        }
+
+        private void btnNhanTin_Click(object sender, EventArgs e)
+        {
+            AnTatCaPanel();
+            panelChat.Visible = true;
+        }
+
+        // tải dữ liệu nghỉ phép của nhân viên
+        public void TaiDuLuNghiPhepNhanVien()
+        {
+            DataTable db = new DataTable();
+            db = leaveBUS.LayDuLieuNghiPhepTheoIDNhanVien(user_id);
+            dgvNghiPhep.DataSource = db;
+
+            lbl_ID.Text = user_id.ToString();
+            lblHoVaTen.Text = fullname;
+
+            // (Tùy chọn) Đổi tiêu đề cột cho dễ hiểu
+            dgvNghiPhep.Columns["leaveID"].HeaderText = "STT";
+            dgvNghiPhep.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvNghiPhep.Columns["startDate"].HeaderText = "Ngày bắt đầu";
+            dgvNghiPhep.Columns["endDate"].HeaderText = "Ngày kết thúc";
+            dgvNghiPhep.Columns["reason"].HeaderText = "Lý do";
+            dgvNghiPhep.Columns["status"].HeaderText = "Trạng thái";
+        }
+
+        private void btnDangKyNghiPhep_Click(object sender, EventArgs e)
+        {
+            string lyDo = txtLyDo.Text;
+
+            DateTime ngayBatDau = dtpNgayBatDau.Value;
+            DateTime ngayKetThuc = dtpNgayKetThuc.Value;
+
+            if (lyDo.Equals(""))
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Bạn chưa nhập lý do nghỉ phép!", "Cảnh báo");
+                return;
+            }
+            // Kiểm tra xem ngày bắt đầu và ngày kết thúc có hợp lệ không
+            if (ngayBatDau > ngayKetThuc)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Ngày bắt đầu không được lớn hơn ngày kết thúc!", "Cảnh báo");
+                return;
+            }
+            TimeSpan timeSpan = ngayKetThuc - ngayBatDau;
+            if (timeSpan.Days > 30)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Thời gian nghỉ phép không được quá 30 ngày!", "Cảnh báo");
+                return;
+            }
+
+            // Gọi hàm cập nhật
+            bool ketQua = leaveBUS.ThemNghiPhep(user_id, ngayBatDau, ngayKetThuc, lyDo);
+
+            if (ketQua)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                guna2MessageDialog2.Show("Cập nhật nghỉ phép thành công!", "Thông báo");
+                TaiDuLuNghiPhepNhanVien();
+                ;
+            }
+            else
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Cập nhật thất bại. Vui lòng kiểm tra lại!", "Lỗi");
+            }
+
+        }
+
+        private void dgvNghiPhep_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Đảm bảo không click vào header
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = dgvNghiPhep.Rows[e.RowIndex];
+
+            try
+            {
+                // --- Lấy dữ liệu dòng click và hiển thị lên control ---
+                txtLyDo.Text = row.Cells["reason"].Value?.ToString() ?? "";
+                lblNgayBatDau.Text = Convert.ToDateTime(row.Cells["startDate"].Value).ToString("dd/MM/yyyy");
+                lblNgayKetThuc.Text = Convert.ToDateTime(row.Cells["endDate"].Value).ToString("dd/MM/yyyy");
+            }
+            catch (Exception ex)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Lỗi khi hiển thị dữ liệu: " + ex.Message, "Lỗi");
+                return;
+            }
+
+            string columnName = dgvNghiPhep.Columns[e.ColumnIndex].Name;
+
+            // --- Nếu click vào nút Sửa ---
+            if (columnName == "btnEdit")
+            {
+                try
+                {
+                    txtLyDo.Text = row.Cells["reason"].Value?.ToString() ?? "";
+                    dtpNgayBatDau.Value = Convert.ToDateTime(row.Cells["startDate"].Value);
+                    dtpNgayKetThuc.Value = Convert.ToDateTime(row.Cells["endDate"].Value);
+                    // Ghi nhớ ID để cập nhật sau
+                    editingLeaveID = Convert.ToInt32(row.Cells["leaveID"].Value);
+                }
+                catch (Exception ex)
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog2.Show("Lỗi khi sửa dữ liệu: " + ex.Message, "Lỗi");
+                }
+            }
+
+            // --- Nếu click vào nút Xóa ---
+            if (columnName == "btnDelete")
+            {
+                try
+                {
+                    int leaveID = Convert.ToInt32(row.Cells["leaveID"].Value);
+
+                    // Hiển thị hộp thoại xác nhận
+                    guna2MessageDialog.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
+                    guna2MessageDialog.Buttons = Guna.UI2.WinForms.MessageDialogButtons.YesNo;
+                    var result = guna2MessageDialog.Show("Bạn thực sự muốn xóa ?", "Xác nhận xóa");
+
+                    if (result == DialogResult.Yes)
+                    {
+                        // Thực hiện xóa
+                        bool success = leaveBUS.XoaNghiPhep(leaveID);
+                        if (success)
+                        {
+                            guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                            guna2MessageDialog2.Show("Xóa thành công!", "Thành công");
+                            TaiDuLuNghiPhepNhanVien(); // reload lại DataGridView
+                        }
+                        else
+                        {
+                            guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                            guna2MessageDialog2.Show("Xóa thất bại", "Lỗi");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog2.Show("Lỗi khi xóa: " + ex.Message, "Lỗi");
+                }
+            }
+        }
+
+        private void dtpNgayBatDau_ValueChanged(object sender, EventArgs e)
+        {
+            lblNgayBatDau.Text = dtpNgayBatDau.Value.ToString("dd/MM/yyyy");
+
+        }
+
+        private void dtpNgayKetThuc_ValueChanged(object sender, EventArgs e)
+        {
+            lblNgayKetThuc.Text = dtpNgayKetThuc.Value.ToString("dd/MM/yyyy");
+
+        }
+
+        private void btnSua_NghiPhep_Click(object sender, EventArgs e)
+        {
+            if (editingLeaveID == -1)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Vui lòng chọn dòng cần sửa!", "Cảnh báo");
+                return;
+            }
+
+            // Lấy dữ liệu từ form
+            string lyDo = txtLyDo.Text.Trim();
+            DateTime ngayBatDau = dtpNgayBatDau.Value.Date;
+            DateTime ngayKetThuc = dtpNgayKetThuc.Value.Date;
+
+            // Kiểm tra dữ liệu
+            if (string.IsNullOrEmpty(lyDo))
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Lý do không được để trống!", "Cảnh báo");
+                return;
+            }
+
+            // Tạo đối tượng mới để cập nhật
+            Leave leave = new Leave
+            {
+                LeaveID = editingLeaveID,
+                Reason = lyDo,
+                StartDate = ngayBatDau,
+                EndDate = ngayKetThuc
+            };
+
+            // Gọi hàm cập nhật từ BUS
+            bool success = leaveBUS.SuaNghiPhep(leave);
+
+            if (success)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                guna2MessageDialog2.Show("Cập nhật thành công!", "Thành công");
+
+                // Làm mới lại bảng và form
+                TaiDuLuNghiPhepNhanVien();
+                editingLeaveID = -1;
+            }
+            else
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Cập nhật thất bại!", "Lỗi");
+            }
         }
     }
 }

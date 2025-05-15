@@ -97,11 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\_ado\AuthenticationBUS.cs" />
+    <Compile Include="BUS\_ado\LeavesBUS.cs" />
     <Compile Include="BUS\_ado\UserBUS.cs" />
     <Compile Include="BUS\_ado\DashBoardBUS.cs" />
     <Compile Include="BUS\_ado\EmployeeBUS.cs" />
     <Compile Include="BUS\_ado\AttendanceBUS.cs" />
     <Compile Include="BUS\_ado\SalaryBUS.cs" />
+    <Compile Include="DAL\_ado\LeaveDAO.cs" />
     <Compile Include="DAL\_ado\DashBoardDAO.cs" />
     <Compile Include="DAL\_ado\UserDAO.cs" />
     <Compile Include="GUI\admin\MainForm_admin.cs">
@@ -126,6 +128,7 @@
     <Compile Include="GUI\user\MainForm_user.Designer.cs">
       <DependentUpon>MainForm_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Leave.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -162,6 +165,9 @@
     <None Include="Resources\salary_total_icon.png" />
     <None Include="Resources\insurance.png" />
     <None Include="Resources\reload.png" />
+    <None Include="Resources\relax.png" />
+    <None Include="Resources\chat.png" />
+    <None Include="Resources\info.png" />
     <Content Include="Scripts\StoredProcedures.sql" />
     <Content Include="Scripts\InsertSampleData.sql" />
     <Content Include="Scripts\InitDatabase.sql" />

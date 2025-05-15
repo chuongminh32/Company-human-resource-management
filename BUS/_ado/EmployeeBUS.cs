@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Forms;
 
 public class EmployeeBUS
 {
@@ -18,5 +19,11 @@ public class EmployeeBUS
     public Employee GetEmployeeByEmail(string email)
     {
         return employeeDAO.GetEmployeeByEmail(email);
+    }
+
+
+    public List<Employee> GetAllEmployees()
+    {
+        return employeeDAO.GetAllEmployees();
     }
 }

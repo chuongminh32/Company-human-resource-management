@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 public class EmployeeDAO
@@ -118,6 +119,47 @@ public class EmployeeDAO
                 return rowsAffected > 0;
             }
         }
+    }
+
+
+    // Lấy danh sách nhân viên
+    public List<Employee> GetAllEmployees()
+    {
+        List<Employee> list = new List<Employee>();
+
+        using (SqlConnection conn = DBConnection.GetConnection())
+        {
+            conn.Open();
+            string query = "SELECT * FROM employees";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Employee emp = new Employee
+                {
+                    EmployeeID = reader.GetInt32(reader.GetOrdinal("EmployeeID")),
+                    FullName = reader["FullName"].ToString(),
+                    DateOfBirth = reader["BirthDate"] != DBNull.Value ? Convert.ToDateTime(reader["BirthDate"]) : DateTime.MinValue,
+                    Gender = reader["Gender"]?.ToString() ?? "",
+                    Address = reader["Address"]?.ToString() ?? "",
+                    Phone = reader["Phone"]?.ToString() ?? "",
+                    Email = reader["Email"]?.ToString() ?? "",
+                    DepartmentID = reader["DepartmentID"] != DBNull.Value ? Convert.ToInt32(reader["DepartmentID"]) : 0,
+                    PositionID = reader["PositionID"] != DBNull.Value ? Convert.ToInt32(reader["PositionID"]) : 0,
+                    HireDate = reader["HireDate"] != DBNull.Value ? Convert.ToDateTime(reader["HireDate"]) : DateTime.MinValue,
+                    isProbation = reader["isProbation"] != DBNull.Value ? Convert.ToInt32(reader["isProbation"]) : 0,
+                    isFired = reader["isFired"] != DBNull.Value ? Convert.ToInt32(reader["isFired"]) : 0,
+                    password = reader["Password"]?.ToString() ?? "",
+
+                };
+                list.Add(emp);
+            }
+
+            reader.Close();
+        }
+
+        return list;
     }
 
 }

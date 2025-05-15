@@ -14,6 +14,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Data;
 using CompanyHRManagement.DAL._ado;
 using CompanyHRManagement.Models;
+using static Guna.UI2.Native.WinApi;
 
 
 namespace CompanyHRManagement.GUI.user
@@ -25,6 +26,7 @@ namespace CompanyHRManagement.GUI.user
         private AttendanceBUS attendanceBUS = new AttendanceBUS();
         private SalaryBUS salaryBUS = new SalaryBUS();
         private LeavesBUS leaveBUS = new LeavesBUS();
+        private MessageBUS messageBUS = new MessageBUS();
 
         private string fullname;
         private int user_id;
@@ -34,6 +36,7 @@ namespace CompanyHRManagement.GUI.user
         private List<Guna2Button> navButtons;
 
         private int editingLeaveID = -1;
+        private int editingMessageID = -1;
         // Constructor
         public MainForm_user(string email)
         {
@@ -50,6 +53,9 @@ namespace CompanyHRManagement.GUI.user
         // Load form
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LoadNhanVienToComboBox();
+            TaiTinNhanGuiDi();
+            TaiTinNhanMoiNhan();
             TaiLaiTatCaDuLieu();
 
             lblUsername.Text = fullname;
@@ -490,6 +496,8 @@ namespace CompanyHRManagement.GUI.user
             panelChat.Visible = true;
         }
 
+        // ------------ CHỨC NĂNG NGHỈ PHÉP ------------
+
         // tải dữ liệu nghỉ phép của nhân viên
         public void TaiDuLuNghiPhepNhanVien()
         {
@@ -543,7 +551,7 @@ namespace CompanyHRManagement.GUI.user
             if (ketQua)
             {
                 guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
-                guna2MessageDialog2.Show("Cập nhật nghỉ phép thành công!", "Thông báo");
+                guna2MessageDialog2.Show("Đăng kí nghỉ phép thành công!", "Thông báo");
                 TaiDuLuNghiPhepNhanVien();
                 ;
             }
@@ -694,5 +702,287 @@ namespace CompanyHRManagement.GUI.user
                 guna2MessageDialog2.Show("Cập nhật thất bại!", "Lỗi");
             }
         }
+
+
+        // ------------ CHỨC NĂNG CHAT ------------
+
+        private void LoadNhanVienToComboBox()
+        {
+            List<Employee> employees = employeeBUS.GetAllEmployees();
+            cbbNhanVien.DataSource = employees;
+            cbbNhanVien.DisplayMember = "FullName";
+            cbbNhanVien.ValueMember = "EmployeeID";
+        }
+
+        private void TaiTinNhanGuiDi()
+        {
+            // Lấy danh sách tin nhắn đã gửi (phải là từ SenderID)
+            var list = messageBUS.TaiBangGuiTinNhan(user_id);
+
+            // Gán dữ liệu vào DataGridView hiển thị tin nhắn đã gửi
+            dgvTinNhanGui.DataSource = list;
+
+            // Đặt lại tên các cột hiển thị
+            dgvTinNhanGui.Columns["ReceiverName"].HeaderText = "Người nhận";
+            dgvTinNhanGui.Columns["Content"].HeaderText = "Nội dung";
+            dgvTinNhanGui.Columns["SentAt"].HeaderText = "Thời điểm";
+
+            // Ẩn các cột không cần thiết
+            if (dgvTinNhanGui.Columns.Contains("SenderID"))
+                dgvTinNhanGui.Columns["SenderID"].Visible = false;
+            if (dgvTinNhanGui.Columns.Contains("ReceiverID"))
+                dgvTinNhanGui.Columns["ReceiverID"].Visible = false;
+            if (dgvTinNhanGui.Columns.Contains("MessageID"))
+                dgvTinNhanGui.Columns["MessageID"].Visible = false;
+            if (dgvTinNhanGui.Columns.Contains("SenderName"))
+                dgvTinNhanGui.Columns["SenderName"].Visible = false;
+
+            DinhDangDGV(dgvTinNhanGui);
+            ThemCotChucNangChoDGV();
+
+        }
+
+
+        private void TaiTinNhanMoiNhan()
+        {
+            // Lấy danh sách tin nhắn đã nhận
+            var list = messageBUS.TaiBangNhanTinNhanMoi(user_id);
+
+            // Gán dữ liệu vào DataGridView hiển thị tin nhắn nhận
+            dgvTinNhanNhan.DataSource = list;
+
+            // Đặt lại tên các cột hiển thị
+            dgvTinNhanNhan.Columns["SenderName"].HeaderText = "Người gửi";
+            dgvTinNhanNhan.Columns["Content"].HeaderText = "Nội dung";
+            dgvTinNhanNhan.Columns["SentAt"].HeaderText = "Thời điểm";
+
+            // Ẩn các cột không cần hiển thị nếu có
+            if (dgvTinNhanNhan.Columns.Contains("SenderID"))
+                dgvTinNhanNhan.Columns["SenderID"].Visible = false;
+            if (dgvTinNhanNhan.Columns.Contains("ReceiverID"))
+                dgvTinNhanNhan.Columns["ReceiverID"].Visible = false;
+            if (dgvTinNhanNhan.Columns.Contains("ReceiverName"))
+                dgvTinNhanNhan.Columns["ReceiverName"].Visible = false;
+            if (dgvTinNhanNhan.Columns.Contains("MessageID"))
+                dgvTinNhanNhan.Columns["MessageID"].Visible = false;
+
+            // Gọi hàm định dạng giao diện bảng
+            DinhDangDGV(dgvTinNhanNhan);
+        }
+
+
+        //private void btnGui_Click(object sender, EventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(txtNoiDung.Text))
+        //    {
+        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+        //        guna2MessageDialog2.Show("Vui lòng nhập nội dung.", "Thông báo");
+        //        return;
+        //    }
+
+
+        //    int senderId = user_id; // id người gửi hiện tại
+        //    int receiverId = Convert.ToInt32(cbbNhanVien.SelectedValue);
+        //    if (receiverId == 0)
+        //    {
+        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+        //        guna2MessageDialog2.Show("Vui lòng chọn người nhận.", "Thông báo");
+        //        return;
+        //    }
+        //    if (senderId == receiverId)
+        //    {
+        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+        //        guna2MessageDialog2.Show("Bạn không thể gửi tin nhắn cho chính mình.", "Thông báo");
+        //        return;
+        //    }
+        //    string content = txtNoiDung.Text.Trim();
+        //    bool isSent = messageBUS.GuiTin(senderId, receiverId, content);
+
+        //    if (isSent)
+        //    {
+        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+        //        guna2MessageDialog2.Show("Gửi thành công!", "Thông báo");
+        //        txtNoiDung.Clear();
+        //        TaiTinNhanGuiDi();
+        //    }
+        //    else
+        //    {
+        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+        //        guna2MessageDialog2.Show("Gửi thất bại!", "Thông báo");
+        //    }
+        //}
+
+        private void btnGui_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtNoiDung.Text))
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Vui lòng nhập nội dung.", "Thông báo");
+                return;
+            }
+
+            int senderId = user_id;
+            int receiverId = Convert.ToInt32(cbbNhanVien.SelectedValue);
+            if (receiverId == 0)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Vui lòng chọn người nhận.", "Thông báo");
+                return;
+            }
+
+            if (senderId == receiverId)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Bạn không thể gửi tin nhắn cho chính mình.", "Thông báo");
+                return;
+            }
+
+            string content = txtNoiDung.Text.Trim();
+
+            bool success = false;
+
+            // ✅ Nếu đang ở chế độ chỉnh sửa tin nhắn
+            if (editingMessageID != -1)
+            {
+                success = messageBUS.CapNhatTinNhan(editingMessageID, senderId, receiverId, content);
+
+                if (success)
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                    guna2MessageDialog2.Show("Cập nhật tin nhắn thành công!", "Thông báo");
+                    editingMessageID = -1; // reset về chế độ gửi mới
+                    txtNoiDung.Clear();
+                    TaiTinNhanGuiDi();
+                }
+                else
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog2.Show("Cập nhật thất bại!", "Lỗi");
+                }
+            }
+            else
+            {
+                // ✅ Gửi mới
+                success = messageBUS.GuiTin(senderId, receiverId, content);
+
+                if (success)
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                    guna2MessageDialog2.Show("Gửi thành công!", "Thông báo");
+                    txtNoiDung.Clear();
+                    TaiTinNhanGuiDi();
+                }
+                else
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog2.Show("Gửi thất bại!", "Thông báo");
+                }
+            }
+        }
+
+
+        private void ThemCotChucNangChoDGV()
+        {
+            // Xóa cột nút nếu đã tồn tại để tránh thêm nhiều lần
+            if (dgvTinNhanGui.Columns.Contains("btnEdit"))
+                dgvTinNhanGui.Columns.Remove("btnEdit");
+            if (dgvTinNhanGui.Columns.Contains("btnDelete"))
+                dgvTinNhanGui.Columns.Remove("btnDelete");
+
+            // Tạo cột nút Sửa
+            DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
+            btnEdit.Name = "btnEdit";
+            btnEdit.HeaderText = "Sửa";
+            btnEdit.Text = "✏";
+            btnEdit.UseColumnTextForButtonValue = true;
+            dgvTinNhanGui.Columns.Add(btnEdit);
+
+            // Tạo cột nút Xóa
+            DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+            btnDelete.Name = "btnDelete";
+            btnDelete.HeaderText = "Xóa";
+            btnDelete.Text = "❌";
+            btnDelete.UseColumnTextForButtonValue = true;
+            dgvTinNhanGui.Columns.Add(btnDelete);
+        }
+
+        private void dgvTinNhanGui_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Đảm bảo không click vào header
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = dgvTinNhanGui.Rows[e.RowIndex];
+
+            try
+            {
+                // Hiển thị nội dung và người nhận
+                txtNoiDung.Text = row.Cells["Content"].Value?.ToString() ?? "";
+                // Gán người nhận dựa trên ID
+                int receiverID = Convert.ToInt32(row.Cells["ReceiverID"].Value);
+                cbbNhanVien.SelectedValue = receiverID;  // sẽ hiện FullName trong ComboBox
+            }
+            catch (Exception ex)
+            {
+                guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                guna2MessageDialog2.Show("Lỗi khi hiển thị dữ liệu: " + ex.Message, "Lỗi");
+                return;
+            }
+
+            string columnName = dgvTinNhanGui.Columns[e.ColumnIndex].Name;
+
+            // --- Nếu click nút Sửa ---
+            if (columnName == "btnEdit")
+            {
+                try
+                {
+                    // Hiển thị nội dung và người nhận
+                    txtNoiDung.Text = row.Cells["content"].Value?.ToString() ?? "";
+                    cbbNhanVien.SelectedValue = Convert.ToInt32(row.Cells["receiverID"].Value);
+
+                    // biến toàn cục để lưu ID đang sửa -> click nút sửa sẽ cập nhật
+                    editingMessageID = Convert.ToInt32(row.Cells["messageID"].Value);
+                }
+                catch (Exception ex)
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog2.Show("Lỗi khi sửa dữ liệu: " + ex.Message, "Lỗi");
+                }
+            }
+
+            // --- Nếu click nút Xóa ---
+            if (columnName == "btnDelete")
+            {
+                try
+                {
+                    int messageID = Convert.ToInt32(row.Cells["messageID"].Value);
+
+                    guna2MessageDialog.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
+                    guna2MessageDialog.Buttons = Guna.UI2.WinForms.MessageDialogButtons.YesNo;
+                    var result = guna2MessageDialog.Show($"Bạn có chắc muốn xóa tin nhắn này? {messageID}", "Xác nhận xóa");
+
+                    if (result == DialogResult.Yes)
+                    {
+                        bool success = messageBUS.XoaTin(messageID);
+                        if (success)
+                        {
+                            guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                            guna2MessageDialog2.Show("Xóa thành công!", "Thành công");
+                            TaiTinNhanGuiDi();
+                        }
+                        else
+                        {
+                            guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                            guna2MessageDialog2.Show("Xóa thất bại!", "Lỗi");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog2.Show("Lỗi khi xóa: " + ex.Message, "Lỗi");
+                }
+            }
+        }
+
     }
 }

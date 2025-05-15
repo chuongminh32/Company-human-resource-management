@@ -11,6 +11,17 @@ CREATE TABLE Leaves (
     FOREIGN KEY (employeeID) REFERENCES Employees(EmployeeID)
 );
 
+-- Bảng thông báo 
+CREATE TABLE Messages (
+    MessageID INT IDENTITY(1,1) PRIMARY KEY,
+    SenderID INT NOT NULL,
+    ReceiverID INT NOT NULL,
+    Content NVARCHAR(MAX) NOT NULL,
+    SentAt DATETIME DEFAULT GETDATE(),
+
+    FOREIGN KEY (SenderID) REFERENCES Employees(EmployeeID),
+    FOREIGN KEY (ReceiverID) REFERENCES Employees(EmployeeID)
+);
 
 
 

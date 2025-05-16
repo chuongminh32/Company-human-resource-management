@@ -37,15 +37,17 @@ namespace CompanyHRManagement.GUI.user
 
         private int editingLeaveID = -1;
         private int editingMessageID = -1;
+
+
         // Constructor
         public MainForm_user(string email)
         {
-            Employee emp = employeeBUS.GetEmployeeByEmail(email);
+            Employee emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.email = email;
             this.user_id = emp.EmployeeID;
             this.fullname = emp.FullName;
-            this.name_dapartment = db_BUS.GetDepartmentNameById(emp.EmployeeID);
-            this.name_position = db_BUS.GetPositionNameById(emp.PositionID);
+            this.name_dapartment = db_BUS.LayTenPhongBanQuaID(emp.EmployeeID);
+            this.name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
 
             InitializeComponent();
         }
@@ -53,7 +55,7 @@ namespace CompanyHRManagement.GUI.user
         // Load form
         private void MainForm_Load(object sender, EventArgs e)
         {
-            LoadNhanVienToComboBox();
+            TaiDuLieuNhanVienVaoCBB();
             TaiTinNhanGuiDi();
             TaiTinNhanMoiNhan();
             TaiLaiTatCaDuLieu();
@@ -72,7 +74,7 @@ namespace CompanyHRManagement.GUI.user
 
 
             timerClock.Start();
-            InitNavButtons();
+            KhoiTaoDanhSachNutDieuHuong();
         }
 
 
@@ -99,7 +101,7 @@ namespace CompanyHRManagement.GUI.user
 
         // --------- BUTTON ---------
         // Khởi tạo các nút điều hướng
-        private void InitNavButtons()
+        private void KhoiTaoDanhSachNutDieuHuong()
         {
             navButtons = new List<Guna2Button> { btnThongTin, btnTrangChu, btnNghiPhep, btnNhanTin, btnDangXuat };
             navButtons.ForEach(btn => btn.Click += NavButton_Click);
@@ -121,6 +123,7 @@ namespace CompanyHRManagement.GUI.user
             clickedBtn.ForeColor = Color.White;
             clickedBtn.Font = new Font(clickedBtn.Font, FontStyle.Bold);
         }
+
 
         // -------- LOAD DATA DASHBOARD---------
         private void TaiThongTinNhanVien(int employeeID)
@@ -157,7 +160,7 @@ namespace CompanyHRManagement.GUI.user
 
         private void TaiBieuDoLuong()
         {
-            var data = db_BUS.GetSalaryChartData(user_id);
+            var data = db_BUS.LayDuLieuLuong(user_id);
 
             chartSalary.Series.Clear();
             chartSalary.ChartAreas.Clear();
@@ -178,7 +181,7 @@ namespace CompanyHRManagement.GUI.user
 
         private void TaiBieuDoCong()
         {
-            var data = db_BUS.GetAttendanceChartData(user_id);
+            var data = db_BUS.LayDuLieuChamCong(user_id);
             chartAttendance.Series.Clear();
             chartAttendance.ChartAreas.Clear();
             chartAttendance.ChartAreas.Add(new ChartArea("Area"));
@@ -192,10 +195,10 @@ namespace CompanyHRManagement.GUI.user
 
         private void TaiDuLieuMoiCapNhat()
         {
-            Employee emp = employeeBUS.GetEmployeeByEmail(email);
+            Employee emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             fullname = emp.FullName;
-            name_dapartment = db_BUS.GetDepartmentNameById(emp.EmployeeID);
-            name_position = db_BUS.GetPositionNameById(emp.PositionID);
+            name_dapartment = db_BUS.LayTenPhongBanQuaID(emp.EmployeeID);
+            name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
 
             TaiDuLieuLenDashBoard();
 
@@ -221,15 +224,8 @@ namespace CompanyHRManagement.GUI.user
             lblDate.Text = "Today:  " + DateTime.Now.ToString("dd/MM/yyyy");
         }
 
+
         // -------- BUTTON - CLICK --------- 
-        private void btnThongTin_Click(object sender, EventArgs e)
-        {
-            AnTatCaPanel();
-            panelThongTin.Visible = true;
-            panelThongTin_CaNhan.Visible = true;
-
-        }
-
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
             AnTatCaPanel();
@@ -247,6 +243,18 @@ namespace CompanyHRManagement.GUI.user
             }
         }
 
+
+
+        // ---------- TRANG THÔNG TIN CÁ NHÂN -----------
+        private void btnThongTin_Click(object sender, EventArgs e)
+        {
+            AnTatCaPanel();
+            panelThongTin.Visible = true;
+            panelThongTin_CaNhan.Visible = true;
+
+        }
+
+        // Click nút lưu thông tin cá nhân 
         private void btnLuu_Click(object sender, EventArgs e)
         {
             var emp = new Employee
@@ -283,6 +291,7 @@ namespace CompanyHRManagement.GUI.user
             }
         }
 
+        // click nút làm mới ở trang thông tin cá nhân 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             TaiLaiTatCaDuLieu();
@@ -290,12 +299,18 @@ namespace CompanyHRManagement.GUI.user
             panelThongTin_CaNhan.Visible = true;
         }
 
+        // click icon reload    
         private void btnReload_Click(object sender, EventArgs e)
         {
 
             TaiLaiTatCaDuLieu();
         }
 
+
+
+
+
+        // ------------ CHỨC NĂNG CHẤM CÔNG ------------
         private void btnChamCong_Click(object sender, EventArgs e)
         {
             AnTatCaPanel();
@@ -305,86 +320,9 @@ namespace CompanyHRManagement.GUI.user
             DinhDangDGV(dgvBangChamCong);
         }
 
-        private void btnBangLuongCaNhan_Click(object sender, EventArgs e)
-        {
-            AnTatCaPanel();
-            panelThongTin.Visible = true;
-            panelThongTin_BangLuong.Visible = true;
-            TaiLuongNhanVien(user_id);
-            DinhDangDGV(dgvLuong);
-
-
-        }
-
-        // Trong Form chính (WinForms)
-        private void TaiLuongNhanVien(int employeeId)
-        {
-            var list = salaryBUS.LayLuongTheoNhanVien(employeeId);
-            dgvLuong.DataSource = list;
-            // (Tùy chọn) Đổi tiêu đề cột cho dễ hiểu
-            dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
-            dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
-            dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
-            dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
-            dgvLuong.Columns["Bonus"].HeaderText = "Thưởng";
-            dgvLuong.Columns["Penalty"].HeaderText = "Phạt";
-            dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
-            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
-            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
-
-        }
-
-        private void DinhDangDGV(DataGridView dgv)
-        {
-            // Tạo kiểu định dạng dùng chung
-            DataGridViewCellStyle commonStyle = new DataGridViewCellStyle();
-            commonStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            commonStyle.ForeColor = Color.Black;
-            commonStyle.BackColor = Color.White;
-            commonStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            commonStyle.SelectionBackColor = Color.LightSkyBlue;
-
-            // Áp dụng cho dòng lẻ
-            dgv.RowsDefaultCellStyle = commonStyle;
-
-            // Áp dụng giống hệt cho dòng chẵn
-            dgv.AlternatingRowsDefaultCellStyle = commonStyle;
-
-            // Header
-            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.Teal;
-            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgv.EnableHeadersVisualStyles = false;
-
-            // Grid và border
-            dgv.GridColor = Color.DarkGray;
-            dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-
-            // Khóa sửa
-            dgv.ReadOnly = true;
-            dgv.AllowUserToAddRows = false;
-            dgv.AllowUserToDeleteRows = false;
-            dgv.AllowUserToResizeRows = false;
-        }
-
-
-        // Ẩn tất cả các panel
-        private void AnTatCaPanel()
-        {
-            panelThongTin_CaNhan.Visible = false;
-            panelThongTin_BangLuong.Visible = false;
-            panelThongTin_ChamCong.Visible = false;
-            panelTrangChu_user.Visible = false;
-            panelThongTin.Visible = false;
-            panelNghiPhep.Visible = false;
-            panelChat.Visible = false;
-        }
-
-
         private void TaiDuLieuBangChamCong()
         {
-            var list = attendanceBUS.GetAttendancesByEmployee(user_id);
+            var list = attendanceBUS.LayDuLieuChamCongQuaID(user_id);
             dgvBangChamCong.DataSource = list;
             // cập nhật lại các thông tin chấm công 
             lblID.Text = user_id.ToString();
@@ -392,6 +330,7 @@ namespace CompanyHRManagement.GUI.user
             lblSoNgayCong.Text = attendanceBUS.laySoNgayCongTrongThangHienTaiTheoID(user_id).ToString();
             lblTongGioLam.Text = attendanceBUS.layTongGioLamTrongThangHienTaiTheoID(user_id).ToString();
 
+            // định dạng cột trong dgv
             dgvBangChamCong.Columns["AttendanceID"].HeaderText = "Mã chấm công";
             dgvBangChamCong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
             dgvBangChamCong.Columns["WorkDate"].HeaderText = "Ngày";
@@ -402,27 +341,7 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
-
-        private void dgvBangChamCong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            // Kiểm tra nếu cột hiện tại là cột AbsenceStatus (giả sử cột AbsenceStatus là cột thứ 6)
-            if (dgvBangChamCong.Columns[e.ColumnIndex].Name == "AbsenceStatus")
-            {
-                if (e.Value != null)
-                {
-                    // Thay đổi giá trị hiển thị
-                    if (e.Value.ToString() == "Absent")
-                    {
-                        e.Value = "Vắng";
-                    }
-                    else if (e.Value.ToString() == "Present")
-                    {
-                        e.Value = "Có mặt";
-                    }
-                }
-            }
-        }
-
+     
         private void btnChamCongHomNay_Click(object sender, EventArgs e)
         {
             string ketQua = attendanceBUS.ChamCong(user_id);
@@ -447,12 +366,44 @@ namespace CompanyHRManagement.GUI.user
                 // Nếu đã chấm công cả hai lần
                 guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
                 guna2MessageDialog2.Show("Bạn đã chấm công xong hôm nay.", "Thông báo");
+                btnChamCongHomNay.Enabled = false;
+                lblTrangThai.Text = "Đã chấm công";
             }
 
             // Load lại bảng dữ liệu
             TaiDuLieuBangChamCong();
         }
 
+
+
+        // ------------ CHỨC NĂNG TÍNH LƯƠNG ------------
+        private void btnBangLuongCaNhan_Click(object sender, EventArgs e)
+        {
+            AnTatCaPanel();
+            panelThongTin.Visible = true;
+            panelThongTin_BangLuong.Visible = true;
+            TaiLuongNhanVien(user_id);
+            DinhDangDGV(dgvLuong);
+
+
+        }
+
+        private void TaiLuongNhanVien(int employeeId)
+        {
+            var list = salaryBUS.LayLuongTheoNhanVien(employeeId);
+            dgvLuong.DataSource = list;
+            //  Đổi tiêu đề cột cho dễ hiểu
+            dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
+            dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
+            dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
+            dgvLuong.Columns["Bonus"].HeaderText = "Thưởng";
+            dgvLuong.Columns["Penalty"].HeaderText = "Phạt";
+            dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
+            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
+            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
+
+        }
         private void btnTinhTongLuong_Click(object sender, EventArgs e)
         {
             try
@@ -481,6 +432,11 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
+
+
+
+
+        // ------------ CHỨC NĂNG NGHỈ PHÉP ------------
         private void btnNghiPhep_Click(object sender, EventArgs e)
         {
             AnTatCaPanel();
@@ -489,14 +445,6 @@ namespace CompanyHRManagement.GUI.user
             TaiDuLuNghiPhepNhanVien();
             DinhDangDGV(dgvNghiPhep);
         }
-
-        private void btnNhanTin_Click(object sender, EventArgs e)
-        {
-            AnTatCaPanel();
-            panelChat.Visible = true;
-        }
-
-        // ------------ CHỨC NĂNG NGHỈ PHÉP ------------
 
         // tải dữ liệu nghỉ phép của nhân viên
         public void TaiDuLuNghiPhepNhanVien()
@@ -704,9 +652,15 @@ namespace CompanyHRManagement.GUI.user
         }
 
 
-        // ------------ CHỨC NĂNG CHAT ------------
 
-        private void LoadNhanVienToComboBox()
+
+        // ------------ CHỨC NĂNG CHAT ------------
+        private void btnNhanTin_Click(object sender, EventArgs e)
+        {
+            AnTatCaPanel();
+            panelChat.Visible = true;
+        }
+        private void TaiDuLieuNhanVienVaoCBB()
         {
             List<Employee> employees = employeeBUS.GetAllEmployees();
             cbbNhanVien.DataSource = employees;
@@ -742,7 +696,6 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
-
         private void TaiTinNhanMoiNhan()
         {
             // Lấy danh sách tin nhắn đã nhận
@@ -770,48 +723,7 @@ namespace CompanyHRManagement.GUI.user
             DinhDangDGV(dgvTinNhanNhan);
         }
 
-
-        //private void btnGui_Click(object sender, EventArgs e)
-        //{
-        //    if (string.IsNullOrWhiteSpace(txtNoiDung.Text))
-        //    {
-        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
-        //        guna2MessageDialog2.Show("Vui lòng nhập nội dung.", "Thông báo");
-        //        return;
-        //    }
-
-
-        //    int senderId = user_id; // id người gửi hiện tại
-        //    int receiverId = Convert.ToInt32(cbbNhanVien.SelectedValue);
-        //    if (receiverId == 0)
-        //    {
-        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
-        //        guna2MessageDialog2.Show("Vui lòng chọn người nhận.", "Thông báo");
-        //        return;
-        //    }
-        //    if (senderId == receiverId)
-        //    {
-        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
-        //        guna2MessageDialog2.Show("Bạn không thể gửi tin nhắn cho chính mình.", "Thông báo");
-        //        return;
-        //    }
-        //    string content = txtNoiDung.Text.Trim();
-        //    bool isSent = messageBUS.GuiTin(senderId, receiverId, content);
-
-        //    if (isSent)
-        //    {
-        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
-        //        guna2MessageDialog2.Show("Gửi thành công!", "Thông báo");
-        //        txtNoiDung.Clear();
-        //        TaiTinNhanGuiDi();
-        //    }
-        //    else
-        //    {
-        //        guna2MessageDialog2.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
-        //        guna2MessageDialog2.Show("Gửi thất bại!", "Thông báo");
-        //    }
-        //}
-
+        // Xử lý sự kiện click vào nút gửi tin nhắn(có thể thêm/sửa)
         private void btnGui_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtNoiDung.Text))
@@ -841,7 +753,7 @@ namespace CompanyHRManagement.GUI.user
 
             bool success = false;
 
-            // ✅ Nếu đang ở chế độ chỉnh sửa tin nhắn
+            //  Nếu đang ở chế độ chỉnh sửa tin nhắn
             if (editingMessageID != -1)
             {
                 success = messageBUS.CapNhatTinNhan(editingMessageID, senderId, receiverId, content);
@@ -862,7 +774,7 @@ namespace CompanyHRManagement.GUI.user
             }
             else
             {
-                // ✅ Gửi mới
+                //  Gửi mới
                 success = messageBUS.GuiTin(senderId, receiverId, content);
 
                 if (success)
@@ -879,7 +791,6 @@ namespace CompanyHRManagement.GUI.user
                 }
             }
         }
-
 
         private void ThemCotChucNangChoDGV()
         {
@@ -983,6 +894,56 @@ namespace CompanyHRManagement.GUI.user
                 }
             }
         }
+
+
+        // Định dạng DataGridView
+        private void DinhDangDGV(DataGridView dgv)
+        {
+            // Tạo kiểu định dạng dùng chung
+            DataGridViewCellStyle commonStyle = new DataGridViewCellStyle();
+            commonStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            commonStyle.ForeColor = Color.Black;
+            commonStyle.BackColor = Color.White;
+            commonStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            commonStyle.SelectionBackColor = Color.LightSkyBlue;
+
+            // Áp dụng cho dòng lẻ
+            dgv.RowsDefaultCellStyle = commonStyle;
+
+            // Áp dụng giống hệt cho dòng chẵn
+            dgv.AlternatingRowsDefaultCellStyle = commonStyle;
+
+            // Header
+            dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.Teal;
+            dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgv.EnableHeadersVisualStyles = false;
+
+            // Grid và border
+            dgv.GridColor = Color.DarkGray;
+            dgv.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+
+            // Khóa sửa
+            dgv.ReadOnly = true;
+            dgv.AllowUserToAddRows = false;
+            dgv.AllowUserToDeleteRows = false;
+            dgv.AllowUserToResizeRows = false;
+        }
+
+
+        // Ẩn tất cả các panel
+        private void AnTatCaPanel()
+        {
+            panelThongTin_CaNhan.Visible = false;
+            panelThongTin_BangLuong.Visible = false;
+            panelThongTin_ChamCong.Visible = false;
+            panelTrangChu_user.Visible = false;
+            panelThongTin.Visible = false;
+            panelNghiPhep.Visible = false;
+            panelChat.Visible = false;
+        }
+
 
     }
 }

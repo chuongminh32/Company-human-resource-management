@@ -7,9 +7,9 @@ public class AttendanceBUS
 
     private AttendanceDAO attendanceDAO = new AttendanceDAO();
 
-    public List<Attendance> GetAttendancesByEmployee(int employeeID)
+    public List<Attendance> LayDuLieuChamCongQuaID(int employeeID)
     {
-        return attendanceDAO.GetAttendancesByEmployee(employeeID);
+        return attendanceDAO.LayDuLieuChamCongQuaID(employeeID);
     }
 
     public int laySoNgayCongTrongThangHienTaiTheoID(int employeeID)

@@ -27,7 +27,7 @@ namespace CompanyHRManagement.GUI
 
         public void check_role(string email)
         {
-            string name_position = db_BUS.GetPositionNameById(emp.PositionID);
+            string name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             if (name_position == "Admin")
             {
                 MainForm_admin m = new MainForm_admin(email);
@@ -47,7 +47,7 @@ namespace CompanyHRManagement.GUI
 
             string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
-            emp = employeeBUS.GetEmployeeByEmail(email);
+            emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
 
             // Kiểm tra xem email có tồn tại trong hệ thống không
             if (emp == null)

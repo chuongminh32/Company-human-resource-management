@@ -16,9 +16,9 @@ public class EmployeeBUS
         return employeeDAO.UpdateEmployee(emp);
     }
 
-    public Employee GetEmployeeByEmail(string email)
+    public Employee LayDuLieuNhanVienQuaEmail(string email)
     {
-        return employeeDAO.GetEmployeeByEmail(email);
+        return employeeDAO.LayDuLieuNhanVienQuaEmail(email);
     }
 
 

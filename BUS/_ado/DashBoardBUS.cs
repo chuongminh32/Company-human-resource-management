@@ -35,27 +35,28 @@ namespace CompanyHRManagement.BUS
         public int GetTotalDepartments() => db_DAO.GetTotalDepartments();
         public int GetTotalPositions() => db_DAO.GetTotalPositions();
         public int GetProbationCount() => db_DAO.GetProbationCount();
-        public string GetDepartmentNameById(int userID)
+        public string LayTenPhongBanQuaID(int userID)
         {
-            return db_DAO.GetDepartmentNameByUserId(userID);
+            return db_DAO.LayTenPhongBanQuaID(userID);
         }
-        public string GetPositionNameById(int userID)
+        public string LayTenViTriChucVu(int userID)
         {
-            return db_DAO.GetPositionNameById(userID);
+            return db_DAO.LayVitriChucVuTheoID(userID);
         }
 
 
-        // Employee dashboard 
-
-        public List<(string MonthYear, decimal TotalSalary)> GetSalaryChartData(int employeeId)
+        // Employee dashboard  - USER
+        //  lương theo tháng 
+        public List<(string MonthYear, decimal TotalSalary)> LayDuLieuLuong(int employeeId)
         {
-            var raw = db_DAO.GetMonthlySalary(employeeId);
+            var raw = db_DAO.TongLuongTheoThang(employeeId);
             return raw.Select(r => ($"{r.Month}/{r.Year}", r.TotalSalary)).ToList();
         }
 
-        public List<(string MonthYear, int WorkDays)> GetAttendanceChartData(int employeeId)
+        // công theo tháng
+        public List<(string MonthYear, int WorkDays)> LayDuLieuChamCong(int employeeId)
         {
-            var raw = db_DAO.GetMonthlyAttendance(employeeId);
+            var raw = db_DAO.SoNgayCongTheoThang(employeeId);
             return raw.Select(r => ($"{r.Month}/{r.Year}", r.WorkDays)).ToList();
         }
     }

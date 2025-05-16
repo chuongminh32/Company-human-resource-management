@@ -33,7 +33,7 @@ namespace CompanyHRManagement.BUS
         {
 
             // Lấy thông tin người dùng từ UserDAO
-            Employee e = em_BUS.GetEmployeeByEmail(email);
+            Employee e = em_BUS.LayDuLieuNhanVienQuaEmail(email);
 
             if (e != null && e.password == password) // So sánh mật khẩu
             {

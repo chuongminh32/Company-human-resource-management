@@ -8,7 +8,7 @@ public class AttendanceDAO
     private DBConnection dbConnection = new DBConnection();
 
     // lấy thông tin chấm công của nhân viên theo ID
-    public List<Attendance> GetAttendancesByEmployee(int employeeID)
+    public List<Attendance> LayDuLieuChamCongQuaID(int employeeID)
     {
         List<Attendance> attendances = new List<Attendance>();
         string query = "SELECT * FROM Attendance WHERE EmployeeID = @EmployeeID";

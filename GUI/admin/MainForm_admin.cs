@@ -26,9 +26,9 @@ namespace CompanyHRManagement.GUI.admin
 
         public MainForm_admin(string email)
         {
-            this.emp = employeeBUS.GetEmployeeByEmail(email);
+            this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.fullname = emp.FullName;
-            this.role = db_BUS.GetPositionNameById(emp.PositionID);
+            this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             InitializeComponent();
         }
 

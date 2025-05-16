@@ -43,8 +43,8 @@ public class EmployeeDAO
     }
 
 
-    // lấy nhân viên theo ID - dùng cho bảng thông tin của employee 
-    public Employee GetEmployeeByEmail(string email)
+    // lấy nhân viên theo email 
+    public Employee LayDuLieuNhanVienQuaEmail(string email)
     {
         string query = "SELECT * FROM Employees WHERE Email = @Email";
         using (var conn = DBConnection.GetConnection())

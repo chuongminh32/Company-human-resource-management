@@ -113,24 +113,24 @@ namespace CompanyHRManagement.DAL._ado
 
 
 
-        //---------- Employee DashBoard -----------
-
-
-        public string GetPositionNameById(int posID)
+        //---------- Employee DashBoard - USER -----------
+        // Lấy tên vị trí chức vụ theo ID 
+        public string LayVitriChucVuTheoID(int userID)
         {
             string query = @"       
-                SELECT PositionName
-                FROM Positions
-                WHERE PositionID = @posID
+                SELECT p.PositionName
+                FROM Employees e
+                JOIN Positions p ON e.PositionID = p.PositionID
+                WHERE e.EmployeeID = @userID
             ";
 
-            SqlParameter[] parameters = { new SqlParameter("@posID", posID) };
+            SqlParameter[] parameters = { new SqlParameter("@userID", userID) };
             object result = DBConnection.ExecuteScalar(query, parameters);
             return result?.ToString();
         }
 
 
-        public string GetDepartmentNameByUserId(int userId)
+        public string LayTenPhongBanQuaID(int userId)
         {
             string query = @"       
                 SELECT D.DepartmentName
@@ -144,8 +144,8 @@ namespace CompanyHRManagement.DAL._ado
             object result = DBConnection.ExecuteScalar(query, parameters);
             return result?.ToString(); // tránh lỗi ép kiểu nếu result là int/null
         }
-        // 1. Tổng lương theo tháng của 1 nhân viên
-        public List<(int Month, int Year, decimal TotalSalary)> GetMonthlySalary(int employeeId)
+        // Tổng lương theo tháng của 1 nhân viên
+        public List<(int Month, int Year, decimal TotalSalary)> TongLuongTheoThang(int employeeId)
         {
             string query = @"
         SELECT SalaryMonth, SalaryYear,
@@ -170,8 +170,8 @@ namespace CompanyHRManagement.DAL._ado
             return result;
         }
 
-        // 2. Số ngày công theo tháng
-        public List<(int Month, int Year, int WorkDays)> GetMonthlyAttendance(int employeeId)
+        // Số ngày công theo tháng
+        public List<(int Month, int Year, int WorkDays)> SoNgayCongTheoThang(int employeeId)
         {
             string query = @"
         SELECT MONTH(WorkDate) AS Month, YEAR(WorkDate) AS Year, COUNT(*) AS WorkDays

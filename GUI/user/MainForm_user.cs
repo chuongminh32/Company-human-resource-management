@@ -197,7 +197,7 @@ namespace CompanyHRManagement.GUI.user
         {
             Employee emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             fullname = emp.FullName;
-            name_dapartment = db_BUS.LayTenPhongBanQuaID(emp.EmployeeID);
+            name_dapartment = db_BUS.LayTenPhongBanQuaID(emp.DepartmentID);
             name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
 
             TaiDuLieuLenDashBoard();
@@ -341,7 +341,6 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
-     
         private void btnChamCongHomNay_Click(object sender, EventArgs e)
         {
             string ketQua = attendanceBUS.ChamCong(user_id);

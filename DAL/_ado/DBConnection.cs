@@ -11,6 +11,7 @@ public class DBConnection
         return new SqlConnection(connectionString);
     }
 
+    // 	Trả về một giá trị đơn (dòng đầu tiên, cột đầu tiên của kết quả).Khi chỉ cần lấy một giá trị như COUNT(*), MAX(...), MIN(...), 
     public static object ExecuteScalar(string query, SqlParameter[] parameters = null)
     {
         using (SqlConnection conn = GetConnection())
@@ -29,6 +30,7 @@ public class DBConnection
         }
     }
 
+    // Trả về nhiều dòng dữ liệu dưới dạng SqlDataReader.
     public static SqlDataReader ExecuteReader(string query, SqlParameter[] parameters = null)
     {
         SqlConnection conn = GetConnection();

@@ -15,8 +15,8 @@ namespace CompanyHRManagement.Models
         public DateTime SentAt { get; set; }
         // Thêm thuộc tính này để hiển thị tên người gửi
         public string SenderName { get; set; }
-
-        public string ReceiverName { get; set; }  // dùng cho tin nhắn đã gửi
+        // dùng cho tin nhắn đã gửi
+        public string ReceiverName { get; set; }  
 
     }
 

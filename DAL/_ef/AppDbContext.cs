@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CompanyHRManagement.DAL_EF
+namespace CompanyHRManagement.DAL._ef
 {
     class AppDbContext
     {

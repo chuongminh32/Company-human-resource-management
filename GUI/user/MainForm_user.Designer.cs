@@ -487,7 +487,7 @@ namespace CompanyHRManagement.GUI.user
             this.guna2Button26.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button26.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button26.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button26.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button26.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button26.ForeColor = System.Drawing.Color.White;
             this.guna2Button26.Location = new System.Drawing.Point(25, 112);
             this.guna2Button26.Name = "guna2Button26";
@@ -617,9 +617,9 @@ namespace CompanyHRManagement.GUI.user
             this.panelInfoDB_admin.Controls.Add(this.lblXinChao);
             this.panelInfoDB_admin.Controls.Add(this.guna2HtmlLabel1);
             this.panelInfoDB_admin.Controls.Add(this.guna2VSeparator1);
-            this.panelInfoDB_admin.Location = new System.Drawing.Point(3, 3);
+            this.panelInfoDB_admin.Location = new System.Drawing.Point(25, 3);
             this.panelInfoDB_admin.Name = "panelInfoDB_admin";
-            this.panelInfoDB_admin.Size = new System.Drawing.Size(1044, 93);
+            this.panelInfoDB_admin.Size = new System.Drawing.Size(1008, 93);
             this.panelInfoDB_admin.TabIndex = 55;
             // 
             // guna2VSeparator2
@@ -638,7 +638,7 @@ namespace CompanyHRManagement.GUI.user
             this.guna2Button21.ForeColor = System.Drawing.Color.White;
             this.guna2Button21.Image = global::CompanyHRManagement.Properties.Resources.admin;
             this.guna2Button21.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button21.Location = new System.Drawing.Point(709, 20);
+            this.guna2Button21.Location = new System.Drawing.Point(691, 20);
             this.guna2Button21.Name = "guna2Button21";
             this.guna2Button21.Size = new System.Drawing.Size(69, 53);
             this.guna2Button21.TabIndex = 59;
@@ -673,7 +673,7 @@ namespace CompanyHRManagement.GUI.user
             this.lblTime.BackColor = System.Drawing.Color.Transparent;
             this.lblTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblTime.Location = new System.Drawing.Point(811, 21);
+            this.lblTime.Location = new System.Drawing.Point(773, 20);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(50, 30);
             this.lblTime.TabIndex = 56;
@@ -684,7 +684,7 @@ namespace CompanyHRManagement.GUI.user
             this.lblDate.BackColor = System.Drawing.Color.Transparent;
             this.lblDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDate.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblDate.Location = new System.Drawing.Point(811, 51);
+            this.lblDate.Location = new System.Drawing.Point(776, 51);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(93, 30);
             this.lblDate.TabIndex = 55;
@@ -699,7 +699,7 @@ namespace CompanyHRManagement.GUI.user
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
             this.guna2Button3.Image = global::CompanyHRManagement.Properties.Resources.sun;
             this.guna2Button3.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button3.Location = new System.Drawing.Point(961, 20);
+            this.guna2Button3.Location = new System.Drawing.Point(936, 20);
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(69, 53);
             this.guna2Button3.TabIndex = 29;
@@ -728,7 +728,7 @@ namespace CompanyHRManagement.GUI.user
             // 
             // guna2VSeparator1
             // 
-            this.guna2VSeparator1.Location = new System.Drawing.Point(784, 18);
+            this.guna2VSeparator1.Location = new System.Drawing.Point(750, 18);
             this.guna2VSeparator1.Name = "guna2VSeparator1";
             this.guna2VSeparator1.Size = new System.Drawing.Size(10, 56);
             this.guna2VSeparator1.TabIndex = 53;
@@ -2364,10 +2364,10 @@ namespace CompanyHRManagement.GUI.user
             // MainForm_user
             // 
             this.ClientSize = new System.Drawing.Size(1275, 787);
+            this.Controls.Add(this.panelTrangChu_user);
             this.Controls.Add(this.panelNghiPhep);
             this.Controls.Add(this.panelChat);
             this.Controls.Add(this.panelThongTin);
-            this.Controls.Add(this.panelTrangChu_user);
             this.Controls.Add(this.sidebarPanel);
             this.Name = "MainForm_user";
             this.Text = "Quản lý nhân sự";

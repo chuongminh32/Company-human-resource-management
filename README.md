@@ -231,12 +231,13 @@ GUI
 │   │   ├── SalaryCalculator.cs    # Lớp tính lương, bảo hiểm, thuế...
 │   │   
 │   ├── _ado/                      # Nghiệp vụ sử dụng ADO.NET
-│   │   ├── EmployeeBUS.cs
-│   │   ├── AttendanceBUS.cs	
+│   │   ├── AttendanceBUS.cs	   # xử lý dữ liệu chấm công
 │   │   ├── AuthenticationBUS.cs   # xửa lý cho xác thực đăng nhập	
-│   │   └── DashBoard.cs           # xử lý dữ liệu để hiện lên dashboard(MainForm-Trangchu)
-│   │   └── SalaryBUS.cs
-│   │   └── EmployeeBUS.cs	
+│   │   └── DashBoardBUS.cs        # xử lý dữ liệu để hiện lên dashboard
+│   │   ├── EmployeeBUS.cs         # Xử lý nhân viên
+│   │   ├── LeavesBUS.cs           # Xử lý nghỉ phép
+│   │   └── MessageBUS.cs	       # Xử lý gửi tin nhắn
+│   │   └── SalaryBUS.cs           # Nghiệp vụ xử lý lương
 │   └── _ef/                       # Nghiệp vụ sử dụng Entity Framework
 │       ├── EmployeeBUS.cs
 │       ├── AttendanceBUS.cs
@@ -244,11 +245,13 @@ GUI
 │
 ├── DAL/                           # Tầng truy xuất dữ liệu (Data Access Layer: Giao tiếp CSDL (chứa DAO)) -  DAO: Data Access Object (	Truy vấn CSDL (chứa SQL))
 │   ├── _ado/                      # Truy xuất dữ liệu bằng ADO.NET
+│   │   ├── AttendanceDAO.cs       # Truy vấn dữ liệu chấm công
+│   │   ├── DashBoardDAO.cs        # Truy vấn dữ liệu cho dashboard
 │   │   ├── DBConnection.cs        # Kết nối DB
-│   │   ├── DashBoardDAO.cs
-│   │   ├── EmployeeDAO.cs
-│   │   ├── AttendanceDAO.cs
-│   │   └── SalaryDAO.cs
+│   │   ├── EmployeeDAO.cs         # Truy vấn dữ liệu nhân viên 
+│   │   ├── LeaveDAO.cs            # Truy vấn dữ liệu nghỉ phép
+│   │   ├── MessageDAO.cs 	       # Truy vấn dữ liệu gửi tin nhắn
+│   │   └── SalaryDAO.cs           # Truy vấn dữ liệu lương
 │   └── _ef/                       # Truy xuất dữ liệu bằng Entity Framework
 │       ├── AppDbContext.cs        # DbContext
 │       ├── EmployeeRepository.cs
@@ -256,13 +259,13 @@ GUI
 │       └── SalaryRepository.cs
 │
 ├── Models/                         # Lớp thực thể dùng chung
-│   ├── Employee.cs
-│   ├── Department.cs
 │   ├── Attendance.cs
+│   ├── Employee.cs
+│   ├── Leave.cs
+│   ├── Message.cs
 │   ├── Salary.cs
 │   ├── Bonus.cs
 │   ├── Discipline.cs
-│   ├── User.cs
 │   └── ...
 │
 ├── Reports/                        # File .rdlc hoặc báo cáo Excel

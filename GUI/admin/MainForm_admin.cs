@@ -17,7 +17,6 @@ namespace CompanyHRManagement.GUI.admin
     {
         //private UserDAO userDAO = new UserDAO();
         private DashBoardBUS db_BUS = new DashBoardBUS();
-        private UserBUS userBUS = new UserBUS();
         private EmployeeBUS employeeBUS = new EmployeeBUS();
         private Employee emp = new Employee();
         private string fullname;

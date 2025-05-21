@@ -35,9 +35,9 @@ namespace CompanyHRManagement.BUS
         public int GetTotalDepartments() => db_DAO.GetTotalDepartments();
         public int GetTotalPositions() => db_DAO.GetTotalPositions();
         public int GetProbationCount() => db_DAO.GetProbationCount();
-        public string LayTenPhongBanQuaID(int userID)
+        public string LayTenPhongBanQuaID(int idDeparment)
         {
-            return db_DAO.LayTenPhongBanQuaID(userID);
+            return db_DAO.LayTenPhongBanQuaID(idDeparment);
         }
         public string LayTenViTriChucVu(int userID)
         {

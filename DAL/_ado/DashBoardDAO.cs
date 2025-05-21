@@ -130,17 +130,16 @@ namespace CompanyHRManagement.DAL._ado
         }
 
 
-        public string LayTenPhongBanQuaID(int userId)
+        public string LayTenPhongBanQuaID(int idDeparment)
         {
             string query = @"       
                 SELECT D.DepartmentName
-                FROM Users U
-                JOIN Employees E ON U.UserID = E.EmployeeID
+                FROM Employees E
                 JOIN Departments D ON E.DepartmentID = D.DepartmentID
-                WHERE U.UserID = @UserID
+                WHERE E.DepartmentID = @idDeparment;
             ";
 
-            SqlParameter[] parameters = { new SqlParameter("@UserID", userId) };
+            SqlParameter[] parameters = { new SqlParameter("@idDeparment", idDeparment) };
             object result = DBConnection.ExecuteScalar(query, parameters);
             return result?.ToString(); // tránh lỗi ép kiểu nếu result là int/null
         }

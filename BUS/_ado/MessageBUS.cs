@@ -12,7 +12,6 @@ namespace CompanyHRManagement.BUS._ado
     {
         private MessageDAO dao = new MessageDAO();
 
-        public void SendMessage(Message msg) => dao.SendMessage(msg);
         public List<Message> TaiBangGuiTinNhan(int senderId) => dao.TaiBangGuiTinNhan(senderId);
         public List<Message> TaiBangNhanTinNhanMoi(int receiverId) => dao.TaiBangNhanTinNhanMoi(receiverId);
 

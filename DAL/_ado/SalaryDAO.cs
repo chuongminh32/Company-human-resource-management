@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 
 public class SalaryDAO
 {
-    private DBConnection dbConnection = new DBConnection();
 
     public decimal TinhTongLuongTheoThangNam(int employeeId, int month, int year)
     {

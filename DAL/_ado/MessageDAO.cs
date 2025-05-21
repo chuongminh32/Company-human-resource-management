@@ -11,18 +11,6 @@ namespace CompanyHRManagement.DAL._ado
 {
     class MessageDAO
     {
-        public void SendMessage(Message msg)
-        {
-            using (SqlConnection conn = DBConnection.GetConnection())
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Messages (SenderID, ReceiverID, Content) VALUES (@sender, @receiver, @content)", conn);
-                cmd.Parameters.AddWithValue("@sender", msg.SenderID);
-                cmd.Parameters.AddWithValue("@receiver", msg.ReceiverID);
-                cmd.Parameters.AddWithValue("@content", msg.Content);
-                cmd.ExecuteNonQuery();
-            }
-        }
 
         public List<Message> TaiBangGuiTinNhan(int senderId)
         {

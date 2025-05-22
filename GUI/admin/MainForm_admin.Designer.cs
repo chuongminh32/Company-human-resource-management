@@ -116,6 +116,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnLamMoi = new Guna.UI2.WinForms.Guna2Button();
             this.btnXuatExcel = new Guna.UI2.WinForms.Guna2Button();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.guna2AnimateWindow2 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
             this.sidebarPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -1408,5 +1409,6 @@ namespace CompanyHRManagement.GUI.admin
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel15;
         private Guna.UI2.WinForms.Guna2Button guna2Button27;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartSalary;
+        private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow2;
     }
 }

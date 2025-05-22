@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 public class DBConnection
 {
-    private static string connectionString = "Server=MINH-CHUONG;Database=CompanyHRManagement;Trusted_Connection=True;";
+    private static string connectionString = "Server=(local);Database=CompanyHRManagement;Trusted_Connection=True;";
 
     public static SqlConnection GetConnection()
     {

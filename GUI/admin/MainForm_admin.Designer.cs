@@ -56,7 +56,8 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.panel_main1 = new CompanyHRManagement.GUI.admin.Panel_main();
+            this.panel_main = new CompanyHRManagement.GUI.admin.Panel_main();
+            this.panel_NhanVien = new CompanyHRManagement.GUI.admin.Panel_NhanVien();
             this.sidebarPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -497,27 +498,36 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2HtmlLabel9.TabIndex = 61;
             this.guna2HtmlLabel9.Text = "Bộ phận:";
             // 
-            // panel_main1
+            // panel_main
             // 
-            this.panel_main1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel_main.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_main1.Location = new System.Drawing.Point(237, 0);
-            this.panel_main1.Name = "panel_main1";
-            this.panel_main1.Size = new System.Drawing.Size(1035, 787);
-            this.panel_main1.TabIndex = 1;
+            this.panel_main.Location = new System.Drawing.Point(237, 0);
+            this.panel_main.Name = "panel_main";
+            this.panel_main.Size = new System.Drawing.Size(1035, 787);
+            this.panel_main.TabIndex = 1;
+            // 
+            // panel_NhanVien
+            // 
+            this.panel_NhanVien.Location = new System.Drawing.Point(237, 0);
+            this.panel_NhanVien.Name = "panel_NhanVien";
+            this.panel_NhanVien.Size = new System.Drawing.Size(1050, 787);
+            this.panel_NhanVien.TabIndex = 2;
             // 
             // MainForm_admin
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1275, 787);
-            this.Controls.Add(this.panel_main1);
+            this.Controls.Add(this.panel_main);
             this.Controls.Add(this.sidebarPanel);
+            this.Controls.Add(this.panel_NhanVien);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm_admin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý nhân sự";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_admin_Load);
             this.sidebarPanel.ResumeLayout(false);
             this.sidebarPanel.PerformLayout();
             this.guna2Panel1.ResumeLayout(false);
@@ -557,6 +567,7 @@ namespace CompanyHRManagement.GUI.admin
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
-        private Panel_main panel_main1;
+        private Panel_main panel_main;
+        private Panel_NhanVien panel_NhanVien;
     }
 }

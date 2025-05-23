@@ -14,8 +14,6 @@ namespace CompanyHRManagement.GUI.admin
 {
     public partial class MainForm_admin : Form
     {
-        private Panel_main panel_main = new Panel_main();
-        private Panel_NhanVien panel_nhanVien = new Panel_NhanVien();
 
 
         public MainForm_admin(string email)
@@ -32,7 +30,7 @@ namespace CompanyHRManagement.GUI.admin
         private void HideAllPanels()
         {
             panel_main.Visible = false;
-            panel_nhanVien.Visible = false;
+            panel_NhanVien.Visible = false;
         }
 
 
@@ -53,10 +51,9 @@ namespace CompanyHRManagement.GUI.admin
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panel_nhanVien.Visible = true;
-            panel_nhanVien.BringToFront();
-            Console.WriteLine("Số lượng controls: " + this.Controls.Count);
-            Console.WriteLine("Có chứa panel_nhanVien không: " + this.Controls.Contains(panel_nhanVien));
+            panel_NhanVien.Visible = true;
+            panel_NhanVien.BringToFront();
+            
 
         }
 
@@ -82,5 +79,9 @@ namespace CompanyHRManagement.GUI.admin
             panel_main.BringToFront();
         }
 
+        private void MainForm_admin_Load(object sender, EventArgs e)
+        {
+            panel_main.LoadDashBoard_Count();
+        }
     }
 }

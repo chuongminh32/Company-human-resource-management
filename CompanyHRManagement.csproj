@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\_ado\AuthenticationBUS.cs" />
+    <Compile Include="BUS\_ado\DashBoard_adminBUS.cs" />
     <Compile Include="BUS\_ado\MessageBUS.cs" />
     <Compile Include="BUS\_ado\LeavesBUS.cs" />
     <Compile Include="BUS\_ado\DashBoardBUS.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="DAL\_ado\MessageDAO.cs" />
     <Compile Include="DAL\_ado\LeaveDAO.cs" />
     <Compile Include="DAL\_ado\DashBoardDAO.cs" />
+    <Compile Include="DAL\_ado\DashBoard_adminDAO.cs" />
     <Compile Include="GUI\admin\MainForm_admin.cs">
       <SubType>Form</SubType>
     </Compile>

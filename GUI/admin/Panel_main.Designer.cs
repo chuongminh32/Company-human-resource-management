@@ -247,9 +247,9 @@
             this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.DarkSlateGray;
             this.guna2HtmlLabel15.Location = new System.Drawing.Point(15, 104);
             this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
-            this.guna2HtmlLabel15.Size = new System.Drawing.Size(144, 33);
+            this.guna2HtmlLabel15.Size = new System.Drawing.Size(280, 33);
             this.guna2HtmlLabel15.TabIndex = 48;
-            this.guna2HtmlLabel15.Text = "Tổng thưởng";
+            this.guna2HtmlLabel15.Text = "Tổng thưởng (triệu đồng)";
             // 
             // guna2Button27
             // 

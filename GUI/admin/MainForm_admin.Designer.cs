@@ -508,8 +508,7 @@ namespace CompanyHRManagement.GUI.admin
             // 
             // MainForm_admin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1275, 787);
             this.Controls.Add(this.panel_main1);
             this.Controls.Add(this.sidebarPanel);

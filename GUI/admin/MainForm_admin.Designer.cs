@@ -56,7 +56,7 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel9 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.panel_element = new System.Windows.Forms.Panel();
+            this.panel_main1 = new CompanyHRManagement.GUI.admin.Panel_main();
             this.sidebarPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -497,20 +497,21 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2HtmlLabel9.TabIndex = 61;
             this.guna2HtmlLabel9.Text = "Bộ phận:";
             // 
-            // panel_element
+            // panel_main1
             // 
-            this.panel_element.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel_element.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.panel_element.Location = new System.Drawing.Point(237, 0);
-            this.panel_element.Name = "panel_element";
-            this.panel_element.Size = new System.Drawing.Size(1035, 787);
-            this.panel_element.TabIndex = 1;
+            this.panel_main1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel_main1.Location = new System.Drawing.Point(237, 0);
+            this.panel_main1.Name = "panel_main1";
+            this.panel_main1.Size = new System.Drawing.Size(1035, 787);
+            this.panel_main1.TabIndex = 1;
             // 
             // MainForm_admin
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1275, 787);
-            this.Controls.Add(this.panel_element);
+            this.Controls.Add(this.panel_main1);
             this.Controls.Add(this.sidebarPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -557,6 +558,6 @@ namespace CompanyHRManagement.GUI.admin
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel7;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel8;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
-        private Panel panel_element;
+        private Panel_main panel_main1;
     }
 }

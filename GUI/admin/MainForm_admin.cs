@@ -24,61 +24,10 @@ namespace CompanyHRManagement.GUI.admin
             //this.fullname = emp.FullName;
             //this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             InitializeComponent();
-            this.AutoScaleMode = AutoScaleMode.None; // Tắt tự scale
-            
-            this.ClientSize = new Size(1293, 834);   // Kích thước đúng design
-
-            this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa size
-
-            this.StartPosition = FormStartPosition.CenterScreen;
-
-            // Khởi tạo và cấu hình Panel_main, Panel_NhanVien
-            InitializePanelMain();
-            InitializePanelNhanVien();
+           
 
         }
 
-        private void InitializePanelMain()
-        {
-            // Đặt vị trí giống hệt panel_element
-            panel_main.Location = panel_element.Location;
-
-            // Đặt kích thước giống hệt panel_element
-            panel_main.Size = panel_element.Size;
-
-            // Nếu muốn giữ nguyên Dock và Anchor, reset hoặc copy tương ứng
-            panel_main.Dock = panel_element.Dock;
-            panel_main.Anchor = panel_element.Anchor;
-
-            // Nếu có AutoSize hoặc AutoSizeMode
-            panel_main.AutoSize = panel_element.AutoSize;
-            panel_main.AutoSizeMode = panel_element.AutoSizeMode;
-
-            // Thêm panel_main vào Controls nếu chưa có
-            if (!this.Controls.Contains(panel_main))
-            {
-                this.Controls.Add(panel_main);
-            }
-
-            panel_main.BringToFront();
-            panel_main.Visible = true;
-
-        }
-
-
-        private void InitializePanelNhanVien()
-        {
-            if (!this.Controls.Contains(panel_nhanVien))
-            {
-                //panel_nhanVien = new Panel_NhanVien();
-                panel_nhanVien.Size = new Size(400, this.ClientSize.Height); // Width cố định
-                panel_nhanVien.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-                panel_nhanVien.Location = new Point(this.ClientSize.Width - panel_nhanVien.Width, 0);
-                panel_nhanVien.Visible = false;
-                this.Controls.Add(panel_nhanVien);
-                panel_nhanVien.BringToFront();
-            }
-        }
 
         private void HideAllPanels()
         {

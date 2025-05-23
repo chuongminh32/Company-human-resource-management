@@ -5,143 +5,68 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Web.UI;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-
-
 
 
 namespace CompanyHRManagement.GUI.admin
 {
     public partial class MainForm_admin : Form
     {
-        //private UserDAO userDAO = new UserDAO();
-        private DashBoardBUS db_BUS = new DashBoardBUS();
-        private EmployeeBUS employeeBUS = new EmployeeBUS();
-        private Employee emp = new Employee();
-        private string fullname;
-        private string role;
+        private Panel_main panel_main = new Panel_main();
+        private Panel_NhanVien panel_nhanVien = new Panel_NhanVien();
 
 
         public MainForm_admin(string email)
         {
-            this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
-            this.fullname = emp.FullName;
-            this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
+            //this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
+            //this.fullname = emp.FullName;
+            //this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             InitializeComponent();
+
+            // Khởi tạo và cấu hình Panel_main, Panel_NhanVien
+            InitializePanelMain();
+            InitializePanelNhanVien();
+
         }
 
-        private string FormatMoneyCompact(decimal amount)
+        private void InitializePanelMain()
         {
-            if (amount >= 1_000_000_000)
-                return (amount / 1_000_000_000M).ToString("0.#") + "B"; // Tỷ
-            else if (amount >= 1_000_000)
-                return (amount / 1_000_000M).ToString("0.#") + "M";     // Triệu
-            else if (amount >= 1_000)
-                return (amount / 1_000M).ToString("0.#") + "K";         // Ngàn
-            else
-                return amount.ToString("0");
-        }
+            // Đặt vị trí và kích thước của panel_main giống panel_element
+            panel_main.Location = panel_element.Location;
+            panel_main.Size = panel_element.Size;
 
-
-        // Load dữ liệu cho bảng điều khiển
-        private void LoadDashboardData()
-        {
-            lblTongNhanVien.Text = db_BUS.GetTotalEmployees().ToString();
-            lblSoPhongBan.Text = db_BUS.GetTotalDepartments().ToString();
-            lblSoChucVu.Text = db_BUS.GetTotalPositions().ToString();
-            lblNhanVienThuViec.Text = db_BUS.GetProbationCount().ToString();
-            decimal totalRewardSalary = db_BUS.GetToTalRewardSalary();
-            lblTongLuongThuong.Text = FormatMoneyCompact(totalRewardSalary);
-            lblSoBaoHiemConHan.Text = db_BUS.GetTotalValidInsurances().ToString();
-        }
-
-        // char nhân viên theo phòng ban 
-        private void LoadChart()
-        {
-            var data = db_BUS.GetEmployeeStats();
-
-            chartNhanVienPhongBan.Series.Clear();
-            chartNhanVienPhongBan.ChartAreas.Clear();
-            chartNhanVienPhongBan.ChartAreas.Add(new ChartArea("MainArea"));
-            chartNhanVienPhongBan.Series.Add("Nhân viên");
-            chartNhanVienPhongBan.Series["Nhân viên"].ChartType = SeriesChartType.Column;
-
-            foreach (var item in data)
+            // Thêm panel_main vào Controls nếu chưa có
+            if (!this.Controls.Contains(panel_main))
             {
-                chartNhanVienPhongBan.Series["Nhân viên"].Points.AddXY(item.Key, item.Value);
+                this.Controls.Add(panel_main);
             }
 
+            panel_main.BringToFront();
+            panel_main.Visible = true;
+
         }
 
-        // lỗi chưa hiển thị được % lên biêu đồ .....
-        private void LoadSalaryPieChart()
+
+        private void InitializePanelNhanVien()
         {
-            // Lấy dữ liệu tổng lương theo năm
-            DataTable dt = db_BUS.GetSalaryStructureThisYear();
-            if (dt.Rows.Count == 0) return;
-
-            DataRow row = dt.Rows[0];
-
-            // Đọc từng phần lương
-            decimal baseSalary = Convert.ToDecimal(row["TotalBaseSalary"]);
-            decimal allowance = Convert.ToDecimal(row["TotalAllowance"]);
-            decimal bonus = Convert.ToDecimal(row["TotalBonus"]);
-            decimal penalty = Convert.ToDecimal(row["TotalPenalty"]);
-            int overtimeHours = Convert.ToInt32(row["TotalOvertime"]);
-            decimal overtimePay = overtimeHours * 200000; // Giả định 200k/h tăng ca
-
-            // Gom vào dictionary để tiện xử lý
-            Dictionary<string, decimal> salaryParts = new Dictionary<string, decimal>()
+            if (!this.Controls.Contains(panel_nhanVien))
             {
-                { "Lương cơ bản", baseSalary },
-                { "Phụ cấp", allowance },
-                { "Thưởng", bonus },
-                { "Phạt", penalty },
-                { "Tăng ca", overtimePay }
-            };
-
-            // Tính tổng lương
-            decimal total = salaryParts.Values.Sum();
-
-            // Reset biểu đồ
-            chartSalary.Series.Clear();
-            chartSalary.Titles.Clear();
-            chartSalary.ChartAreas.Clear();
-
-            chartSalary.ChartAreas.Add(new ChartArea("PieArea"));
-            chartSalary.Titles.Add($"Cấu trúc lương năm {DateTime.Now.Year}");
-
-            // Tạo series biểu đồ tròn
-            Series series = new Series("Lương")
-            {
-                ChartType = SeriesChartType.Pie,
-                IsValueShownAsLabel = true,
-                LabelForeColor = Color.Transparent
-            };
-
-            // Thêm dữ liệu vào biểu đồ
-            foreach (var item in salaryParts)
-            {
-                double percent = (double)(item.Value / total) * 100;
-                int pointIndex = series.Points.AddY(item.Value);
-
-                // Hiển thị phần trăm trực tiếp trên label của mỗi điểm
-                if (percent > 15)
-                {
-                    series.Points[pointIndex].Label = $"{percent:F1}%"; // Hiển thị phần trăm trực tiếp lên label
-                }
-
-                // Chú thích (legend bên phải)
-                series.Points[pointIndex].LegendText = item.Key;
+                //panel_nhanVien = new Panel_NhanVien();
+                panel_nhanVien.Size = new Size(400, this.ClientSize.Height); // Width cố định
+                panel_nhanVien.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+                panel_nhanVien.Location = new Point(this.ClientSize.Width - panel_nhanVien.Width, 0);
+                panel_nhanVien.Visible = false;
+                this.Controls.Add(panel_nhanVien);
+                panel_nhanVien.BringToFront();
             }
+        }
 
-            // Thêm series vào biểu đồ
-            chartSalary.Series.Add(series);
-
-
-            // Tùy chọn: hiển thị 3D nếu muốn đẹp hơn
-            chartSalary.ChartAreas[0].Area3DStyle.Enable3D = true;
+        private void HideAllPanels()
+        {
+            panel_main.Visible = false;
+            panel_nhanVien.Visible = false;
         }
 
 
@@ -165,30 +90,16 @@ namespace CompanyHRManagement.GUI.admin
             }
         }
 
-        private void HideAllPanels()
-        {
-            panelTrangChu_admin.Visible = false;
-            panelNhanVien.Visible = false;
-        }
-
-
-        private void timerClock_Tick(object sender, EventArgs e)
-        {
-            lblTime.Text = "Time:  " + DateTime.Now.ToString("hh:mm:ss tt"); // Giờ:phút:giây AM/PM
-            lblDate.Text = "Today:  " + DateTime.Now.ToString("dd/MM/yyyy"); // Ngày/tháng/năm
-        }
-
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panelNhanVien.Visible = true;
+            panel_nhanVien.Visible = true;
+            panel_nhanVien.BringToFront();
+            Console.WriteLine("Số lượng controls: " + this.Controls.Count);
+            Console.WriteLine("Có chứa panel_nhanVien không: " + this.Controls.Contains(panel_nhanVien));
+
         }
 
-        private void btnTrangChu_Click(object sender, EventArgs e)
-        {
-            HideAllPanels();
-            panelTrangChu_admin.Visible = true;
-        }
 
         private void guna2Button19_Click(object sender, EventArgs e)
         {
@@ -204,15 +115,14 @@ namespace CompanyHRManagement.GUI.admin
             }
         }
 
-        private void MainForm_user_Load(object sender, EventArgs e)
+        private void btnTrangChu_Click(object sender, EventArgs e)
         {
-            LoadChart();
-            LoadDashboardData();
-            LoadSalaryPieChart();
-            lblUsername.Text = this.fullname;
-            lblRole.Text = "Quyền hạn: " + this.role;
-            lblXinChao.Text = "Xin chào: " + this.fullname + " !";
-            timerClock.Start();
+            HideAllPanels();
+            panel_main.Visible = true;
+            panel_main.BringToFront();
         }
+
+ 
+
     }
 }

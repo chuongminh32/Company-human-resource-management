@@ -121,6 +121,18 @@
     <Compile Include="GUI\admin\MainForm_admin.Designer.cs">
       <DependentUpon>MainForm_admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\admin\Panel_main.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_main.Designer.cs">
+      <DependentUpon>Panel_main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_NhanVien.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_NhanVien.Designer.cs">
+      <DependentUpon>Panel_NhanVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,6 +190,12 @@
     <Content Include="Scripts\InitDatabase.sql" />
     <None Include="packages.config" />
     <None Include="Reports\EmployeeStatisticsReport.rdlc" />
+    <EmbeddedResource Include="GUI\admin\Panel_main.resx">
+      <DependentUpon>Panel_main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\admin\Panel_NhanVien.resx">
+      <DependentUpon>Panel_NhanVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

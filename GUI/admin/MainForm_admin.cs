@@ -24,6 +24,13 @@ namespace CompanyHRManagement.GUI.admin
             //this.fullname = emp.FullName;
             //this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             InitializeComponent();
+            this.AutoScaleMode = AutoScaleMode.None; // Tắt tự scale
+            
+            this.ClientSize = new Size(1293, 834);   // Kích thước đúng design
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // Khóa size
+
+            this.StartPosition = FormStartPosition.CenterScreen;
 
             // Khởi tạo và cấu hình Panel_main, Panel_NhanVien
             InitializePanelMain();
@@ -33,9 +40,19 @@ namespace CompanyHRManagement.GUI.admin
 
         private void InitializePanelMain()
         {
-            // Đặt vị trí và kích thước của panel_main giống panel_element
+            // Đặt vị trí giống hệt panel_element
             panel_main.Location = panel_element.Location;
+
+            // Đặt kích thước giống hệt panel_element
             panel_main.Size = panel_element.Size;
+
+            // Nếu muốn giữ nguyên Dock và Anchor, reset hoặc copy tương ứng
+            panel_main.Dock = panel_element.Dock;
+            panel_main.Anchor = panel_element.Anchor;
+
+            // Nếu có AutoSize hoặc AutoSizeMode
+            panel_main.AutoSize = panel_element.AutoSize;
+            panel_main.AutoSizeMode = panel_element.AutoSizeMode;
 
             // Thêm panel_main vào Controls nếu chưa có
             if (!this.Controls.Contains(panel_main))
@@ -72,21 +89,15 @@ namespace CompanyHRManagement.GUI.admin
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Tạo Guna2MessageDialog và cài đặt các thuộc tính
-            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất ?", "Xác nhận thoát");
+            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất?", "Xác nhận thoát");
 
-            // xử lý kết quả
             if (result == DialogResult.No)
             {
-                e.Cancel = true; // Hủy bỏ việc đóng form
+                e.Cancel = true;
             }
             else
             {
-                // Thoát toàn bộ ứng dụng sau khi form đóng xong
-                this.BeginInvoke(new Action(() =>
-                {
-                    Application.Exit();
-                }));
+                Environment.Exit(0); // Thoát toàn bộ app lập tức
             }
         }
 
@@ -121,8 +132,6 @@ namespace CompanyHRManagement.GUI.admin
             panel_main.Visible = true;
             panel_main.BringToFront();
         }
-
- 
 
     }
 }

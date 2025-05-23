@@ -499,10 +499,11 @@ namespace CompanyHRManagement.GUI.admin
             // 
             // panel_element
             // 
+            this.panel_element.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel_element.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel_element.Location = new System.Drawing.Point(237, 0);
             this.panel_element.Name = "panel_element";
-            this.panel_element.Size = new System.Drawing.Size(1050, 787);
+            this.panel_element.Size = new System.Drawing.Size(1035, 787);
             this.panel_element.TabIndex = 1;
             // 
             // MainForm_admin
@@ -511,6 +512,8 @@ namespace CompanyHRManagement.GUI.admin
             this.ClientSize = new System.Drawing.Size(1275, 787);
             this.Controls.Add(this.panel_element);
             this.Controls.Add(this.sidebarPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MainForm_admin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý nhân sự";

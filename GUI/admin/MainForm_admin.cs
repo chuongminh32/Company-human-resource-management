@@ -25,7 +25,10 @@ namespace CompanyHRManagement.GUI.admin
            
 
         }
-
+        private void MainForm_admin_Load(object sender, EventArgs e)
+        {
+            panel_main.LoadDashBoard_Count();
+        }
 
         private void HideAllPanels()
         {
@@ -79,9 +82,6 @@ namespace CompanyHRManagement.GUI.admin
             panel_main.BringToFront();
         }
 
-        private void MainForm_admin_Load(object sender, EventArgs e)
-        {
-            panel_main.LoadDashBoard_Count();
-        }
+        
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,11 @@ namespace CompanyHRManagement.DAL._ado
 {
     class LeaveDAO
     {
+        DBConnection db = null;
+        public LeaveDAO()
+        {
+            db = new DBConnection();
+        }
         public DataTable LayDuLieuNghiPhepTheoIDNhanVien(int employeeID)
         {
             string query = "SELECT * FROM Leaves WHERE employeeID = @id";
@@ -83,7 +89,42 @@ namespace CompanyHRManagement.DAL._ado
                 }
             }
         }
+        public DataSet GetLeave()
+        {
+            string sql = @"
+                SELECT 
+                    l.leaveID,
+                    l.employeeID,
+                    e.FullName AS EmployeeName, 
+                    l.startDate,
+                    l.endDate,
+                    l.reason,
+                    l.status
+                FROM 
+                    Leaves l
+                JOIN 
+                    Employees e ON l.employeeID = e.EmployeeID
+                ORDER BY
+                    l.startDate DESC"; 
 
+
+    return db.ExecuteQueryDataSet(sql, CommandType.Text);
+
+        }
+
+        public bool UpdateLeaveStatus(int leaveId, string newStatus)
+         {
+            var sql = @"UPDATE Leaves SET Status = @Status WHERE LeaveID = @LID";
+            using (var conn = DBConnection.GetConnection())
+            using (var cmd = new SqlCommand(sql, conn))
+            {
+                 cmd.Parameters.AddWithValue("@Status", newStatus);
+                 cmd.Parameters.AddWithValue("@LID", leaveId);
+                 conn.Open();
+                 return cmd.ExecuteNonQuery() > 0;
+            }
+         }
+  
 
     }
 }

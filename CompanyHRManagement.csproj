@@ -123,11 +123,23 @@
     <Compile Include="GUI\admin\MainForm_admin.Designer.cs">
       <DependentUpon>MainForm_admin.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\admin\Panel_ChamCong.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_ChamCong.Designer.cs">
+      <DependentUpon>Panel_ChamCong.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\admin\Panel_main.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GUI\admin\Panel_main.Designer.cs">
       <DependentUpon>Panel_main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_Message.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_Message.Designer.cs">
+      <DependentUpon>Panel_Message.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\admin\Panel_NhanVien.cs">
       <SubType>UserControl</SubType>
@@ -192,8 +204,14 @@
     <Content Include="Scripts\InitDatabase.sql" />
     <None Include="packages.config" />
     <None Include="Reports\EmployeeStatisticsReport.rdlc" />
+    <EmbeddedResource Include="GUI\admin\Panel_ChamCong.resx">
+      <DependentUpon>Panel_ChamCong.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\admin\Panel_main.resx">
       <DependentUpon>Panel_main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\admin\Panel_Message.resx">
+      <DependentUpon>Panel_Message.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\admin\Panel_NhanVien.resx">
       <DependentUpon>Panel_NhanVien.cs</DependentUpon>

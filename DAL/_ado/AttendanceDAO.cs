@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 public class AttendanceDAO
 {
+    DBConnection db = null;
+    public AttendanceDAO()
+    {
+        db = new DBConnection();
+    }
     private DBConnection dbConnection = new DBConnection();
 
     // lấy thông tin chấm công của nhân viên theo ID
@@ -198,4 +204,163 @@ public class AttendanceDAO
         }
     }
 
+    public DataSet GetAttendance()
+    {
+        string sql = @"
+        SELECT 
+            a.AttendanceID,
+            a.EmployeeID,
+            e.FullName AS EmployeeName,
+            a.WorkDate,
+            a.CheckIn,
+            a.CheckOut,
+            a.OvertimeHours,
+            a.AbsenceStatus
+        FROM 
+            Attendance a
+        JOIN 
+            Employees e ON a.EmployeeID = e.EmployeeID";
+
+        return db.ExecuteQueryDataSet(sql, CommandType.Text);
+
+    }
+    public (int tongNV, double tongNCtb, double OTtong) GetAttendanceSummary(DateTime date)
+    {
+        int tongNV = 0;
+        double tongNCtb = 0;
+        double OTtong = 0;
+
+        const string sql = @"
+         SELECT CheckIn, CheckOut, OvertimeHours
+         FROM [Attendance]
+         WHERE WorkDate = @date
+         AND CheckIn IS NOT NULL
+         AND CheckOut IS NOT NULL;
+                        ";
+
+        using (var conn = DBConnection.GetConnection())
+        using (var cmd = new SqlCommand(sql, conn))
+        {
+            cmd.Parameters.AddWithValue("@date", date.Date);
+            conn.Open();
+
+            using (var reader = cmd.ExecuteReader())
+            {
+                int idxCheckIn = reader.GetOrdinal("CheckIn");
+                int idxCheckOut = reader.GetOrdinal("CheckOut");
+                int idxOT = reader.GetOrdinal("OvertimeHours");
+
+                while (reader.Read())
+                {
+                    var checkIn = reader.GetTimeSpan(idxCheckIn);
+                    var checkOut = reader.GetTimeSpan(idxCheckOut);
+                    var dur = (checkOut - checkIn).TotalHours;
+
+                    tongNV++;
+                    tongNCtb += dur;
+
+                    if (!reader.IsDBNull(idxOT))
+                    {
+                        // Try different ways to read the overtime hours
+                        try
+                        {
+                            OTtong += Convert.ToDouble(reader.GetDecimal(idxOT));
+                        }
+                        catch (InvalidCastException)
+                        {
+                            try
+                            {
+                                OTtong += reader.GetDouble(idxOT);
+                            }
+                            catch (InvalidCastException)
+                            {
+                                OTtong += Convert.ToDouble(reader.GetValue(idxOT));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return (tongNV, tongNCtb, OTtong);
+    }
+    public List<DateTime> GetWorkDates()
+    {
+        var list = new List<DateTime>();
+        string query = "SELECT DISTINCT WorkDate FROM Attendance ORDER BY WorkDate DESC";
+
+        using (var conn = DBConnection.GetConnection())
+        using (var cmd = new SqlCommand(query, conn))
+        {
+            conn.Open();
+            using (var reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    list.Add(reader.GetDateTime(0));
+                }
+            }
+        }
+        return list;
+    }
+
+    public bool UpdateAttendance(DataTable changes)
+    {
+        try
+        {
+            using (var conn = DBConnection.GetConnection())
+            {
+                conn.Open();
+                SqlDataAdapter da = new SqlDataAdapter();
+
+                // Setup SELECT command to get schema
+                SqlCommand selectCmd = new SqlCommand("SELECT * FROM Attendance WHERE 1=0", conn);
+                da.SelectCommand = selectCmd;
+
+                // Setup UPDATE command
+                SqlCommand updateCmd = new SqlCommand(
+                    @"UPDATE Attendance SET 
+                    EmployeeID = @EmployeeID, 
+                    WorkDate = @WorkDate, 
+                    CheckIn = @CheckIn, 
+                    CheckOut = @CheckOut, 
+                    OvertimeHours = @OvertimeHours,
+                    AbsenceStatus = @AbsenceStatus
+                  WHERE AttendanceID = @AttendanceID", conn);
+
+                updateCmd.Parameters.Add("@EmployeeID", SqlDbType.Int, 0, "EmployeeID");
+                updateCmd.Parameters.Add("@WorkDate", SqlDbType.Date, 0, "WorkDate");
+                updateCmd.Parameters.Add("@CheckIn", SqlDbType.Time, 0, "CheckIn");
+                updateCmd.Parameters.Add("@CheckOut", SqlDbType.Time, 0, "CheckOut");
+                updateCmd.Parameters.Add("@OvertimeHours", SqlDbType.Float, 0, "OvertimeHours");
+                updateCmd.Parameters.Add("@AbsenceStatus", SqlDbType.NVarChar, 50, "AbsenceStatus");
+                updateCmd.Parameters.Add("@AttendanceID", SqlDbType.Int, 0, "AttendanceID");
+
+                da.UpdateCommand = updateCmd;
+
+                // Perform the update
+                da.Update(changes);
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating attendance: {ex.Message}");
+            return false;
+        }
+    }
+
+    public bool DeleteAttendance(int attendanceID)
+    {
+        string sql = "DELETE FROM Attendance WHERE AttendanceID = @AttendanceID";
+
+        using (var conn = DBConnection.GetConnection())
+        using (var cmd = new SqlCommand(sql, conn))
+        {
+            cmd.Parameters.AddWithValue("@AttendanceID", attendanceID);
+
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+    }
 }

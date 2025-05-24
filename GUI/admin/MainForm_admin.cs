@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -14,10 +15,13 @@ namespace CompanyHRManagement.GUI.admin
 {
     public partial class MainForm_admin : Form
     {
-
+        private readonly EmployeeBUS employeeBUS = new EmployeeBUS();
+        private int user_id;
 
         public MainForm_admin(string email)
         {
+            Employee emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
+            this.user_id = emp.EmployeeID;
             //this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             //this.fullname = emp.FullName;
             //this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
@@ -34,6 +38,8 @@ namespace CompanyHRManagement.GUI.admin
         {
             panel_main.Visible = false;
             panel_NhanVien.Visible = false;
+            panel_ChamCong.Visible = false;
+            panel_Message.Visible = false;
         }
 
 
@@ -82,6 +88,19 @@ namespace CompanyHRManagement.GUI.admin
             panel_main.BringToFront();
         }
 
-        
+        private void btnChamCong_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_ChamCong.Visible = true;
+            panel_NhanVien.BringToFront();
+        }
+
+        private void btnMessage_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_Message.Visible = true;
+            panel_Message.CurrentUserId = user_id;
+            panel_Message.BringToFront();
+        }
     }
 }

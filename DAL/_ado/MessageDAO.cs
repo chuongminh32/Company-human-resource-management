@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,11 @@ namespace CompanyHRManagement.DAL._ado
 {
     class MessageDAO
     {
+        DBConnection db = null;
+        public MessageDAO()
+        {
+            db = new DBConnection();
+        }
 
         public List<Message> TaiBangGuiTinNhan(int senderId)
         {
@@ -150,8 +156,44 @@ namespace CompanyHRManagement.DAL._ado
             }
         }
 
+        public DataSet GetMessage()
+        {
+            string sql = @"
+        SELECT 
+             a.MessageID,
+             a.SenderID,
+             a.ReceiverID,
+             e.FullName AS ReceiverName,
+             a.Content,
+             a.SentAt
+        FROM 
+            Messages a
+        JOIN 
+            Employees e ON a.ReceiverID = e.EmployeeID";
 
+            return db.ExecuteQueryDataSet(sql, CommandType.Text);
 
+        }
+
+        public bool UpdateTinNhanMoi(int messageId, string content)
+        {
+            using (SqlConnection conn = DBConnection.GetConnection())
+            {
+                conn.Open();
+                string query = @"
+            UPDATE Messages 
+            SET Content = @content,
+                SentAt  = GETDATE()
+            WHERE MessageID = @messageId";
+
+                using (var cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@content", content);
+                    cmd.Parameters.AddWithValue("@messageId", messageId);
+                    return cmd.ExecuteNonQuery() > 0;
+                }
+            }
+        }
 
 
     }

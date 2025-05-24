@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using CompanyHRManagement.Models;
 
 public class EmployeeDAO
 {
+    DBConnection db = null;
+    public EmployeeDAO()
+    {
+        db = new DBConnection();
+    }
     private DBConnection dbConnection = new DBConnection();
 
     // lấy nhân viên theo ID - dùng cho bảng thông tin của employee 
@@ -162,4 +169,122 @@ public class EmployeeDAO
         return list;
     }
 
+    public DataSet GetEmployee()
+    {
+        string sql = @"
+            SELECT 
+                e.EmployeeID,
+                e.FullName,
+                e.BirthDate,
+                e.Gender,
+                e.Address,
+                e.Phone,
+                e.Email,
+                e.DepartmentID,
+                d.DepartmentName,
+                e.PositionID,
+                p.PositionName,
+                e.HireDate,
+                e.IsProbation,
+                e.IsFired,
+                e.Password
+            FROM 
+                Employees e
+            LEFT JOIN 
+                Departments d ON e.DepartmentID = d.DepartmentID
+            LEFT JOIN 
+                Positions p ON e.PositionID = p.PositionID
+            ";
+        return db.ExecuteQueryDataSet(sql, CommandType.Text);
+
+
+    }
+    
+    public bool InsertEmployee(Employee emp)
+    {
+        string query = @"INSERT INTO Employees
+                (FullName, BirthDate, Gender, Address, Phone, Email, DepartmentID, PositionID, HireDate, IsProbation, IsFired, Password)
+            VALUES
+                (@FullName, @BirthDate, @Gender, @Address, @Phone, @Email, @DepartmentID, @PositionID, @HireDate, @IsProbation, @IsFired, @Password)";
+
+        using (var conn = DBConnection.GetConnection())
+        {
+            conn.Open();
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@FullName", emp.FullName);
+                cmd.Parameters.AddWithValue("@BirthDate", emp.DateOfBirth);
+                cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+                cmd.Parameters.AddWithValue("@Address", emp.Address);
+                cmd.Parameters.AddWithValue("@Phone", emp.Phone);
+                cmd.Parameters.AddWithValue("@Email", emp.Email);
+                cmd.Parameters.AddWithValue("@DepartmentID", emp.DepartmentID);
+                cmd.Parameters.AddWithValue("@PositionID", emp.PositionID);
+                cmd.Parameters.AddWithValue("@HireDate", emp.HireDate);
+                cmd.Parameters.AddWithValue("@IsProbation", emp.isProbation); // bool
+                cmd.Parameters.AddWithValue("@IsFired", emp.isFired);         // bool
+                cmd.Parameters.AddWithValue("@EmployeeID", emp.EmployeeID);
+                cmd.Parameters.AddWithValue("@Password", emp.password);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+        }
+    }
+
+    public bool DeleteEmployee(int empID) 
+    {
+        string query = "DELETE FROM Employees WHERE EmployeeID = @ID";
+        using (SqlConnection conn = DBConnection.GetConnection())
+        {
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@ID", empID);
+            conn.Open();
+            int rows = cmd.ExecuteNonQuery();
+            return rows > 0;
+        }
+    }
+
+    public bool UpdateEmp(Employee emp)
+    {
+        string query = @"
+        UPDATE Employees SET 
+            FullName = @FullName,
+            BirthDate = @DateOfBirth,
+            Gender = @Gender,
+            Address = @Address,
+            Phone = @Phone,
+            Email = @Email,
+            DepartmentID = @DepartmentID,
+            PositionID = @PositionID,
+            HireDate = @HireDate,
+            IsProbation = @IsProbation,
+            IsFired = @IsFired,
+            Password = @Password
+        WHERE EmployeeID = @EmployeeID";
+
+        using (var conn = DBConnection.GetConnection())
+        {
+            conn.Open();
+            using (var cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@FullName", emp.FullName);
+                cmd.Parameters.AddWithValue("@DateOfBirth", emp.DateOfBirth);
+                cmd.Parameters.AddWithValue("@Gender", emp.Gender);
+                cmd.Parameters.AddWithValue("@Address", emp.Address);
+                cmd.Parameters.AddWithValue("@Phone", emp.Phone);
+                cmd.Parameters.AddWithValue("@Email", emp.Email);
+                cmd.Parameters.AddWithValue("@DepartmentID", emp.DepartmentID);
+                cmd.Parameters.AddWithValue("@PositionID", emp.PositionID);
+                cmd.Parameters.AddWithValue("@HireDate", emp.HireDate);
+                cmd.Parameters.AddWithValue("@IsProbation", emp.isProbation); // bool
+                cmd.Parameters.AddWithValue("@IsFired", emp.isFired);         // bool
+                cmd.Parameters.AddWithValue("@EmployeeID", emp.EmployeeID);
+                cmd.Parameters.AddWithValue("@Password", emp.password);
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+        }
+    }
 }

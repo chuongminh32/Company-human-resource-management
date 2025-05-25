@@ -15,7 +15,7 @@ public class SalaryBUS
         return salaryDAO.TinhTongLuongTheoThangNam(emID, month, year);
     }
 
-    public List<Salary> LayTatCaThongTinLuong_Admin() { 
+    public List<Salary> LayTatCaThongTinLuong_Admin() {
         return salaryDAO.LayTatCaThongTinLuong_Admin();
     }
 
@@ -74,32 +74,40 @@ public class SalaryBUS
         return null;
     }
 
-
-    public bool ThemLuong(string fullName, string baseSalaryStr,
-        string monthStr, string yearStr, string allowanceStr, string bonusStr,
-        string penaltyStr, string overtimeStr, ref string error)
+    public bool ThemLuong(string fullName,
+    string monthStr, string yearStr, string allowanceStr, ref string error)
     {
-        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(baseSalaryStr)
-            || string.IsNullOrWhiteSpace(monthStr) || string.IsNullOrWhiteSpace(yearStr))
+        // Kiểm tra thông tin bắt buộc
+        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(monthStr) || string.IsNullOrWhiteSpace(yearStr))
         {
-            error = "Vui lòng nhập đầy đủ thông tin";
-            return false;
-        }
-        //!int.TryParse(salaryIDStr, out int salaryID) ||
-        if (!decimal.TryParse(baseSalaryStr, out decimal baseSalary) ||
-            !int.TryParse(monthStr, out int month) ||
-            !int.TryParse(yearStr, out int year))
-        {
-            error = "Lương, Tháng, Năm phải là số.";
+            error = "Vui lòng nhập họ tên, tháng và năm.";
             return false;
         }
 
-        decimal allowance = string.IsNullOrWhiteSpace(allowanceStr) ? 0 : Convert.ToDecimal(allowanceStr);
-        decimal bonus = string.IsNullOrWhiteSpace(bonusStr) ? 0 : Convert.ToDecimal(bonusStr);
-        decimal penalty = string.IsNullOrWhiteSpace(penaltyStr) ? 0 : Convert.ToDecimal(penaltyStr);
-        int overtime = string.IsNullOrWhiteSpace(overtimeStr) ? 0 : Convert.ToInt32(overtimeStr);
+        // Kiểm tra tháng và năm là số
+        if (!int.TryParse(monthStr, out int month) || !int.TryParse(yearStr, out int year))
+        {
+            error = "Tháng và năm phải là số hợp lệ.";
+            return false;
+        }
 
-        return salaryDAO.InsertSalary(fullName, baseSalary, month, year, allowance, bonus, penalty, overtime, ref error);
+        // Kiểm tra allowance là số
+        decimal allowance = 0;
+        if (!string.IsNullOrWhiteSpace(allowanceStr) && !decimal.TryParse(allowanceStr, out allowance))
+        {
+            error = "Phụ cấp (Allowance) phải là số hợp lệ.";
+            return false;
+        }
+
+        // Mặc định các giá trị khác là 0
+        decimal bonus = 0;
+        decimal penalty = 0;
+        int overtime = 0;
+
+        // Gọi DAO để thêm lương
+        return salaryDAO.InsertSalary(fullName, month, year, allowance, bonus, penalty, overtime, ref error);
     }
+
+
 
 }

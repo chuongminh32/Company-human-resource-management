@@ -109,31 +109,38 @@ public class SalaryDAO
     public bool UpdateSalaries(ref string error)
     {
         string updateQuery = @"
-            UPDATE S
-            SET 
-                Penalty = ISNULL(DP.TotalPenalty, 0),
-                Bonus = ISNULL(RW.TotalBonus, 0),
-                OvertimeHours = ISNULL(AT.TotalOvertime, 0)
-            FROM [dbo].[Salaries] S
-            LEFT JOIN (
-                SELECT EmployeeID, YEAR(DisciplineDate) AS SalaryYear, MONTH(DisciplineDate) AS SalaryMonth, SUM(Amount) AS TotalPenalty
-                FROM [dbo].[Disciplines]
-                GROUP BY EmployeeID, YEAR(DisciplineDate), MONTH(DisciplineDate)
-            ) DP ON S.EmployeeID = DP.EmployeeID AND S.SalaryYear = DP.SalaryYear AND S.SalaryMonth = DP.SalaryMonth
-            LEFT JOIN (
-                SELECT EmployeeID, YEAR(RewardDate) AS SalaryYear, MONTH(RewardDate) AS SalaryMonth, SUM(Amount) AS TotalBonus
-                FROM [dbo].[Rewards]
-                GROUP BY EmployeeID, YEAR(RewardDate), MONTH(RewardDate)
-            ) RW ON S.EmployeeID = RW.EmployeeID AND S.SalaryYear = RW.SalaryYear AND S.SalaryMonth = RW.SalaryMonth
-            LEFT JOIN (
-                SELECT EmployeeID, YEAR(WorkDate) AS SalaryYear, MONTH(WorkDate) AS SalaryMonth, SUM(OvertimeHours) AS TotalOvertime
-                FROM [dbo].[Attendance]
-                GROUP BY EmployeeID, YEAR(WorkDate), MONTH(WorkDate)
-            ) AT ON S.EmployeeID = AT.EmployeeID AND S.SalaryYear = AT.SalaryYear AND S.SalaryMonth = AT.SalaryMonth;
-        ";
+        UPDATE S
+        SET 
+            BaseSalary = ISNULL(P.BaseSalary, 0),
+            Penalty = ISNULL(DP.TotalPenalty, 0),
+            Bonus = ISNULL(RW.TotalBonus, 0),
+            OvertimeHours = ISNULL(AT.TotalOvertime, 0)
+        FROM Salaries S
+        INNER JOIN Employees E ON S.EmployeeID = E.EmployeeID
+        LEFT JOIN Positions P ON E.PositionID = P.PositionID
+
+        LEFT JOIN (
+            SELECT EmployeeID, YEAR(DisciplineDate) AS SalaryYear, MONTH(DisciplineDate) AS SalaryMonth, SUM(Amount) AS TotalPenalty
+            FROM [dbo].[Disciplines]
+            GROUP BY EmployeeID, YEAR(DisciplineDate), MONTH(DisciplineDate)
+        ) DP ON S.EmployeeID = DP.EmployeeID AND S.SalaryYear = DP.SalaryYear AND S.SalaryMonth = DP.SalaryMonth
+
+        LEFT JOIN (
+            SELECT EmployeeID, YEAR(RewardDate) AS SalaryYear, MONTH(RewardDate) AS SalaryMonth, SUM(Amount) AS TotalBonus
+            FROM [dbo].[Rewards]
+            GROUP BY EmployeeID, YEAR(RewardDate), MONTH(RewardDate)
+        ) RW ON S.EmployeeID = RW.EmployeeID AND S.SalaryYear = RW.SalaryYear AND S.SalaryMonth = RW.SalaryMonth
+
+        LEFT JOIN (
+            SELECT EmployeeID, YEAR(WorkDate) AS SalaryYear, MONTH(WorkDate) AS SalaryMonth, SUM(OvertimeHours) AS TotalOvertime
+            FROM [dbo].[Attendance]
+            GROUP BY EmployeeID, YEAR(WorkDate), MONTH(WorkDate)
+        ) AT ON S.EmployeeID = AT.EmployeeID AND S.SalaryYear = AT.SalaryYear AND S.SalaryMonth = AT.SalaryMonth;
+    ";
 
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error);
     }
+
     //Trả về danh sách các năm có trong bảng
     public List<int> GetDistinctSalaryYears()
     {
@@ -233,47 +240,64 @@ public class SalaryDAO
         return list;
     }
 
-    public bool InsertSalary(string employeeName, decimal baseSalary, int month, int year,
-    decimal? allowance, decimal? bonus, decimal? penalty, int? overtimeHours, ref string error)
+    public bool InsertSalary(string employeeName, int month, int year,
+    decimal allowance, decimal bonus, decimal penalty, int overtimeHours, ref string error)
     {
         // Lấy EmployeeID từ tên
-        string queryCheck = "SELECT EmployeeID FROM Employees WHERE FullName = @FullName";
-        SqlParameter[] paramCheck = {
+        string queryGetID = "SELECT EmployeeID FROM Employees WHERE FullName = @FullName";
+        SqlParameter[] paramGetID = {
         new SqlParameter("@FullName", SqlDbType.NVarChar, 100) { Value = employeeName }
     };
 
-        object result = DBConnection.ExecuteScalar(queryCheck, paramCheck);
-
+        object result = DBConnection.ExecuteScalar(queryGetID, paramGetID);
         if (result == null || result == DBNull.Value)
         {
             error = "Tên nhân viên không tồn tại.";
             return false;
         }
 
-        int employeeID;
-        if (!int.TryParse(result.ToString(), out employeeID) || employeeID == 0)
+        int employeeID = Convert.ToInt32(result);
+
+        // Lấy BaseSalary từ bảng Positions qua PositionID
+        string queryGetSalary = @"
+        SELECT P.BaseSalary
+        FROM Employees E
+        JOIN Positions P ON E.PositionID = P.PositionID
+        WHERE E.EmployeeID = @EmployeeID";
+
+        SqlParameter[] paramSalary = {
+        new SqlParameter("@EmployeeID", employeeID)
+    };
+
+        object baseSalaryResult = DBConnection.ExecuteScalar(queryGetSalary, paramSalary);
+        if (baseSalaryResult == null || baseSalaryResult == DBNull.Value)
         {
-            error = "Tên nhân viên không hợp lệ.";
+            error = "Không tìm thấy lương cơ bản từ chức vụ.";
             return false;
         }
 
-        string query = @"
+        decimal baseSalary = Convert.ToDecimal(baseSalaryResult);
+
+        // Chèn dữ liệu vào bảng Salaries
+        string queryInsert = @"
         INSERT INTO Salaries (EmployeeID, BaseSalary, Allowance, Bonus, Penalty, OvertimeHours, SalaryMonth, SalaryYear)
         VALUES (@EmployeeID, @BaseSalary, @Allowance, @Bonus, @Penalty, @OvertimeHours, @SalaryMonth, @SalaryYear)";
 
-        SqlParameter[] parameters = {
+        SqlParameter[] insertParams = {
         new SqlParameter("@EmployeeID", employeeID),
         new SqlParameter("@BaseSalary", baseSalary),
-        new SqlParameter("@Allowance", allowance ?? 0),
-        new SqlParameter("@Bonus", bonus ?? 0),
-        new SqlParameter("@Penalty", penalty ?? 0),
-        new SqlParameter("@OvertimeHours", overtimeHours ?? 0),
+        new SqlParameter("@Allowance", allowance),
+        new SqlParameter("@Bonus", bonus),
+        new SqlParameter("@Penalty", penalty),
+        new SqlParameter("@OvertimeHours", overtimeHours),
         new SqlParameter("@SalaryMonth", month),
         new SqlParameter("@SalaryYear", year)
     };
 
-        return db.MyExecuteNonQuery(query, CommandType.Text, ref error, parameters);
+        return db.MyExecuteNonQuery(queryInsert, CommandType.Text, ref error, insertParams);
     }
+
+
 
 
 

@@ -25,10 +25,10 @@ namespace CompanyHRManagement.GUI.admin
         }
         private void LoadData()
         {
+            LoadSalariesData();
             LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
             LoadDepartmentsToCB();
             LoadPositionsToCB();
-            LoadSalariesData();
             LoadYearToCB();
             LoadMonthtoCB();
             
@@ -163,6 +163,10 @@ namespace CompanyHRManagement.GUI.admin
         {
             panel_thongtin.Enabled = true;
             txtSalaryID.Enabled = false;
+            txtBaseSalary.Enabled = false;
+            txtBonus.Enabled = false;
+            txtPenalty.Enabled = false;
+            txtOvertimeHours.Enabled = false;      
             them = true;
         }
 
@@ -174,20 +178,15 @@ namespace CompanyHRManagement.GUI.admin
                 them = false;
                 bool success = _salaryBUS.ThemLuong(
                 txtFullName.Text.Trim(),
-                txtBaseSalary.Text.Trim(),
                 cbMonth.Text.Trim(),
                 cbYear.Text.Trim(),
                 txtAllowance.Text.Trim(),
-                txtBonus.Text.Trim(),
-                txtPenalty.Text.Trim(),
-                txtOvertimeHours.Text.Trim(),
                 ref error);
 
                 if (success)
                 {
                     MessageBox.Show("Thêm lương thành công!");
-                    LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
-                    ClearAllText();
+                    LoadData();
                 }
                 else
                 {

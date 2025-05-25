@@ -16,11 +16,17 @@ namespace CompanyHRManagement.GUI.admin
     public partial class Panel_Luong : UserControl
     {
         private SalaryBUS _salaryBUS = new SalaryBUS();
+        private DepartmentBUS _departmentBUS = new DepartmentBUS();
         public Panel_Luong()
         {
             InitializeComponent();
         }
         private void LoadData()
+        {
+            LoadDGV();
+            LoadDepartmentsToCB();
+        }
+        private void LoadDGV()
         {
             try
             {
@@ -46,6 +52,9 @@ namespace CompanyHRManagement.GUI.admin
 
                 // Tùy chọn thêm: căn giữa hoặc chỉnh độ rộng
                 dgvLuong.AutoResizeColumns();
+                dgvLuong.ReadOnly = true;
+                dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvLuong.AllowUserToAddRows = true;
 
             }
             catch (SqlException e)
@@ -54,13 +63,20 @@ namespace CompanyHRManagement.GUI.admin
             }
         }
 
+        void LoadDepartmentsToCB()
+        {
+            List<string> departments = _departmentBUS.LayDSTenPhongBan();
+
+            cbPhong.Items.Clear();
+            cbPhong.Items.Add(""); // Thêm tùy chọn trống hoặc "Tất cả"
+            cbPhong.Items.AddRange(departments.ToArray());
+        }
+
+
         private void Panel_Luong_Load(object sender, EventArgs e)
         {
-            LoadData();
-            dgvLuong.ReadOnly = true;
-            dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLuong.AllowUserToAddRows = true;
             
+            LoadData();
         }
     }
 }

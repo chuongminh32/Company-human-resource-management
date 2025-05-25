@@ -107,12 +107,14 @@
   <ItemGroup>
     <Compile Include="BUS\_ado\AuthenticationBUS.cs" />
     <Compile Include="BUS\_ado\DashBoard_adminBUS.cs" />
+    <Compile Include="BUS\_ado\DepartmentBUS.cs" />
     <Compile Include="BUS\_ado\MessageBUS.cs" />
     <Compile Include="BUS\_ado\LeavesBUS.cs" />
     <Compile Include="BUS\_ado\DashBoardBUS.cs" />
     <Compile Include="BUS\_ado\EmployeeBUS.cs" />
     <Compile Include="BUS\_ado\AttendanceBUS.cs" />
     <Compile Include="BUS\_ado\SalaryBUS.cs" />
+    <Compile Include="DAL\_ado\DepartmentDAO.cs" />
     <Compile Include="DAL\_ado\MessageDAO.cs" />
     <Compile Include="DAL\_ado\LeaveDAO.cs" />
     <Compile Include="DAL\_ado\DashBoardDAO.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="GUI\user\MainForm_user.Designer.cs">
       <DependentUpon>MainForm_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Leave.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

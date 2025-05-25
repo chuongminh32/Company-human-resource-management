@@ -24,17 +24,19 @@ namespace CompanyHRManagement.GUI.admin
         }
         private void LoadData()
         {
-            LoadDGV();
+            LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
             LoadDepartmentsToCB();
             LoadPositionsToCB();
             LoadSalariesData();
+            LoadYearToCB();
+            LoadMonthtoCB();
+            
         }
-        private void LoadDGV()
+        private void LoadDGV(List<Salary> danhSachLuong)
         {
             try
             {
-                List<Salary> danhSachLuong = _salaryBUS.LayTatCaThongTinLuong_Admin(); 
-
+                
                 dgvLuong.DataSource = danhSachLuong; 
 
                 // Ẩn cột EmployeeID
@@ -70,18 +72,39 @@ namespace CompanyHRManagement.GUI.admin
         {
             List<string> departments = _departmentBUS.LayDSTenPhongBan();
             cbPhong.Items.Clear();
-            cbPhong.Items.Add(""); // Thêm tùy chọn trống hoặc "Tất cả"
+            cbPhong.Items.Add("Tất cả"); // Thêm tùy chọn trống hoặc "Tất cả"
             cbPhong.Items.AddRange(departments.ToArray());
         }
-
+        private void LoadMonthtoCB()
+        {
+            cbMonth.SelectedIndex = 0;
+        }
         private void LoadPositionsToCB()
         {
             List<string> Positions = _positionBUS.LayDSTenChucVu();
 
             cbChucVu.Items.Clear();
-            cbChucVu.Items.Add(""); // Thêm tùy chọn trống hoặc "Tất cả"
+            cbChucVu.Items.Add("Tất cả"); // Thêm tùy chọn trống hoặc "Tất cả"
             cbChucVu.Items.AddRange(Positions.ToArray());
         }
+
+        private void LoadYearToCB()
+        {
+            List<int> years = _salaryBUS.LayDanhSachNam();
+
+            cbYear.Items.Clear();
+            cbYear.Items.Add("Tất cả"); // Hoặc "" nếu bạn muốn để trống
+
+            foreach (int year in years)
+            {
+                cbYear.Items.Add(year.ToString());
+            }
+
+            cbYear.SelectedIndex = 0;
+            
+
+        }
+
         private void LoadSalariesData()
         {
             string error = "";
@@ -111,6 +134,15 @@ namespace CompanyHRManagement.GUI.admin
         {
             LoadData();
         
+        }
+
+        private void btnTim_Click(object sender, EventArgs e)
+        {
+            LoadDGV(_salaryBUS.Loc_TimKiem(txtSalaryID.Text.ToString(),
+                txtFullName.Text.ToString(), txtBaseSalary.Text.ToString(),
+                txtAllowance.Text.ToString(), txtBonus.Text.ToString(),
+                txtPenalty.Text.ToString(), txtOvertimeHours.Text.ToString(),
+                cbMonth.Text.ToString(), cbYear.Text.ToString()));
         }
     }
 }

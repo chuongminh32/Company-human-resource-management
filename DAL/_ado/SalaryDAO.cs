@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 public class SalaryDAO
 {
@@ -78,7 +79,8 @@ public class SalaryDAO
         "SELECT s.SalaryID, s.EmployeeID, e.FullName, s.BaseSalary, s.Allowance, s.Bonus, " +
         "s.Penalty, s.OvertimeHours, s.SalaryMonth, s.SalaryYear " +
         "FROM Salaries s INNER JOIN Employees e " +
-        "ON s.EmployeeID = e.EmployeeID";
+        "ON s.EmployeeID = e.EmployeeID " +
+        "ORDER BY s.SalaryYear DESC, s.SalaryMonth DESC";
 
 
         using (SqlConnection conn = DBConnection.GetConnection())
@@ -140,6 +142,109 @@ public class SalaryDAO
 
         DBConnection db = new DBConnection();
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error);
+    }
+    //Trả về danh sách các năm có trong bảng
+    public List<int> GetDistinctSalaryYears()
+    {
+        List<int> years = new List<int>();
+        string query = "SELECT DISTINCT SalaryYear FROM Salaries ORDER BY SalaryYear DESC";
+
+        using (SqlConnection conn = DBConnection.GetConnection())
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            conn.Open();
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    years.Add(reader.GetInt32(0));
+                }
+            }
+        }
+
+        return years;
+    }
+    //Hàm Lọc + Tìm kiếm
+    public List<Salary> SearchSalaries(
+    int? salaryID,
+    string fullName,
+    decimal? baseSalary,
+    decimal? allowance,
+    decimal? bonus,
+    decimal? penalty,
+    int? overtimeHours,
+    string salaryMonthStr,
+    string salaryYearStr)
+    {
+        List<Salary> list = new List<Salary>();
+
+        // Parse SalaryMonth
+        int? salaryMonth = null;
+        if (!string.IsNullOrEmpty(salaryMonthStr) && salaryMonthStr != "Tất cả")
+        {
+            int temp;
+            if (int.TryParse(salaryMonthStr, out temp))
+                salaryMonth = temp;
+        }
+
+        // Parse SalaryYear
+        int? salaryYear = null;
+        if (!string.IsNullOrEmpty(salaryYearStr) && salaryYearStr != "Tất cả")
+        {
+            int temp;
+            if (int.TryParse(salaryYearStr, out temp))
+                salaryYear = temp;
+        }
+
+        string query = @"
+        SELECT s.SalaryID, e.FullName, s.BaseSalary, s.Allowance, s.Bonus, 
+               s.Penalty, s.OvertimeHours, s.SalaryMonth, s.SalaryYear
+        FROM Salaries s
+        INNER JOIN Employees e ON s.EmployeeID = e.EmployeeID
+        WHERE (@SalaryID IS NULL OR s.SalaryID = @SalaryID)
+          AND (@FullName IS NULL OR e.FullName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @FullName + '%')
+          AND (@BaseSalary IS NULL OR s.BaseSalary = @BaseSalary)
+          AND (@Allowance IS NULL OR s.Allowance = @Allowance)
+          AND (@Bonus IS NULL OR s.Bonus = @Bonus)
+          AND (@Penalty IS NULL OR s.Penalty = @Penalty)
+          AND (@OvertimeHours IS NULL OR s.OvertimeHours = @OvertimeHours)
+          AND (@SalaryMonth IS NULL OR s.SalaryMonth = @SalaryMonth)
+          AND (@SalaryYear IS NULL OR s.SalaryYear = @SalaryYear)";
+
+        SqlParameter[] parameters = new SqlParameter[]
+        {
+        new SqlParameter("@SalaryID", SqlDbType.Int) { Value = salaryID.HasValue ? (object)salaryID.Value : DBNull.Value },
+        new SqlParameter("@FullName", SqlDbType.NVarChar, 100) { Value = string.IsNullOrEmpty(fullName) ? (object)DBNull.Value : fullName },
+        new SqlParameter("@BaseSalary", SqlDbType.Decimal) { Value = baseSalary.HasValue ? (object)baseSalary.Value : DBNull.Value },
+        new SqlParameter("@Allowance", SqlDbType.Decimal) { Value = allowance.HasValue ? (object)allowance.Value : DBNull.Value },
+        new SqlParameter("@Bonus", SqlDbType.Decimal) { Value = bonus.HasValue ? (object)bonus.Value : DBNull.Value },
+        new SqlParameter("@Penalty", SqlDbType.Decimal) { Value = penalty.HasValue ? (object)penalty.Value : DBNull.Value },
+        new SqlParameter("@OvertimeHours", SqlDbType.Int) { Value = overtimeHours.HasValue ? (object)overtimeHours.Value : DBNull.Value },
+        new SqlParameter("@SalaryMonth", SqlDbType.Int) { Value = salaryMonth.HasValue ? (object)salaryMonth.Value : DBNull.Value },
+        new SqlParameter("@SalaryYear", SqlDbType.Int) { Value = salaryYear.HasValue ? (object)salaryYear.Value : DBNull.Value }
+        };
+
+        using (SqlDataReader reader = DBConnection.ExecuteReader(query, parameters))
+        {
+            while (reader.Read())
+            {
+                Salary sal = new Salary();
+
+                sal.SalaryID = reader.GetInt32(reader.GetOrdinal("SalaryID"));
+                sal.FullName = reader.IsDBNull(reader.GetOrdinal("FullName")) ? "" : reader.GetString(reader.GetOrdinal("FullName"));
+                sal.BaseSalary = reader.IsDBNull(reader.GetOrdinal("BaseSalary")) ? 0 : reader.GetDecimal(reader.GetOrdinal("BaseSalary"));
+                sal.Allowance = reader.IsDBNull(reader.GetOrdinal("Allowance")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Allowance"));
+                sal.Bonus = reader.IsDBNull(reader.GetOrdinal("Bonus")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Bonus"));
+                sal.Penalty = reader.IsDBNull(reader.GetOrdinal("Penalty")) ? 0 : reader.GetDecimal(reader.GetOrdinal("Penalty"));
+                sal.OvertimeHours = reader.IsDBNull(reader.GetOrdinal("OvertimeHours")) ? 0 : reader.GetInt32(reader.GetOrdinal("OvertimeHours"));
+                sal.SalaryMonth = reader.IsDBNull(reader.GetOrdinal("SalaryMonth")) ? 0 : reader.GetInt32(reader.GetOrdinal("SalaryMonth"));
+                sal.SalaryYear = reader.IsDBNull(reader.GetOrdinal("SalaryYear")) ? 0 : reader.GetInt32(reader.GetOrdinal("SalaryYear"));
+
+                list.Add(sal);
+            }
+        }
+
+        return list;
     }
 
 

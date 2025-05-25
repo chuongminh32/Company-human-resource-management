@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Windows.Forms;
 
 public class SalaryDAO
@@ -297,6 +298,60 @@ public class SalaryDAO
         return db.MyExecuteNonQuery(queryInsert, CommandType.Text, ref error, insertParams);
     }
 
+    public bool DeleteSalariesByIDs(List<int> salaryIDs, ref string error)
+    {
+        if (salaryIDs == null || salaryIDs.Count == 0)
+        {
+            error = "Danh sách ID không hợp lệ.";
+            return false;
+        }
+
+        string joinedIDs = string.Join(",", salaryIDs);
+        string query = $"DELETE FROM Salaries WHERE SalaryID IN ({joinedIDs})";
+
+        return db.MyExecuteNonQuery(query, CommandType.Text, ref error);
+    }
+
+    public bool UpdateSalaryByID(int salaryID, string fullName, decimal allowance, int month, int year, ref string error)
+    {
+        // Lấy EmployeeID từ FullName
+        string queryGetEmployeeID = "SELECT EmployeeID FROM Employees WHERE FullName = @FullName";
+        SqlParameter[] paramGetEmp = {
+        new SqlParameter("@FullName", SqlDbType.NVarChar, 100) { Value = fullName }
+    };
+        object empIDObj = DBConnection.ExecuteScalar(queryGetEmployeeID, paramGetEmp);
+
+        if (empIDObj == null || empIDObj == DBNull.Value)
+        {
+            error = "Tên nhân viên không tồn tại.";
+            return false;
+        }
+
+        int employeeID;
+        if (!int.TryParse(empIDObj.ToString(), out employeeID) || employeeID == 0)
+        {
+            error = "Tên nhân viên không hợp lệ.";
+            return false;
+        }
+
+        string updateQuery = @"
+        UPDATE Salaries
+        SET EmployeeID = @EmployeeID,
+            Allowance = @Allowance,
+            SalaryMonth = @SalaryMonth,
+            SalaryYear = @SalaryYear
+        WHERE SalaryID = @SalaryID";
+
+        SqlParameter[] parameters = {
+        new SqlParameter("@EmployeeID", employeeID),
+        new SqlParameter("@Allowance", allowance),
+        new SqlParameter("@SalaryMonth", month),
+        new SqlParameter("@SalaryYear", year),
+        new SqlParameter("@SalaryID", salaryID)
+    };
+
+        return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error, parameters);
+    }
 
 
 

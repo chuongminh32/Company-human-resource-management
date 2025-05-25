@@ -108,6 +108,39 @@ public class SalaryBUS
         return salaryDAO.InsertSalary(fullName, month, year, allowance, bonus, penalty, overtime, ref error);
     }
 
+    public bool XoaLuongtheoIDs(List<int> salaryIDs, ref string error)
+    {
+        return salaryDAO.DeleteSalariesByIDs(salaryIDs, ref error);
+    }
+
+    public bool SuaLuong(int salaryID, string fullName, string allowanceStr, string monthStr, string yearStr, ref string error)
+    {
+        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(monthStr) || string.IsNullOrWhiteSpace(yearStr) || string.IsNullOrWhiteSpace(allowanceStr))
+        {
+            error = "Vui lòng nhập đầy đủ thông tin.";
+            return false;
+        }
+
+        if (!int.TryParse(monthStr, out int month) || month < 1 || month > 12)
+        {
+            error = "Tháng không hợp lệ.";
+            return false;
+        }
+
+        if (!int.TryParse(yearStr, out int year) || year < 1900)
+        {
+            error = "Năm không hợp lệ.";
+            return false;
+        }
+
+        if (!decimal.TryParse(allowanceStr, out decimal allowance) || allowance < 0)
+        {
+            error = "Allowance phải là số không âm.";
+            return false;
+        }
+
+        return salaryDAO.UpdateSalaryByID(salaryID, fullName, allowance, month, year, ref error);
+    }
 
 
 }

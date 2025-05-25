@@ -19,24 +19,26 @@ namespace CompanyHRManagement.GUI.admin
         private DepartmentBUS _departmentBUS = new DepartmentBUS();
         private PositionBUS _positionBUS = new PositionBUS();
         private bool them = false;
+        private bool sua = false;
         public Panel_Luong()
         {
             InitializeComponent();
         }
         private void LoadData()
-        {
+        { 
             LoadSalariesData();
             LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
             LoadDepartmentsToCB();
             LoadPositionsToCB();
             LoadYearToCB();
             LoadMonthtoCB();
-            
+            EnableAllText();
             ClearAllText();
-            
+
         }
         private void ClearAllText()
         {
+            panel_thongtin.Enabled = true;
             //Xóa tất cả text trên các textbox 
             txtSalaryID.Clear();
             txtFullName.Clear();
@@ -45,6 +47,17 @@ namespace CompanyHRManagement.GUI.admin
             txtBonus.Clear();
             txtOvertimeHours.Clear();
             txtPenalty.Clear();
+        }
+
+        private void EnableAllText()
+        {
+            txtSalaryID.Enabled = true;
+            txtFullName.Enabled = true;
+            txtAllowance.Enabled = true;
+            txtBaseSalary.Enabled = true;
+            txtBonus.Enabled = true;
+            txtOvertimeHours.Enabled = true;
+            txtPenalty.Enabled = true;
         }
         private void LoadDGV(List<Salary> danhSachLuong)
         {
@@ -175,7 +188,6 @@ namespace CompanyHRManagement.GUI.admin
             string error = "";
             if (them)
             {
-                them = false;
                 bool success = _salaryBUS.ThemLuong(
                 txtFullName.Text.Trim(),
                 cbMonth.Text.Trim(),
@@ -186,6 +198,7 @@ namespace CompanyHRManagement.GUI.admin
                 if (success)
                 {
                     MessageBox.Show("Thêm lương thành công!");
+                    them = false;
                     LoadData();
                 }
                 else
@@ -193,10 +206,38 @@ namespace CompanyHRManagement.GUI.admin
                     MessageBox.Show("Lỗi: " + error);
                 }
             }
-            else
+            else if (sua == true)
             {
-                MessageBox.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa trước khi nhấn Lưu");
+                                // Lấy dữ liệu từ các control trên form
+                if (!int.TryParse(txtSalaryID.Text, out int salaryID) || salaryID <= 0)
+                {
+                    MessageBox.Show("SalaryID không hợp lệ.");
+                    return;
+                }
+
+                string fullName = txtFullName.Text.Trim();
+                string allowanceStr = txtAllowance.Text.Trim();
+                string monthStr = cbMonth.Text.Trim();
+                string yearStr = cbYear.Text.Trim();
+
+                // Gọi hàm sửa trong BUS
+                bool result = _salaryBUS.SuaLuong(salaryID, fullName, allowanceStr, monthStr, yearStr, ref error);
+
+                if (result)
+                {
+                    MessageBox.Show("Cập nhật lương thành công!");
+                    sua = false;
+                    LoadData(); 
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi: " + error);
+                }
             }
+            else
+                {
+                    MessageBox.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa trước khi nhấn Lưu");
+                }
         }
 
         private void dgvLuong_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -205,19 +246,95 @@ namespace CompanyHRManagement.GUI.admin
             if (e.RowIndex < 0)
                 return;
 
-            // Lấy dòng đang được chọn
-            DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
+            // Kiểm tra có dòng được chọn hay không
+            if (dgvLuong.SelectedRows.Count > 1)
+            {
+                ClearAllText();
+                List<string> selectedIDs = new List<string>();
 
-            // Gán giá trị vào các TextBox (chuyển đổi kiểu dữ liệu phù hợp)
-            txtSalaryID.Text = row.Cells["SalaryID"].Value?.ToString() ?? "";
-            txtFullName.Text = row.Cells["FullName"].Value?.ToString() ?? "";
-            txtBaseSalary.Text = row.Cells["BaseSalary"].Value?.ToString() ?? "";
-            txtAllowance.Text = row.Cells["Allowance"].Value?.ToString() ?? "";
-            txtBonus.Text = row.Cells["Bonus"].Value?.ToString() ?? "";
-            txtPenalty.Text = row.Cells["Penalty"].Value?.ToString() ?? "";
-            txtOvertimeHours.Text = row.Cells["OvertimeHours"].Value?.ToString() ?? "";
-            cbMonth.Text = row.Cells["SalaryMonth"].Value?.ToString() ?? "";
-            cbYear.Text = row.Cells["SalaryYear"].Value?.ToString() ?? "";
+                // Lấy các ID trong cột SalaryID của dòng được chọn
+                foreach (DataGridViewRow row in dgvLuong.SelectedRows)
+                {
+                    if (row.Cells["SalaryID"].Value != null)
+                    {
+                        selectedIDs.Add(row.Cells["SalaryID"].Value.ToString());
+                    }
+                }
+
+                // Nối danh sách ID thành chuỗi phân cách dấu phẩy
+                string input = string.Join(", ", selectedIDs);
+
+                // Gán vào textbox
+                txtSalaryID.Text = input;
+            } else if (dgvLuong.SelectedRows.Count == 1)
+            {
+                // Lấy dòng đang được chọn
+                DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
+
+                // Gán giá trị vào các TextBox (chuyển đổi kiểu dữ liệu phù hợp)
+                txtSalaryID.Text = row.Cells["SalaryID"].Value?.ToString() ?? "";
+                txtFullName.Text = row.Cells["FullName"].Value?.ToString() ?? "";
+                txtBaseSalary.Text = row.Cells["BaseSalary"].Value?.ToString() ?? "";
+                txtAllowance.Text = row.Cells["Allowance"].Value?.ToString() ?? "";
+                txtBonus.Text = row.Cells["Bonus"].Value?.ToString() ?? "";
+                txtPenalty.Text = row.Cells["Penalty"].Value?.ToString() ?? "";
+                txtOvertimeHours.Text = row.Cells["OvertimeHours"].Value?.ToString() ?? "";
+                cbMonth.Text = row.Cells["SalaryMonth"].Value?.ToString() ?? "";
+                cbYear.Text = row.Cells["SalaryYear"].Value?.ToString() ?? "";
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            string error = "";
+            string input = txtSalaryID.Text;
+
+            // 1. Phân tách danh sách ID
+            List<int> salaryIDs = input.Split(',')
+                .Select(id => int.TryParse(id.Trim(), out int parsedId) ? parsedId : 0)
+                .Where(id => id > 0)
+                .ToList();
+
+            if (salaryIDs.Count == 0)
+            {
+                MessageBox.Show("Vui lòng nhập ID cần xóa hợp lệ.");
+                return;
+            }
+
+            // 2. Hỏi xác nhận người dùng
+            DialogResult dialogResult = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa {salaryIDs.Count} bản ghi lương?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (dialogResult == DialogResult.No)
+                return;
+
+            // 3. Gọi BUS thực hiện xóa nhiều ID cùng lúc
+            bool result = _salaryBUS.XoaLuongtheoIDs(salaryIDs, ref error);
+
+            // 4. Kết quả
+            if (result)
+            {
+                MessageBox.Show("Xóa thành công!");
+                LoadData(); // Load lại dữ liệu
+            }
+            else
+            {
+                MessageBox.Show("Lỗi: " + error);
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            panel_thongtin.Enabled = true;
+            txtSalaryID.Enabled = false;
+            txtBaseSalary.Enabled = false;
+            txtBonus.Enabled = false;
+            txtPenalty.Enabled = false;
+            txtOvertimeHours.Enabled = false;
+            sua = true;
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Data;
 using CompanyHRManagement.DAL._ado;
 using CompanyHRManagement.Models;
 using static Guna.UI2.Native.WinApi;
+using System.Text.RegularExpressions;
 
 
 namespace CompanyHRManagement.GUI.user
@@ -257,6 +258,29 @@ namespace CompanyHRManagement.GUI.user
         // Click nút lưu thông tin cá nhân 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            // Kiểm tra định dạng Email
+            string email = txtEmail.Text.Trim();
+            string phone = txtSDT.Text.Trim();
+
+            // Regex kiểm tra email
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+            // Regex kiểm tra số điện thoại Việt Nam (10 chữ số, bắt đầu bằng 03, 05, 07, 08, 09)
+            string phonePattern = @"^(03|05|07|08|09)\d{8}$";
+
+            if (!Regex.IsMatch(email, emailPattern))
+            {
+                guna2MessageDialog2.Icon = MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Email không hợp lệ. Vui lòng nhập lại.", "Thông báo");
+                return;
+            }
+
+            if (!Regex.IsMatch(phone, phonePattern))
+            {
+                guna2MessageDialog2.Icon = MessageDialogIcon.Warning;
+                guna2MessageDialog2.Show("Số điện thoại không hợp lệ. Vui lòng nhập lại.", "Thông báo");
+                return;
+            }
             var emp = new Employee
             {
                 EmployeeID = int.Parse(lblIDNhanVien.Text),
@@ -913,6 +937,7 @@ namespace CompanyHRManagement.GUI.user
             dgv.AlternatingRowsDefaultCellStyle = commonStyle;
 
             // Header
+            dgv.ColumnHeadersHeight = 64;
             dgv.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             dgv.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.Teal;

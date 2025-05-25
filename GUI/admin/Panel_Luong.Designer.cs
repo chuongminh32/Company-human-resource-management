@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Button26 = new Guna.UI2.WinForms.Guna2Button();
             this.panelInfoDB_admin = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2VSeparator2 = new Guna.UI2.WinForms.Guna2VSeparator();
@@ -64,6 +64,7 @@
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtBaseSalary = new Guna.UI2.WinForms.Guna2TextBox();
             this.panel_thongtin = new System.Windows.Forms.Panel();
+            this.btnSalarythismonth = new Guna.UI2.WinForms.Guna2Button();
             this.cbMonth = new Guna.UI2.WinForms.Guna2ComboBox();
             this.btnThem = new Guna.UI2.WinForms.Guna2Button();
             this.cbYear = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -75,7 +76,6 @@
             this.txtPenalty = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel12 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnSalarythismonth = new Guna.UI2.WinForms.Guna2Button();
             this.panelInfoDB_admin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
             this.panel_thongtin.SuspendLayout();
@@ -307,31 +307,31 @@
             // 
             // dgvLuong
             // 
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            this.dgvLuong.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLuong.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvLuong.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvLuong.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvLuong.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLuong.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvLuong.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvLuong.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvLuong.Location = new System.Drawing.Point(0, 132);
+            this.dgvLuong.Location = new System.Drawing.Point(-129, 132);
             this.dgvLuong.Name = "dgvLuong";
             this.dgvLuong.RowHeadersVisible = false;
             this.dgvLuong.RowHeadersWidth = 51;
-            this.dgvLuong.Size = new System.Drawing.Size(1047, 417);
+            this.dgvLuong.Size = new System.Drawing.Size(1176, 417);
             this.dgvLuong.TabIndex = 83;
             this.dgvLuong.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
             this.dgvLuong.ThemeStyle.AlternatingRowsStyle.Font = null;
@@ -581,6 +581,19 @@
             this.panel_thongtin.Size = new System.Drawing.Size(1044, 229);
             this.panel_thongtin.TabIndex = 120;
             // 
+            // btnSalarythismonth
+            // 
+            this.btnSalarythismonth.BorderRadius = 10;
+            this.btnSalarythismonth.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSalarythismonth.FillColor = System.Drawing.Color.DarkGoldenrod;
+            this.btnSalarythismonth.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSalarythismonth.ForeColor = System.Drawing.Color.White;
+            this.btnSalarythismonth.Location = new System.Drawing.Point(21, 160);
+            this.btnSalarythismonth.Name = "btnSalarythismonth";
+            this.btnSalarythismonth.Size = new System.Drawing.Size(206, 40);
+            this.btnSalarythismonth.TabIndex = 122;
+            this.btnSalarythismonth.Text = "Lương tháng này";
+            // 
             // cbMonth
             // 
             this.cbMonth.BackColor = System.Drawing.Color.Transparent;
@@ -746,19 +759,6 @@
             this.guna2HtmlLabel12.Size = new System.Drawing.Size(92, 33);
             this.guna2HtmlLabel12.TabIndex = 121;
             this.guna2HtmlLabel12.Text = "Sắp xếp:";
-            // 
-            // btnSalarythismonth
-            // 
-            this.btnSalarythismonth.BorderRadius = 10;
-            this.btnSalarythismonth.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSalarythismonth.FillColor = System.Drawing.Color.DarkGoldenrod;
-            this.btnSalarythismonth.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnSalarythismonth.ForeColor = System.Drawing.Color.White;
-            this.btnSalarythismonth.Location = new System.Drawing.Point(21, 160);
-            this.btnSalarythismonth.Name = "btnSalarythismonth";
-            this.btnSalarythismonth.Size = new System.Drawing.Size(206, 40);
-            this.btnSalarythismonth.TabIndex = 122;
-            this.btnSalarythismonth.Text = "Lương tháng này";
             // 
             // Panel_Luong
             // 

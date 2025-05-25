@@ -32,6 +32,11 @@ namespace CompanyHRManagement.GUI.admin
             LoadYearToCB();
             LoadMonthtoCB();
             
+            ClearAllText();
+            
+        }
+        private void ClearAllText()
+        {
             //Xóa tất cả text trên các textbox 
             txtSalaryID.Clear();
             txtFullName.Clear();
@@ -40,7 +45,6 @@ namespace CompanyHRManagement.GUI.admin
             txtBonus.Clear();
             txtOvertimeHours.Clear();
             txtPenalty.Clear();
-            
         }
         private void LoadDGV(List<Salary> danhSachLuong)
         {
@@ -167,6 +171,7 @@ namespace CompanyHRManagement.GUI.admin
             string error = "";
             if (them)
             {
+                them = false;
                 bool success = _salaryBUS.ThemLuong(
                 txtFullName.Text.Trim(),
                 txtBaseSalary.Text.Trim(),
@@ -181,14 +186,39 @@ namespace CompanyHRManagement.GUI.admin
                 if (success)
                 {
                     MessageBox.Show("Thêm lương thành công!");
-                    // Có thể load lại dữ liệu, reset form ở đây
+                    LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
+                    ClearAllText();
                 }
                 else
                 {
                     MessageBox.Show("Lỗi: " + error);
                 }
-                LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
             }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa trước khi nhấn Lưu");
+            }
+        }
+
+        private void dgvLuong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Kiểm tra nếu người dùng bấm vào header hoặc ngoài vùng dữ liệu
+            if (e.RowIndex < 0)
+                return;
+
+            // Lấy dòng đang được chọn
+            DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
+
+            // Gán giá trị vào các TextBox (chuyển đổi kiểu dữ liệu phù hợp)
+            txtSalaryID.Text = row.Cells["SalaryID"].Value?.ToString() ?? "";
+            txtFullName.Text = row.Cells["FullName"].Value?.ToString() ?? "";
+            txtBaseSalary.Text = row.Cells["BaseSalary"].Value?.ToString() ?? "";
+            txtAllowance.Text = row.Cells["Allowance"].Value?.ToString() ?? "";
+            txtBonus.Text = row.Cells["Bonus"].Value?.ToString() ?? "";
+            txtPenalty.Text = row.Cells["Penalty"].Value?.ToString() ?? "";
+            txtOvertimeHours.Text = row.Cells["OvertimeHours"].Value?.ToString() ?? "";
+            cbMonth.Text = row.Cells["SalaryMonth"].Value?.ToString() ?? "";
+            cbYear.Text = row.Cells["SalaryYear"].Value?.ToString() ?? "";
         }
     }
 }

@@ -113,12 +113,14 @@
     <Compile Include="BUS\_ado\DashBoardBUS.cs" />
     <Compile Include="BUS\_ado\EmployeeBUS.cs" />
     <Compile Include="BUS\_ado\AttendanceBUS.cs" />
+    <Compile Include="BUS\_ado\PositionBUS.cs" />
     <Compile Include="BUS\_ado\SalaryBUS.cs" />
     <Compile Include="DAL\_ado\DepartmentDAO.cs" />
     <Compile Include="DAL\_ado\MessageDAO.cs" />
     <Compile Include="DAL\_ado\LeaveDAO.cs" />
     <Compile Include="DAL\_ado\DashBoardDAO.cs" />
     <Compile Include="DAL\_ado\DashBoard_adminDAO.cs" />
+    <Compile Include="DAL\_ado\PositionDAO.cs" />
     <Compile Include="GUI\admin\MainForm_admin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +169,7 @@
     <Compile Include="GUI\user\MainForm_user.Designer.cs">
       <DependentUpon>MainForm_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Leave.cs" />

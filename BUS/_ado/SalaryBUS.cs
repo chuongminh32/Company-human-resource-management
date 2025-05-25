@@ -18,4 +18,8 @@ public class SalaryBUS
         return salaryDAO.LayTatCaThongTinLuong_Admin();
     }
 
+    public bool TaiLaiDataLuong(ref string error)
+    {
+        return salaryDAO.UpdateSalaries(ref error);
+    }
 }

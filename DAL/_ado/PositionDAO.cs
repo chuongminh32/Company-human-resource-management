@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace CompanyHRManagement.DAL._ado
 {
-    public class DepartmentDAO
+    public class PositionDAO
     {
         //Lấy danh sách tên trả vào comboBox
-        public List<string> GetDepartmentNames()
+        public List<string> GetPositionNames()
         {
-            List<string> departments = new List<string>();
+            List<string> position = new List<string>();
 
-            string query = "SELECT DepartmentName FROM Departments";
+            string query = "SELECT PositionName FROM Positions";
 
             using (SqlConnection conn = DBConnection.GetConnection())
             {
@@ -25,13 +25,13 @@ namespace CompanyHRManagement.DAL._ado
                     {
                         while (reader.Read())
                         {
-                            departments.Add(reader.GetString(0));
+                            position.Add(reader.GetString(0));
                         }
                     }
                 }
             }
 
-            return departments;
+            return position;
         }
     }
 }

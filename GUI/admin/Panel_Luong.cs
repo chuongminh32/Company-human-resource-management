@@ -18,6 +18,7 @@ namespace CompanyHRManagement.GUI.admin
         private SalaryBUS _salaryBUS = new SalaryBUS();
         private DepartmentBUS _departmentBUS = new DepartmentBUS();
         private PositionBUS _positionBUS = new PositionBUS();
+        private bool them = false;
         public Panel_Luong()
         {
             InitializeComponent();
@@ -30,6 +31,15 @@ namespace CompanyHRManagement.GUI.admin
             LoadSalariesData();
             LoadYearToCB();
             LoadMonthtoCB();
+            
+            //Xóa tất cả text trên các textbox 
+            txtSalaryID.Clear();
+            txtFullName.Clear();
+            txtAllowance.Clear();
+            txtBaseSalary.Clear();
+            txtBonus.Clear();
+            txtOvertimeHours.Clear();
+            txtPenalty.Clear();
             
         }
         private void LoadDGV(List<Salary> danhSachLuong)
@@ -143,6 +153,42 @@ namespace CompanyHRManagement.GUI.admin
                 txtAllowance.Text.ToString(), txtBonus.Text.ToString(),
                 txtPenalty.Text.ToString(), txtOvertimeHours.Text.ToString(),
                 cbMonth.Text.ToString(), cbYear.Text.ToString()));
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            panel_thongtin.Enabled = true;
+            txtSalaryID.Enabled = false;
+            them = true;
+        }
+
+        private void btnLuu_Click(object sender, EventArgs e)
+        {
+            string error = "";
+            if (them)
+            {
+                bool success = _salaryBUS.ThemLuong(
+                txtFullName.Text.Trim(),
+                txtBaseSalary.Text.Trim(),
+                cbMonth.Text.Trim(),
+                cbYear.Text.Trim(),
+                txtAllowance.Text.Trim(),
+                txtBonus.Text.Trim(),
+                txtPenalty.Text.Trim(),
+                txtOvertimeHours.Text.Trim(),
+                ref error);
+
+                if (success)
+                {
+                    MessageBox.Show("Thêm lương thành công!");
+                    // Có thể load lại dữ liệu, reset form ở đây
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi: " + error);
+                }
+                LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
+            }
         }
     }
 }

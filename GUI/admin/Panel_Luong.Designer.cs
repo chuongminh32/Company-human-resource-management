@@ -63,7 +63,9 @@
             this.txtAllowance = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtBaseSalary = new Guna.UI2.WinForms.Guna2TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel_thongtin = new System.Windows.Forms.Panel();
+            this.cbMonth = new Guna.UI2.WinForms.Guna2ComboBox();
+            this.btnThem = new Guna.UI2.WinForms.Guna2Button();
             this.cbYear = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -73,11 +75,9 @@
             this.txtPenalty = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel12 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.btnThem = new Guna.UI2.WinForms.Guna2Button();
-            this.cbMonth = new Guna.UI2.WinForms.Guna2ComboBox();
             this.panelInfoDB_admin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.panel_thongtin.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Button26
@@ -432,6 +432,7 @@
             this.btnLuu.Size = new System.Drawing.Size(100, 40);
             this.btnLuu.TabIndex = 110;
             this.btnLuu.Text = "Lưu";
+            this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
             // btnXuatExcel
             // 
@@ -545,34 +546,75 @@
             this.txtBaseSalary.Size = new System.Drawing.Size(229, 31);
             this.txtBaseSalary.TabIndex = 116;
             // 
-            // panel1
+            // panel_thongtin
             // 
-            this.panel1.Controls.Add(this.cbMonth);
-            this.panel1.Controls.Add(this.btnThem);
-            this.panel1.Controls.Add(this.btnSua);
-            this.panel1.Controls.Add(this.btnXuatExcel);
-            this.panel1.Controls.Add(this.btnLuu);
-            this.panel1.Controls.Add(this.cbYear);
-            this.panel1.Controls.Add(this.guna2HtmlLabel11);
-            this.panel1.Controls.Add(this.btnXoa);
-            this.panel1.Controls.Add(this.guna2HtmlLabel10);
-            this.panel1.Controls.Add(this.txtOvertimeHours);
-            this.panel1.Controls.Add(this.label);
-            this.panel1.Controls.Add(this.txtBonus);
-            this.panel1.Controls.Add(this.txtPenalty);
-            this.panel1.Controls.Add(this.guna2HtmlLabel8);
-            this.panel1.Controls.Add(this.guna2HtmlLabel5);
-            this.panel1.Controls.Add(this.txtBaseSalary);
-            this.panel1.Controls.Add(this.txtAllowance);
-            this.panel1.Controls.Add(this.txtSalaryID);
-            this.panel1.Controls.Add(this.guna2HtmlLabel6);
-            this.panel1.Controls.Add(this.guna2HtmlLabel3);
-            this.panel1.Controls.Add(this.txtFullName);
-            this.panel1.Controls.Add(this.guna2HtmlLabel4);
-            this.panel1.Location = new System.Drawing.Point(3, 555);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1044, 229);
-            this.panel1.TabIndex = 120;
+            this.panel_thongtin.Controls.Add(this.cbMonth);
+            this.panel_thongtin.Controls.Add(this.btnThem);
+            this.panel_thongtin.Controls.Add(this.btnSua);
+            this.panel_thongtin.Controls.Add(this.btnXuatExcel);
+            this.panel_thongtin.Controls.Add(this.btnLuu);
+            this.panel_thongtin.Controls.Add(this.cbYear);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel11);
+            this.panel_thongtin.Controls.Add(this.btnXoa);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel10);
+            this.panel_thongtin.Controls.Add(this.txtOvertimeHours);
+            this.panel_thongtin.Controls.Add(this.label);
+            this.panel_thongtin.Controls.Add(this.txtBonus);
+            this.panel_thongtin.Controls.Add(this.txtPenalty);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel8);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel5);
+            this.panel_thongtin.Controls.Add(this.txtBaseSalary);
+            this.panel_thongtin.Controls.Add(this.txtAllowance);
+            this.panel_thongtin.Controls.Add(this.txtSalaryID);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel6);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel3);
+            this.panel_thongtin.Controls.Add(this.txtFullName);
+            this.panel_thongtin.Controls.Add(this.guna2HtmlLabel4);
+            this.panel_thongtin.Location = new System.Drawing.Point(3, 555);
+            this.panel_thongtin.Name = "panel_thongtin";
+            this.panel_thongtin.Size = new System.Drawing.Size(1044, 229);
+            this.panel_thongtin.TabIndex = 120;
+            // 
+            // cbMonth
+            // 
+            this.cbMonth.BackColor = System.Drawing.Color.Transparent;
+            this.cbMonth.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMonth.FocusedColor = System.Drawing.Color.Empty;
+            this.cbMonth.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cbMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbMonth.ItemHeight = 30;
+            this.cbMonth.Items.AddRange(new object[] {
+            "Tất cả",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.cbMonth.Location = new System.Drawing.Point(794, 117);
+            this.cbMonth.Name = "cbMonth";
+            this.cbMonth.Size = new System.Drawing.Size(103, 36);
+            this.cbMonth.TabIndex = 128;
+            // 
+            // btnThem
+            // 
+            this.btnThem.BorderRadius = 10;
+            this.btnThem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnThem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnThem.ForeColor = System.Drawing.Color.White;
+            this.btnThem.Location = new System.Drawing.Point(278, 160);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(100, 40);
+            this.btnThem.TabIndex = 122;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // cbYear
             // 
@@ -699,46 +741,6 @@
             this.guna2HtmlLabel12.TabIndex = 121;
             this.guna2HtmlLabel12.Text = "Sắp xếp:";
             // 
-            // btnThem
-            // 
-            this.btnThem.BorderRadius = 10;
-            this.btnThem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnThem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(278, 160);
-            this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(100, 40);
-            this.btnThem.TabIndex = 122;
-            this.btnThem.Text = "Thêm";
-            // 
-            // cbMonth
-            // 
-            this.cbMonth.BackColor = System.Drawing.Color.Transparent;
-            this.cbMonth.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMonth.FocusedColor = System.Drawing.Color.Empty;
-            this.cbMonth.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cbMonth.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbMonth.ItemHeight = 30;
-            this.cbMonth.Items.AddRange(new object[] {
-            "Tất cả",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12"});
-            this.cbMonth.Location = new System.Drawing.Point(794, 117);
-            this.cbMonth.Name = "cbMonth";
-            this.cbMonth.Size = new System.Drawing.Size(103, 36);
-            this.cbMonth.TabIndex = 128;
-            // 
             // Panel_Luong
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -753,15 +755,15 @@
             this.Controls.Add(this.cbPhong);
             this.Controls.Add(this.guna2Button26);
             this.Controls.Add(this.panelInfoDB_admin);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel_thongtin);
             this.Name = "Panel_Luong";
             this.Size = new System.Drawing.Size(1050, 787);
             this.Load += new System.EventHandler(this.Panel_Luong_Load);
             this.panelInfoDB_admin.ResumeLayout(false);
             this.panelInfoDB_admin.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLuong)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panel_thongtin.ResumeLayout(false);
+            this.panel_thongtin.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -801,7 +803,7 @@
         private Guna.UI2.WinForms.Guna2TextBox txtAllowance;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
         private Guna.UI2.WinForms.Guna2TextBox txtBaseSalary;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel_thongtin;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel11;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel10;
         private Guna.UI2.WinForms.Guna2TextBox txtOvertimeHours;

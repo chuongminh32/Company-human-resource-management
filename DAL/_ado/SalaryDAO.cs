@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 public class SalaryDAO
 {
-
+    DBConnection db = new DBConnection();
     public decimal TinhTongLuongTheoThangNam(int employeeId, int month, int year)
     {
         string query = @"
@@ -75,45 +75,37 @@ public class SalaryDAO
     public List<Salary> LayTatCaThongTinLuong_Admin()
     {
         List<Salary> list = new List<Salary>();
-        string query =
-        "SELECT s.SalaryID, s.EmployeeID, e.FullName, s.BaseSalary, s.Allowance, s.Bonus, " +
-        "s.Penalty, s.OvertimeHours, s.SalaryMonth, s.SalaryYear " +
-        "FROM Salaries s INNER JOIN Employees e " +
-        "ON s.EmployeeID = e.EmployeeID " +
-        "ORDER BY s.SalaryYear DESC, s.SalaryMonth DESC";
+        string query = @"
+        SELECT s.SalaryID, s.EmployeeID, e.FullName, s.BaseSalary, s.Allowance, s.Bonus,
+               s.Penalty, s.OvertimeHours, s.SalaryMonth, s.SalaryYear
+        FROM Salaries s
+        INNER JOIN Employees e ON s.EmployeeID = e.EmployeeID";
 
-
-        using (SqlConnection conn = DBConnection.GetConnection())
+        using (SqlDataReader reader = DBConnection.ExecuteReader(query))
         {
-            conn.Open();
-            using (SqlCommand cmd = new SqlCommand(query, conn))
+            while (reader.Read())
             {
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                Salary s = new Salary()
                 {
-                    while (reader.Read())
-                    {
-                        Salary s = new Salary()
-                        {
-                            SalaryID = reader.GetInt32(0),
-                            EmployeeID = reader.GetInt32(1),
-                            FullName = reader.GetString(2),
-                            BaseSalary = reader.GetDecimal(3),
-                            Allowance = reader.GetDecimal(4),
-                            Bonus = reader.GetDecimal(5),
-                            Penalty = reader.GetDecimal(6),
-                            OvertimeHours = reader.GetInt32(7),
-                            SalaryMonth = reader.GetInt32(8),
-                            SalaryYear = reader.GetInt32(9)
-                        };
-                        list.Add(s);
-                    }
-                }
+                    SalaryID = reader.GetInt32(0),
+                    EmployeeID = reader.GetInt32(1),
+                    FullName = reader.GetString(2),
+                    BaseSalary = reader.GetDecimal(3),
+                    Allowance = reader.GetDecimal(4),
+                    Bonus = reader.GetDecimal(5),
+                    Penalty = reader.GetDecimal(6),
+                    OvertimeHours = reader.GetInt32(7),
+                    SalaryMonth = reader.GetInt32(8),
+                    SalaryYear = reader.GetInt32(9)
+                };
+                list.Add(s);
             }
         }
 
         return list;
     }
-    //Cập nhật thông tin trong bảng lương theo 
+
+    //Cập nhật thông tin trong bảng lương theo các bảng
     public bool UpdateSalaries(ref string error)
     {
         string updateQuery = @"
@@ -140,7 +132,6 @@ public class SalaryDAO
             ) AT ON S.EmployeeID = AT.EmployeeID AND S.SalaryYear = AT.SalaryYear AND S.SalaryMonth = AT.SalaryMonth;
         ";
 
-        DBConnection db = new DBConnection();
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error);
     }
     //Trả về danh sách các năm có trong bảng
@@ -149,16 +140,11 @@ public class SalaryDAO
         List<int> years = new List<int>();
         string query = "SELECT DISTINCT SalaryYear FROM Salaries ORDER BY SalaryYear DESC";
 
-        using (SqlConnection conn = DBConnection.GetConnection())
-        using (SqlCommand cmd = new SqlCommand(query, conn))
+        using (SqlDataReader reader = DBConnection.ExecuteReader(query))
         {
-            conn.Open();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    years.Add(reader.GetInt32(0));
-                }
+                years.Add(reader.GetInt32(0));
             }
         }
 
@@ -245,6 +231,48 @@ public class SalaryDAO
         }
 
         return list;
+    }
+
+    public bool InsertSalary(string employeeName, decimal baseSalary, int month, int year,
+    decimal? allowance, decimal? bonus, decimal? penalty, int? overtimeHours, ref string error)
+    {
+        // Lấy EmployeeID từ tên
+        string queryCheck = "SELECT EmployeeID FROM Employees WHERE FullName = @FullName";
+        SqlParameter[] paramCheck = {
+        new SqlParameter("@FullName", SqlDbType.NVarChar, 100) { Value = employeeName }
+    };
+
+        object result = DBConnection.ExecuteScalar(queryCheck, paramCheck);
+
+        if (result == null || result == DBNull.Value)
+        {
+            error = "Tên nhân viên không tồn tại.";
+            return false;
+        }
+
+        int employeeID;
+        if (!int.TryParse(result.ToString(), out employeeID) || employeeID == 0)
+        {
+            error = "Tên nhân viên không hợp lệ.";
+            return false;
+        }
+
+        string query = @"
+        INSERT INTO Salaries (EmployeeID, BaseSalary, Allowance, Bonus, Penalty, OvertimeHours, SalaryMonth, SalaryYear)
+        VALUES (@EmployeeID, @BaseSalary, @Allowance, @Bonus, @Penalty, @OvertimeHours, @SalaryMonth, @SalaryYear)";
+
+        SqlParameter[] parameters = {
+        new SqlParameter("@EmployeeID", employeeID),
+        new SqlParameter("@BaseSalary", baseSalary),
+        new SqlParameter("@Allowance", allowance ?? 0),
+        new SqlParameter("@Bonus", bonus ?? 0),
+        new SqlParameter("@Penalty", penalty ?? 0),
+        new SqlParameter("@OvertimeHours", overtimeHours ?? 0),
+        new SqlParameter("@SalaryMonth", month),
+        new SqlParameter("@SalaryYear", year)
+    };
+
+        return db.MyExecuteNonQuery(query, CommandType.Text, ref error, parameters);
     }
 
 

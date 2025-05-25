@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 public class SalaryBUS
 {
@@ -71,6 +72,34 @@ public class SalaryBUS
         if (decimal.TryParse(s, out decimal result))
             return result;
         return null;
+    }
+
+
+    public bool ThemLuong(string fullName, string baseSalaryStr,
+        string monthStr, string yearStr, string allowanceStr, string bonusStr,
+        string penaltyStr, string overtimeStr, ref string error)
+    {
+        if (string.IsNullOrWhiteSpace(fullName) || string.IsNullOrWhiteSpace(baseSalaryStr)
+            || string.IsNullOrWhiteSpace(monthStr) || string.IsNullOrWhiteSpace(yearStr))
+        {
+            error = "Vui lòng nhập đầy đủ thông tin";
+            return false;
+        }
+        //!int.TryParse(salaryIDStr, out int salaryID) ||
+        if (!decimal.TryParse(baseSalaryStr, out decimal baseSalary) ||
+            !int.TryParse(monthStr, out int month) ||
+            !int.TryParse(yearStr, out int year))
+        {
+            error = "Lương, Tháng, Năm phải là số.";
+            return false;
+        }
+
+        decimal allowance = string.IsNullOrWhiteSpace(allowanceStr) ? 0 : Convert.ToDecimal(allowanceStr);
+        decimal bonus = string.IsNullOrWhiteSpace(bonusStr) ? 0 : Convert.ToDecimal(bonusStr);
+        decimal penalty = string.IsNullOrWhiteSpace(penaltyStr) ? 0 : Convert.ToDecimal(penaltyStr);
+        int overtime = string.IsNullOrWhiteSpace(overtimeStr) ? 0 : Convert.ToInt32(overtimeStr);
+
+        return salaryDAO.InsertSalary(fullName, baseSalary, month, year, allowance, bonus, penalty, overtime, ref error);
     }
 
 }

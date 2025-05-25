@@ -26,7 +26,7 @@ public class DBConnection
         return ds;
     }
 
-    public bool MyExecuteNonQuery(string strSQL, CommandType ct, ref string error)
+    public bool MyExecuteNonQuery(string strSQL, CommandType ct, ref string error, SqlParameter[] parameters = null)
     {
         bool f = false;
         if (conn.State == ConnectionState.Open)
@@ -34,6 +34,10 @@ public class DBConnection
         conn.Open();
         comm.CommandText = strSQL;
         comm.CommandType = ct;
+
+        if (parameters != null)
+            comm.Parameters.AddRange(parameters);
+
         try
         {
             comm.ExecuteNonQuery();
@@ -46,9 +50,11 @@ public class DBConnection
         finally
         {
             conn.Close();
+            comm.Parameters.Clear(); // Xóa tham số để tránh lỗi khi gọi lại
         }
         return f;
     }
+
 
     public static SqlConnection GetConnection()
     {

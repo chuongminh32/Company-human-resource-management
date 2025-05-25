@@ -14,5 +14,10 @@ namespace CompanyHRManagement.BUS._ado
         {
             return positionDAO.GetPositionNames();
         }
+
+        public string LayTenChucVuTheoID(int positionId)
+        {
+            return positionDAO.GetPositionNameById(positionId);
+        }
     }
 }

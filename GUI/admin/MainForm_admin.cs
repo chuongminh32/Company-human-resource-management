@@ -17,21 +17,19 @@ namespace CompanyHRManagement.GUI.admin
     {
         private readonly EmployeeBUS employeeBUS = new EmployeeBUS();
         private int user_id;
+        private Employee emp = new Employee();
 
         public MainForm_admin(string email)
         {
-            Employee emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
+            this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.user_id = emp.EmployeeID;
-            //this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
-            //this.fullname = emp.FullName;
-            //this.role = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             InitializeComponent();
-           
+
 
         }
         private void MainForm_admin_Load(object sender, EventArgs e)
         {
-            panel_main.LoadDashBoard_Count();
+            panel_main.LoadDashBoard_Count(emp);
         }
 
         private void HideAllPanels()
@@ -63,7 +61,7 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_NhanVien.Visible = true;
             panel_NhanVien.BringToFront();
-            
+
 
         }
 

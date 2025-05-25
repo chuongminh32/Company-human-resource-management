@@ -14,5 +14,8 @@ public class SalaryBUS
         return salaryDAO.TinhTongLuongTheoThangNam(emID, month, year);
     }
 
+    public List<Salary> LayTatCaThongTinLuong_Admin() { 
+        return salaryDAO.LayTatCaThongTinLuong_Admin();
+    }
 
 }

@@ -56,7 +56,7 @@ namespace CompanyHRManagement.GUI.admin
             }
             catch (SqlException)
             {
-                MessageBox.Show("Không lấy được nội dung trong table Message. Lỗi rồi!!!");
+                MessageBox.Show("Không lấy được nội dung trong table NhanVien. Lỗi rồi!!!");
             }
 
         }

@@ -129,6 +129,12 @@
     <Compile Include="GUI\admin\Panel_ChamCong.Designer.cs">
       <DependentUpon>Panel_ChamCong.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\admin\Panel_Luong.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_Luong.Designer.cs">
+      <DependentUpon>Panel_Luong.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\admin\Panel_main.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -206,6 +212,9 @@
     <None Include="Reports\EmployeeStatisticsReport.rdlc" />
     <EmbeddedResource Include="GUI\admin\Panel_ChamCong.resx">
       <DependentUpon>Panel_ChamCong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\admin\Panel_Luong.resx">
+      <DependentUpon>Panel_Luong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\admin\Panel_main.resx">
       <DependentUpon>Panel_main.cs</DependentUpon>

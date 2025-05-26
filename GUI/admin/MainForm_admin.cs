@@ -36,8 +36,8 @@ namespace CompanyHRManagement.GUI.admin
         {
             panel_main.Visible = false;
             panel_NhanVien.Visible = false;
-            panel_ChamCong1.Visible = false;
-            panel_Message1.Visible = false;
+            panel_ChamCong.Visible = false;
+            panel_Message.Visible = false;
             panel_Luong.Visible = false;
         }
 
@@ -61,8 +61,6 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_NhanVien.Visible = true;
             panel_NhanVien.BringToFront();
-
-
         }
 
 
@@ -90,16 +88,16 @@ namespace CompanyHRManagement.GUI.admin
         private void btnChamCong_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panel_ChamCong1.Visible = true;
+            panel_ChamCong.Visible = true;
             panel_NhanVien.BringToFront();
         }
 
         private void btnMessage_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panel_Message1.Visible = true;
-            panel_Message1.CurrentUserId = user_id;
-            panel_Message1.BringToFront();
+            panel_Message.Visible = true;
+            panel_Message.CurrentUserId = user_id;
+            panel_Message.BringToFront();
         }
 
         private void btnLuong_Click(object sender, EventArgs e)

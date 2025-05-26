@@ -59,8 +59,8 @@ namespace CompanyHRManagement.GUI.admin
             this.panel_main = new CompanyHRManagement.GUI.admin.Panel_main();
             this.panel_NhanVien = new CompanyHRManagement.GUI.admin.Panel_NhanVien();
             this.panel_Luong = new CompanyHRManagement.GUI.admin.Panel_Luong();
-            this.panel_ChamCong1 = new CompanyHRManagement.GUI.admin.Panel_ChamCong();
-            this.panel_Message1 = new CompanyHRManagement.GUI.admin.Panel_Message();
+            this.panel_ChamCong = new CompanyHRManagement.GUI.admin.Panel_ChamCong();
+            this.panel_Message = new CompanyHRManagement.GUI.admin.Panel_Message();
             this.sidebarPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -515,7 +515,7 @@ namespace CompanyHRManagement.GUI.admin
             // 
             // panel_NhanVien
             // 
-            this.panel_NhanVien.Location = new System.Drawing.Point(237, -3);
+            this.panel_NhanVien.Location = new System.Drawing.Point(237, 0);
             this.panel_NhanVien.Name = "panel_NhanVien";
             this.panel_NhanVien.Size = new System.Drawing.Size(1050, 787);
             this.panel_NhanVien.TabIndex = 2;
@@ -527,20 +527,20 @@ namespace CompanyHRManagement.GUI.admin
             this.panel_Luong.Size = new System.Drawing.Size(1050, 787);
             this.panel_Luong.TabIndex = 3;
             // 
-            // panel_ChamCong1
+            // panel_ChamCong
             // 
-            this.panel_ChamCong1.Location = new System.Drawing.Point(237, 0);
-            this.panel_ChamCong1.Name = "panel_ChamCong1";
-            this.panel_ChamCong1.Size = new System.Drawing.Size(1050, 787);
-            this.panel_ChamCong1.TabIndex = 4;
+            this.panel_ChamCong.Location = new System.Drawing.Point(237, 12);
+            this.panel_ChamCong.Name = "panel_ChamCong";
+            this.panel_ChamCong.Size = new System.Drawing.Size(1050, 787);
+            this.panel_ChamCong.TabIndex = 4;
             // 
-            // panel_Message1
+            // panel_Message
             // 
-            this.panel_Message1.CurrentUserId = 0;
-            this.panel_Message1.Location = new System.Drawing.Point(237, 0);
-            this.panel_Message1.Name = "panel_Message1";
-            this.panel_Message1.Size = new System.Drawing.Size(1050, 787);
-            this.panel_Message1.TabIndex = 5;
+            this.panel_Message.CurrentUserId = 0;
+            this.panel_Message.Location = new System.Drawing.Point(237, 0);
+            this.panel_Message.Name = "panel_Message";
+            this.panel_Message.Size = new System.Drawing.Size(1050, 787);
+            this.panel_Message.TabIndex = 5;
             // 
             // MainForm_admin
             // 
@@ -550,8 +550,8 @@ namespace CompanyHRManagement.GUI.admin
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_NhanVien);
             this.Controls.Add(this.panel_Luong);
-            this.Controls.Add(this.panel_ChamCong1);
-            this.Controls.Add(this.panel_Message1);
+            this.Controls.Add(this.panel_ChamCong);
+            this.Controls.Add(this.panel_Message);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm_admin";
@@ -600,10 +600,8 @@ namespace CompanyHRManagement.GUI.admin
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel9;
         private Panel_main panel_main;
         private Panel_NhanVien panel_NhanVien;
+        private Panel_Luong panel_Luong;
         private Panel_ChamCong panel_ChamCong;
         private Panel_Message panel_Message;
-        private Panel_Luong panel_Luong;
-        private Panel_ChamCong panel_ChamCong1;
-        private Panel_Message panel_Message1;
     }
 }

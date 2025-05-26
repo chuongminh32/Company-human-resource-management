@@ -193,42 +193,58 @@ public class SalaryDAO
     decimal? penalty,
     int? overtimeHours,
     string salaryMonthStr,
-    string salaryYearStr)
+    string salaryYearStr,
+    string departmentName,  
+    string positionName     
+)
     {
         List<Salary> list = new List<Salary>();
 
-        // Parse SalaryMonth
+        // Chuyển chuỗi tháng năm thành số, hoặc null nếu không hợp lệ hoặc là "Tất cả"
         int? salaryMonth = null;
         if (!string.IsNullOrEmpty(salaryMonthStr) && salaryMonthStr != "Tất cả")
         {
-            int temp;
-            if (int.TryParse(salaryMonthStr, out temp))
+            if (int.TryParse(salaryMonthStr, out int temp))
                 salaryMonth = temp;
         }
 
-        // Parse SalaryYear
         int? salaryYear = null;
         if (!string.IsNullOrEmpty(salaryYearStr) && salaryYearStr != "Tất cả")
         {
-            int temp;
-            if (int.TryParse(salaryYearStr, out temp))
+            if (int.TryParse(salaryYearStr, out int temp))
                 salaryYear = temp;
         }
 
+        // Nếu là "Tất cả", bỏ qua lọc (truyền null)
+        if (!string.IsNullOrEmpty(departmentName) && departmentName == "Tất cả")
+        {
+            departmentName = null;
+        }
+
+        if (!string.IsNullOrEmpty(positionName) && positionName == "Tất cả")
+        {
+            positionName = null;
+        }
+
         string query = @"
-        SELECT s.SalaryID, e.FullName, s.BaseSalary, s.Allowance, s.Bonus, 
-               s.Penalty, s.OvertimeHours, s.SalaryMonth, s.SalaryYear
-        FROM Salaries s
-        INNER JOIN Employees e ON s.EmployeeID = e.EmployeeID
-        WHERE (@SalaryID IS NULL OR s.SalaryID = @SalaryID)
-          AND (@FullName IS NULL OR e.FullName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @FullName + '%')
-          AND (@BaseSalary IS NULL OR s.BaseSalary = @BaseSalary)
-          AND (@Allowance IS NULL OR s.Allowance = @Allowance)
-          AND (@Bonus IS NULL OR s.Bonus = @Bonus)
-          AND (@Penalty IS NULL OR s.Penalty = @Penalty)
-          AND (@OvertimeHours IS NULL OR s.OvertimeHours = @OvertimeHours)
-          AND (@SalaryMonth IS NULL OR s.SalaryMonth = @SalaryMonth)
-          AND (@SalaryYear IS NULL OR s.SalaryYear = @SalaryYear)";
+    SELECT s.SalaryID, e.FullName, s.BaseSalary, s.Allowance, s.Bonus, 
+           s.Penalty, s.OvertimeHours, s.SalaryMonth, s.SalaryYear
+    FROM Salaries s
+    INNER JOIN Employees e ON s.EmployeeID = e.EmployeeID
+    INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID
+    INNER JOIN Positions p ON e.PositionID = p.PositionID
+    WHERE (@SalaryID IS NULL OR s.SalaryID = @SalaryID)
+      AND (@FullName IS NULL OR e.FullName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @FullName + '%')
+      AND (@BaseSalary IS NULL OR s.BaseSalary = @BaseSalary)
+      AND (@Allowance IS NULL OR s.Allowance = @Allowance)
+      AND (@Bonus IS NULL OR s.Bonus = @Bonus)
+      AND (@Penalty IS NULL OR s.Penalty = @Penalty)
+      AND (@OvertimeHours IS NULL OR s.OvertimeHours = @OvertimeHours)
+      AND (@SalaryMonth IS NULL OR s.SalaryMonth = @SalaryMonth)
+      AND (@SalaryYear IS NULL OR s.SalaryYear = @SalaryYear)
+      AND (@DepartmentName IS NULL OR d.DepartmentName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @DepartmentName + '%')
+      AND (@PositionName IS NULL OR p.PositionName COLLATE SQL_Latin1_General_CP1_CI_AS LIKE '%' + @PositionName + '%')
+    ";
 
         SqlParameter[] parameters = new SqlParameter[]
         {
@@ -240,7 +256,9 @@ public class SalaryDAO
         new SqlParameter("@Penalty", SqlDbType.Decimal) { Value = penalty.HasValue ? (object)penalty.Value : DBNull.Value },
         new SqlParameter("@OvertimeHours", SqlDbType.Int) { Value = overtimeHours.HasValue ? (object)overtimeHours.Value : DBNull.Value },
         new SqlParameter("@SalaryMonth", SqlDbType.Int) { Value = salaryMonth.HasValue ? (object)salaryMonth.Value : DBNull.Value },
-        new SqlParameter("@SalaryYear", SqlDbType.Int) { Value = salaryYear.HasValue ? (object)salaryYear.Value : DBNull.Value }
+        new SqlParameter("@SalaryYear", SqlDbType.Int) { Value = salaryYear.HasValue ? (object)salaryYear.Value : DBNull.Value },
+        new SqlParameter("@DepartmentName", SqlDbType.NVarChar, 100) { Value = string.IsNullOrEmpty(departmentName) ? (object)DBNull.Value : departmentName },
+        new SqlParameter("@PositionName", SqlDbType.NVarChar, 100) { Value = string.IsNullOrEmpty(positionName) ? (object)DBNull.Value : positionName }
         };
 
         using (SqlDataReader reader = DBConnection.ExecuteReader(query, parameters))
@@ -265,6 +283,8 @@ public class SalaryDAO
 
         return list;
     }
+
+
     public bool InsertSalary(string employeeName, int month, int year,
     decimal allowance, decimal bonus, decimal penalty, int overtimeHours, ref string error)
     {

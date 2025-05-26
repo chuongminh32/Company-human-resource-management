@@ -9,7 +9,6 @@ namespace CompanyHRManagement.GUI.admin
 
         private Guna.UI2.WinForms.Guna2Panel sidebarPanel;
         private Guna.UI2.WinForms.Guna2Button btnTrangChu;
-        private Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog;
         private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
 
         protected override void Dispose(bool disposing)
@@ -603,5 +602,6 @@ namespace CompanyHRManagement.GUI.admin
         private Panel_ChamCong panel_ChamCong1;
         private Panel_Message panel_Message1;
         private Label lblUsername;
+        public Guna.UI2.WinForms.Guna2MessageDialog guna2MessageDialog;
     }
 }

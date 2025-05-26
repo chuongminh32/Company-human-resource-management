@@ -25,7 +25,6 @@ namespace CompanyHRManagement.GUI.admin
         private bool isNewSalaryGenerated = false;
         private DataTable dtLuong_new = null;
 
-
         public Panel_Luong()
         {
             InitializeComponent();
@@ -38,9 +37,17 @@ namespace CompanyHRManagement.GUI.admin
             LoadPositionsToCB();
             LoadYearToCB();
             LoadMonthtoCB();
+            cbSapxep.SelectedIndex = 0;
             EnableAllText();
             ClearAllText();
 
+        }
+
+        private void FalseAllActions()
+        {
+            them = false;
+            sua = false;
+            isNewSalaryGenerated = false;
         }
         private void ClearAllText()
         {
@@ -104,7 +111,7 @@ namespace CompanyHRManagement.GUI.admin
             cbChucVu.Items.Add("Tất cả"); // Thêm tùy chọn trống hoặc "Tất cả"
             cbChucVu.Items.AddRange(Positions.ToArray());
             cbChucVu.SelectedIndex = 0;
-          }
+        }
 
         private void LoadYearToCB()
         {
@@ -156,16 +163,17 @@ namespace CompanyHRManagement.GUI.admin
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            LoadDGV(_salaryBUS.Loc_TimKiem(txtSalaryID.Text.ToString(), 
-                txtFullName.Text.ToString(), txtBaseSalary.Text.ToString(), 
+            LoadDGV(_salaryBUS.Loc_TimKiem(txtSalaryID.Text.ToString(),
+                txtFullName.Text.ToString(), txtBaseSalary.Text.ToString(),
                 txtAllowance.Text.ToString(), txtBonus.Text.ToString(),
-                txtPenalty.Text.ToString(), txtOvertimeHours.Text.ToString(), 
-                cbMonth.Text.ToString(), cbYear.Text.ToString(), 
+                txtPenalty.Text.ToString(), txtOvertimeHours.Text.ToString(),
+                cbMonth.Text.ToString(), cbYear.Text.ToString(),
                 cbPhong.Text.ToString(), cbChucVu.Text.ToString()));
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
+            FalseAllActions();
             panel_thongtin.Enabled = true;
             txtSalaryID.Enabled = false;
             txtBaseSalary.Enabled = false;
@@ -178,7 +186,7 @@ namespace CompanyHRManagement.GUI.admin
         private void btnLuu_Click(object sender, EventArgs e)
         {
             string error = "";
-            
+            Form parentForm = this.FindForm();
             if (them)
             {
                 bool success = _salaryBUS.ThemLuong(
@@ -187,16 +195,16 @@ namespace CompanyHRManagement.GUI.admin
                 cbYear.Text.Trim(),
                 txtAllowance.Text.Trim(),
                 ref error);
-
+                
                 if (success)
                 {
-                    guna2MessageDialog1.Show("Thêm lương thành công!");
+                    MessageBox.Show("Thêm lương thành công!"); 
                     them = false;
                     LoadData();
                 }
                 else
                 {
-                    guna2MessageDialog1.Show("Lỗi: " + error);
+                    MessageBox.Show("Lỗi: " + error);
                 }
             }
             else if (sua == true)
@@ -204,7 +212,7 @@ namespace CompanyHRManagement.GUI.admin
                 // Lấy dữ liệu từ các control trên form
                 if (!int.TryParse(txtSalaryID.Text, out int salaryID) || salaryID <= 0)
                 {
-                    guna2MessageDialog1.Show("SalaryID không hợp lệ.");
+                    MessageBox.Show("SalaryID không hợp lệ.");
                     return;
                 }
 
@@ -218,13 +226,13 @@ namespace CompanyHRManagement.GUI.admin
 
                 if (result)
                 {
-                    guna2MessageDialog1.Show("Cập nhật lương thành công!");
+                    MessageBox.Show("Cập nhật lương thành công!");
                     sua = false;
                     LoadData();
                 }
                 else
                 {
-                    guna2MessageDialog1.Show("Lỗi: " + error);
+                    MessageBox.Show("Lỗi: " + error);
                 }
             }
             else if (isNewSalaryGenerated)
@@ -232,18 +240,18 @@ namespace CompanyHRManagement.GUI.admin
                 bool success = _salaryBUS.LuuBangLuongMoi(dtLuong_new, ref error);
                 if (success)
                 {
-                    guna2MessageDialog1.Show("Thêm bảng lương mới thành công!");
+                    MessageBox.Show("Thêm bảng lương mới thành công!");
                     isNewSalaryGenerated = false;
                     LoadData();
                 }
                 else
                 {
-                    guna2MessageDialog1.Show("Lỗi: " + error);
+                    MessageBox.Show("Lỗi: " + error);
                 }
             }
             else
             {
-                guna2MessageDialog1.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa/Bảng Lương Mới trước khi nhấn Lưu");
+                MessageBox.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa/Bảng Lương Mới trước khi nhấn Lưu");
             }
         }
 
@@ -336,6 +344,7 @@ namespace CompanyHRManagement.GUI.admin
 
         private void btnSua_Click(object sender, EventArgs e)
         {
+            FalseAllActions();
             panel_thongtin.Enabled = true;
             txtSalaryID.Enabled = false;
             txtBaseSalary.Enabled = false;
@@ -347,17 +356,17 @@ namespace CompanyHRManagement.GUI.admin
 
         private void btnSalarythismonth_Click(object sender, EventArgs e)
         {
-            // Thiết lập dialog hỏi người dùng
-            guna2MessageDialog1.Caption = "Chọn thao tác";
-            guna2MessageDialog1.Text = "Bạn muốn tính bảng lương tháng mới hay xem bảng lương cũ?\n\n" +
-                                       "Chọn Yes để tính bảng lương mới.\n" +
-                                       "Chọn No để xem bảng lương cũ.";
-            guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
-            guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
-            guna2MessageDialog1.Buttons = MessageDialogButtons.YesNoCancel;
+            FalseAllActions();
+            string caption = "Chọn thao tác";
+            string text = "Bạn muốn tính bảng lương tháng mới hay xem bảng lương cũ?\n\n" +
+                          "Chọn Yes để tính bảng lương mới.\n" +
+                          "Chọn No để xem bảng lương cũ.";
 
-            // Hiển thị dialog
-            var result = guna2MessageDialog1.Show();
+            MessageBoxButtons buttons = MessageBoxButtons.YesNoCancel;
+            MessageBoxIcon icon = MessageBoxIcon.Question;
+
+            // Hiển thị MessageBox và lấy kết quả người dùng chọn
+            DialogResult result = MessageBox.Show(text, caption, buttons, icon);
 
             if (result == DialogResult.Yes)
             {
@@ -413,7 +422,7 @@ namespace CompanyHRManagement.GUI.admin
             {
                 // Người dùng bấm Cancel
                 return;
-            }           
+            }
         }
 
 
@@ -434,75 +443,120 @@ namespace CompanyHRManagement.GUI.admin
         {
             if (dgvLuong.Columns.Count == 0) return;
 
-            // Đặt kích thước DataGridView cố định
             dgvLuong.Width = 1028;
             dgvLuong.Height = 417;
-
-            // Tắt auto resize để chỉnh tay cột
             dgvLuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
 
-            // Đặt tiêu đề tiếng Việt
+            // Đặt tiêu đề
             dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
             dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
             dgvLuong.Columns["FullName"].HeaderText = "Họ và tên";
-            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
-            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
             dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
             dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
             dgvLuong.Columns["Bonus"].HeaderText = "Tiền thưởng";
             dgvLuong.Columns["Penalty"].HeaderText = "Tiền phạt";
             dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ làm thêm";
-
-            // Ẩn cột không cần thiết
+            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
+            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
+            // Ẩn EmployeeID
             dgvLuong.Columns["EmployeeID"].Visible = false;
 
-            // Đổi thứ tự cột: FullName ngay sau SalaryID
-            dgvLuong.Columns["SalaryID"].DisplayIndex = 0;
-            dgvLuong.Columns["FullName"].DisplayIndex = 1;
-
-            // Các cột khác lần lượt từ 2 trở đi
-            int displayIndex = 2;
-            string[] otherCols = new string[]
+            // Sắp xếp thứ tự cột
+            string[] orderedCols = new string[]
             {
-        "SalaryMonth", "SalaryYear", "BaseSalary", "Allowance", "Bonus", "Penalty", "OvertimeHours"
+        "SalaryID", "FullName", "BaseSalary", "Allowance", "Bonus", "Penalty",
+        "OvertimeHours", "SalaryMonth", "SalaryYear", "TotalSalary"
             };
 
-            foreach (var colName in otherCols)
+            int index = 0;
+            foreach (string colName in orderedCols)
             {
                 if (dgvLuong.Columns.Contains(colName))
                 {
-                    dgvLuong.Columns[colName].DisplayIndex = displayIndex;
-                    displayIndex++;
+                    dgvLuong.Columns[colName].DisplayIndex = index++;
                 }
             }
 
-            // Đặt độ rộng từng cột (pixels)
+            // Cài đặt độ rộng cột
             dgvLuong.Columns["SalaryID"].Width = 80;
             dgvLuong.Columns["FullName"].Width = 200;
-            dgvLuong.Columns["SalaryMonth"].Width = 60;
-            dgvLuong.Columns["SalaryYear"].Width = 60;
             dgvLuong.Columns["BaseSalary"].Width = 110;
             dgvLuong.Columns["Allowance"].Width = 90;
             dgvLuong.Columns["Bonus"].Width = 90;
             dgvLuong.Columns["Penalty"].Width = 90;
             dgvLuong.Columns["OvertimeHours"].Width = 90;
+            dgvLuong.Columns["SalaryMonth"].Width = 60;
+            dgvLuong.Columns["SalaryYear"].Width = 60;
 
-            // Cột TotalSalary
             if (dgvLuong.Columns.Contains("TotalSalary"))
             {
                 dgvLuong.Columns["TotalSalary"].HeaderText = "Tổng lương";
                 dgvLuong.Columns["TotalSalary"].Visible = true;
                 dgvLuong.Columns["TotalSalary"].Width = 150;
-                dgvLuong.Columns["TotalSalary"].DisplayIndex = displayIndex; // đặt cuối cùng
             }
 
-            // Thiết lập khác
+            // Tùy chọn khác
             dgvLuong.ReadOnly = true;
             dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvLuong.AllowUserToAddRows = false;
         }
+
+
+        public List<Salary> SapXepDanhSach(List<Salary> list, string tieuChi, bool tangDan)
+        {
+            switch (tieuChi.Trim().ToLower())
+            {
+                case "id":
+                    return tangDan ? list.OrderBy(s => s.SalaryID).ToList()
+                                   : list.OrderByDescending(s => s.SalaryID).ToList();
+
+                case "tên":
+                    return tangDan ? list.OrderBy(s => s.FullName).ToList()
+                                   : list.OrderByDescending(s => s.FullName).ToList();
+
+                case "tổng lương":
+                    return tangDan ? list.OrderBy(s => s.TotalSalary).ToList()
+                                   : list.OrderByDescending(s => s.TotalSalary).ToList();
+
+                case "tháng/năm":
+                    return tangDan ? list.OrderBy(s => s.SalaryYear)
+                                      .ThenBy(s => s.SalaryMonth).ToList()
+                                   : list.OrderByDescending(s => s.SalaryYear)
+                                      .ThenByDescending(s => s.SalaryMonth).ToList();
+
+                default:
+                    return list; // Không sắp xếp nếu tiêu chí không xác định
+            }
+        }
+
+        private void cbSapxep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool tangdan = rbAsc.Checked;
+            string tieuChi = cbSapxep.SelectedItem?.ToString()?.Trim() ?? "ID";
+
+            // Lấy danh sách hiện tại từ DataGridView
+            var dataSource = dgvLuong.DataSource as List<Salary>;
+            if (dataSource == null || dataSource.Count == 0)
+                return;
+
+            // Sắp xếp lại danh sách
+            List<Salary> danhSachSapXep = SapXepDanhSach(dataSource, tieuChi, tangdan);
+
+            // Gán lại vào DataGridView
+            dgvLuong.DataSource = null; // Xóa binding cũ để cập nhật binding mới
+            dgvLuong.DataSource = danhSachSapXep;
+            FormatSalaryGrid();
+        }
+
+        private void rbAsc_Click(object sender, EventArgs e)
+        {
+            if (rbAsc.Checked)
+            {
+                // Nếu đang được chọn thì bỏ chọn
+                rbAsc.Checked = false;
+            }
+        }
     }
+   
 
-
-
-}
+ }

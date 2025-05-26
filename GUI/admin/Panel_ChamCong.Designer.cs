@@ -310,7 +310,7 @@
             this.txtTongNV.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTongNV.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTongNV.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTongNV.Location = new System.Drawing.Point(134, 78);
+            this.txtTongNV.Location = new System.Drawing.Point(82, 79);
             this.txtTongNV.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTongNV.Name = "txtTongNV";
             this.txtTongNV.PlaceholderText = "";
@@ -367,7 +367,7 @@
             this.txtTenNV.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtTenNV.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.txtTenNV.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtTenNV.Location = new System.Drawing.Point(773, 449);
+            this.txtTenNV.Location = new System.Drawing.Point(723, 449);
             this.txtTenNV.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtTenNV.Name = "txtTenNV";
             this.txtTenNV.PlaceholderText = "";

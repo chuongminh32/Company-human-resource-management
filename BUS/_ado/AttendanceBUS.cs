@@ -76,4 +76,9 @@ public class AttendanceBUS
     {
         return attendanceDAO.TinhTongGioLamTrongThang(emID);
     }
+
+    public List<Attendance> GetAttendanceByMonth()
+    {
+        return attendanceDAO.GetMonthlyWorkDays();
+    }
 }

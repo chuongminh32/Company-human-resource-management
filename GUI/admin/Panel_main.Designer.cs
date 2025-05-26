@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
-            this.chartSalary = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.chartNhanVienPhongBan = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartStatus = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chartAttendance = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.guna2Button26 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Panel9 = new Guna.UI2.WinForms.Guna2Panel();
@@ -76,8 +76,8 @@
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2VSeparator1 = new Guna.UI2.WinForms.Guna2VSeparator();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.chartSalary)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartNhanVienPhongBan)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAttendance)).BeginInit();
             this.guna2Panel3.SuspendLayout();
             this.guna2Panel9.SuspendLayout();
             this.guna2Panel8.SuspendLayout();
@@ -96,37 +96,37 @@
             this.entityCommand1.EnablePlanCaching = true;
             this.entityCommand1.Transaction = null;
             // 
-            // chartSalary
+            // chartStatus
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartSalary.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartSalary.Legends.Add(legend3);
-            this.chartSalary.Location = new System.Drawing.Point(610, 501);
-            this.chartSalary.Name = "chartSalary";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartSalary.Series.Add(series3);
-            this.chartSalary.Size = new System.Drawing.Size(421, 268);
-            this.chartSalary.TabIndex = 64;
-            this.chartSalary.Text = "chart1";
+            chartArea1.Name = "ChartArea1";
+            this.chartStatus.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartStatus.Legends.Add(legend1);
+            this.chartStatus.Location = new System.Drawing.Point(610, 501);
+            this.chartStatus.Name = "chartStatus";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartStatus.Series.Add(series1);
+            this.chartStatus.Size = new System.Drawing.Size(421, 268);
+            this.chartStatus.TabIndex = 64;
+            this.chartStatus.Text = "chart1";
             // 
-            // chartNhanVienPhongBan
+            // chartAttendance
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chartNhanVienPhongBan.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chartNhanVienPhongBan.Legends.Add(legend4);
-            this.chartNhanVienPhongBan.Location = new System.Drawing.Point(610, 173);
-            this.chartNhanVienPhongBan.Name = "chartNhanVienPhongBan";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartNhanVienPhongBan.Series.Add(series4);
-            this.chartNhanVienPhongBan.Size = new System.Drawing.Size(421, 302);
-            this.chartNhanVienPhongBan.TabIndex = 63;
-            this.chartNhanVienPhongBan.Text = "chart1";
+            chartArea2.Name = "ChartArea1";
+            this.chartAttendance.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chartAttendance.Legends.Add(legend2);
+            this.chartAttendance.Location = new System.Drawing.Point(610, 173);
+            this.chartAttendance.Name = "chartAttendance";
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartAttendance.Series.Add(series2);
+            this.chartAttendance.Size = new System.Drawing.Size(421, 302);
+            this.chartAttendance.TabIndex = 63;
+            this.chartAttendance.Text = "chart1";
             // 
             // guna2Button26
             // 
@@ -513,7 +513,7 @@
             // 
             // guna2VSeparator2
             // 
-            this.guna2VSeparator2.Location = new System.Drawing.Point(384, 17);
+            this.guna2VSeparator2.Location = new System.Drawing.Point(505, 20);
             this.guna2VSeparator2.Name = "guna2VSeparator2";
             this.guna2VSeparator2.Size = new System.Drawing.Size(10, 56);
             this.guna2VSeparator2.TabIndex = 60;
@@ -527,7 +527,7 @@
             this.guna2Button21.ForeColor = System.Drawing.Color.White;
             this.guna2Button21.Image = global::CompanyHRManagement.Properties.Resources.admin;
             this.guna2Button21.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button21.Location = new System.Drawing.Point(651, 21);
+            this.guna2Button21.Location = new System.Drawing.Point(725, 21);
             this.guna2Button21.Name = "guna2Button21";
             this.guna2Button21.Size = new System.Drawing.Size(69, 53);
             this.guna2Button21.TabIndex = 59;
@@ -541,7 +541,7 @@
             this.guna2Button20.ForeColor = System.Drawing.Color.White;
             this.guna2Button20.Image = global::CompanyHRManagement.Properties.Resources.welcome;
             this.guna2Button20.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button20.Location = new System.Drawing.Point(290, 20);
+            this.guna2Button20.Location = new System.Drawing.Point(430, 23);
             this.guna2Button20.Name = "guna2Button20";
             this.guna2Button20.Size = new System.Drawing.Size(69, 53);
             this.guna2Button20.TabIndex = 58;
@@ -553,7 +553,7 @@
             this.lblRole.BackColor = System.Drawing.Color.Transparent;
             this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRole.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblRole.Location = new System.Drawing.Point(463, 32);
+            this.lblRole.Location = new System.Drawing.Point(521, 32);
             this.lblRole.Name = "lblRole";
             this.lblRole.Size = new System.Drawing.Size(72, 30);
             this.lblRole.TabIndex = 57;
@@ -606,7 +606,7 @@
             this.lblXinChao.BackColor = System.Drawing.Color.Transparent;
             this.lblXinChao.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblXinChao.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblXinChao.Location = new System.Drawing.Point(58, 32);
+            this.lblXinChao.Location = new System.Drawing.Point(12, 32);
             this.lblXinChao.Name = "lblXinChao";
             this.lblXinChao.Size = new System.Drawing.Size(127, 39);
             this.lblXinChao.TabIndex = 54;
@@ -639,15 +639,15 @@
             // Panel_main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.Controls.Add(this.chartSalary);
-            this.Controls.Add(this.chartNhanVienPhongBan);
+            this.Controls.Add(this.chartStatus);
+            this.Controls.Add(this.chartAttendance);
             this.Controls.Add(this.guna2Button26);
             this.Controls.Add(this.guna2Panel3);
             this.Controls.Add(this.panelInfoDB_admin);
             this.Name = "Panel_main";
             this.Size = new System.Drawing.Size(1035, 787);
-            ((System.ComponentModel.ISupportInitialize)(this.chartSalary)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartNhanVienPhongBan)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartAttendance)).EndInit();
             this.guna2Panel3.ResumeLayout(false);
             this.guna2Panel9.ResumeLayout(false);
             this.guna2Panel9.PerformLayout();
@@ -670,8 +670,8 @@
         #endregion
 
         private System.Data.Entity.Core.EntityClient.EntityCommand entityCommand1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartSalary;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartNhanVienPhongBan;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartStatus;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartAttendance;
         private Guna.UI2.WinForms.Guna2Button guna2Button26;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel3;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel9;

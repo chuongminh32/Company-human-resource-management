@@ -199,7 +199,7 @@ public class EmployeeDAO
 
 
     }
-    
+
     public bool InsertEmployee(Employee emp)
     {
         string query = @"INSERT INTO Employees
@@ -232,7 +232,7 @@ public class EmployeeDAO
         }
     }
 
-    public bool DeleteEmployee(int empID) 
+    public bool DeleteEmployee(int empID)
     {
         string query = "DELETE FROM Employees WHERE EmployeeID = @ID";
         using (SqlConnection conn = DBConnection.GetConnection())
@@ -286,5 +286,51 @@ public class EmployeeDAO
                 return rowsAffected > 0;
             }
         }
+    }
+
+
+    // Phương thức lấy thống kê số lượng nhân viên theo trạng thái
+    public List<Employee> GetEmployeeStatus()
+    {
+        // Tạo danh sách lưu kết quả trả về
+        var list = new List<Employee>();
+
+        // Câu truy vấn SQL:
+        // - Truy vấn con lấy trạng thái nhân viên theo điều kiện cột IsFired, IsProbation
+        // - Nhóm theo trạng thái rồi đếm số lượng
+        string query = @"
+            SELECT TrangThai, COUNT(*) AS SoLuong
+            FROM (
+                SELECT
+                    CASE 
+                        WHEN IsFired = 1 THEN N'Nghỉ việc'
+                        WHEN IsProbation = 1 THEN N'Thử việc'
+                        ELSE N'Đang làm việc'
+                    END AS TrangThai
+                FROM Employees
+            ) AS Derived
+            GROUP BY TrangThai";
+
+        // Sử dụng SqlConnection và SqlCommand để thực thi truy vấn
+        using (SqlConnection conn = DBConnection.GetConnection())
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            conn.Open(); // Mở kết nối đến database
+            SqlDataReader reader = cmd.ExecuteReader(); // Thực thi truy vấn và lấy dữ liệu
+
+            // Đọc từng dòng kết quả trả về
+            while (reader.Read())
+            {
+                // Tạo đối tượng Employee, gán Status và Count từ dữ liệu đọc được
+                list.Add(new Employee
+                {
+                    Status = reader.GetString(0),   // Cột TrangThai
+                    Count = reader.GetInt32(1)      // Cột SoLuong
+                });
+            }
+        }
+
+        // Trả về danh sách thống kê
+        return list;
     }
 }

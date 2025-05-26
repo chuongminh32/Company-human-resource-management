@@ -17,20 +17,25 @@ namespace CompanyHRManagement.GUI.admin
     {
         private readonly EmployeeBUS employeeBUS = new EmployeeBUS();
         private int user_id;
+        private string username;
         private Employee emp = new Employee();
 
         public MainForm_admin(string email)
         {
+            InitializeComponent();
             this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.user_id = emp.EmployeeID;
-            InitializeComponent();
+            this.username = emp.FullName;
 
 
         }
         private void MainForm_admin_Load(object sender, EventArgs e)
         {
             panel_main.LoadDashBoard_Count(emp);
+            lblUsername.Text = emp.FullName;
         }
+
+
 
         private void HideAllPanels()
         {

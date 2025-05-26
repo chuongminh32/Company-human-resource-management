@@ -363,4 +363,47 @@ public class AttendanceDAO
             return cmd.ExecuteNonQuery() > 0;
         }
     }
+
+    public List<Attendance> GetMonthlyWorkDays()
+    {
+        // Khởi tạo danh sách để lưu kết quả trả về kiểu Attendance
+        var list = new List<Attendance>();
+
+        // Câu truy vấn SQL:
+        // 1. Lấy định dạng tháng và năm từ cột WorkDate theo kiểu MM/yyyy, đặt tên là ThangNam
+        // 2. Đếm số ngày công (số ngày làm việc) khác nhau trong từng tháng, dùng COUNT(DISTINCT)
+        // 3. Nhóm theo ThangNam (tháng-năm)
+        // 4. Sắp xếp theo ngày nhỏ nhất trong nhóm (để tháng năm đúng thứ tự)
+        string query = @"
+        SELECT FORMAT(WorkDate, 'MM/yyyy') AS ThangNam,
+               COUNT(DISTINCT CAST(WorkDate AS DATE)) AS SoNgayCong
+        FROM Attendance
+        GROUP BY FORMAT(WorkDate, 'MM/yyyy')
+        ORDER BY MIN(WorkDate)";
+
+        // Sử dụng SqlConnection lấy kết nối từ DBConnection.GetConnection() (phương thức riêng của bạn)
+        using (SqlConnection conn = DBConnection.GetConnection())
+        // Tạo SqlCommand để thực thi câu truy vấn trên kết nối conn
+        using (SqlCommand cmd = new SqlCommand(query, conn))
+        {
+            conn.Open(); // Mở kết nối đến database
+
+            // Thực thi truy vấn và trả về SqlDataReader để đọc dữ liệu
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            // Đọc từng dòng dữ liệu trong kết quả truy vấn
+            while (reader.Read())
+            {
+                // Tạo đối tượng Attendance mới, gán dữ liệu từ cột 0 (ThangNam) và cột 1 (SoNgayCong)
+                list.Add(new Attendance
+                {
+                    MonthYear = reader.GetString(0), // Lấy chuỗi tháng-năm dạng "MM/yyyy"
+                    WorkDays = reader.GetInt32(1)    // Lấy số ngày công làm việc trong tháng
+                });
+            }
+        }
+
+        // Trả về danh sách Attendance chứa số ngày công theo từng tháng
+        return list;
+    }
 }

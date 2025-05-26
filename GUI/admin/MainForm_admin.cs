@@ -17,27 +17,32 @@ namespace CompanyHRManagement.GUI.admin
     {
         private readonly EmployeeBUS employeeBUS = new EmployeeBUS();
         private int user_id;
+        private string username;
         private Employee emp = new Employee();
 
         public MainForm_admin(string email)
         {
+            InitializeComponent();
             this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.user_id = emp.EmployeeID;
-            InitializeComponent();
+            this.username = emp.FullName;
 
 
         }
         private void MainForm_admin_Load(object sender, EventArgs e)
         {
             panel_main.LoadDashBoard_Count(emp);
+            lblUsername.Text = emp.FullName;
         }
+
+
 
         private void HideAllPanels()
         {
             panel_main.Visible = false;
             panel_NhanVien.Visible = false;
-            panel_ChamCong.Visible = false;
-            panel_Message.Visible = false;
+            panel_ChamCong1.Visible = false;
+            panel_Message1.Visible = false;
             panel_Luong.Visible = false;
         }
 
@@ -88,16 +93,16 @@ namespace CompanyHRManagement.GUI.admin
         private void btnChamCong_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panel_ChamCong.Visible = true;
+            panel_ChamCong1.Visible = true;
             panel_NhanVien.BringToFront();
         }
 
         private void btnMessage_Click(object sender, EventArgs e)
         {
             HideAllPanels();
-            panel_Message.Visible = true;
-            panel_Message.CurrentUserId = user_id;
-            panel_Message.BringToFront();
+            panel_Message1.Visible = true;
+            panel_Message1.CurrentUserId = user_id;
+            panel_Message1.BringToFront();
         }
 
         private void btnLuong_Click(object sender, EventArgs e)
@@ -105,6 +110,13 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_Luong.Visible = true;
             panel_Luong.BringToFront();
+        }
+
+        private void btnCaiDat_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_NhanVien.Visible = true;
+            panel_NhanVien.BringToFront();
         }
     }
 }

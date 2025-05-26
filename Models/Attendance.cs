@@ -9,5 +9,7 @@ public class Attendance
     public TimeSpan? CheckOut { get; set; } // Kiểu TimeSpan? để lưu trữ giờ ra
     public int OvertimeHours { get; set; }
     public string AbsenceStatus { get; set; }
+    public string MonthYear { get; set; }
+    public int WorkDays { get; set; }
 
 }

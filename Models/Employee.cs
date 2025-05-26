@@ -15,5 +15,7 @@ public class Employee
     public int isProbation { get; set; }
     public int isFired { get; set; }
     public string password { get; set; }
-    
+    public string Status { get; set; }
+    public int Count { get; set; }
+
 }

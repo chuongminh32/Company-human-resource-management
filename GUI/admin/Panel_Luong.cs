@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CompanyHRManagement.BUS._ado;
+using Guna.UI2.WinForms;
 using iTextSharp.text;
 
 namespace CompanyHRManagement.GUI.admin
@@ -20,12 +21,16 @@ namespace CompanyHRManagement.GUI.admin
         private PositionBUS _positionBUS = new PositionBUS();
         private bool them = false;
         private bool sua = false;
+        private bool isNewSalaryGenerated = false;
+        private DataTable dtLuong_new = null;
+
+
         public Panel_Luong()
         {
             InitializeComponent();
         }
         private void LoadData()
-        { 
+        {
             LoadSalariesData();
             LoadDGV(_salaryBUS.LayTatCaThongTinLuong_Admin());
             LoadDepartmentsToCB();
@@ -63,8 +68,8 @@ namespace CompanyHRManagement.GUI.admin
         {
             try
             {
-                
-                dgvLuong.DataSource = danhSachLuong; 
+
+                dgvLuong.DataSource = danhSachLuong;
 
                 // Ẩn cột EmployeeID
                 dgvLuong.Columns["EmployeeID"].Visible = false;
@@ -128,7 +133,7 @@ namespace CompanyHRManagement.GUI.admin
             }
 
             cbYear.SelectedIndex = 0;
-            
+
 
         }
 
@@ -153,14 +158,14 @@ namespace CompanyHRManagement.GUI.admin
 
         private void Panel_Luong_Load(object sender, EventArgs e)
         {
-            
+
             LoadData();
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             LoadData();
-        
+
         }
 
         private void btnTim_Click(object sender, EventArgs e)
@@ -179,13 +184,14 @@ namespace CompanyHRManagement.GUI.admin
             txtBaseSalary.Enabled = false;
             txtBonus.Enabled = false;
             txtPenalty.Enabled = false;
-            txtOvertimeHours.Enabled = false;      
+            txtOvertimeHours.Enabled = false;
             them = true;
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
             string error = "";
+            
             if (them)
             {
                 bool success = _salaryBUS.ThemLuong(
@@ -197,21 +203,21 @@ namespace CompanyHRManagement.GUI.admin
 
                 if (success)
                 {
-                    MessageBox.Show("Thêm lương thành công!");
+                    guna2MessageDialog1.Show("Thêm lương thành công!");
                     them = false;
                     LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Lỗi: " + error);
+                    guna2MessageDialog1.Show("Lỗi: " + error);
                 }
             }
             else if (sua == true)
             {
-                                // Lấy dữ liệu từ các control trên form
+                // Lấy dữ liệu từ các control trên form
                 if (!int.TryParse(txtSalaryID.Text, out int salaryID) || salaryID <= 0)
                 {
-                    MessageBox.Show("SalaryID không hợp lệ.");
+                    guna2MessageDialog1.Show("SalaryID không hợp lệ.");
                     return;
                 }
 
@@ -225,19 +231,33 @@ namespace CompanyHRManagement.GUI.admin
 
                 if (result)
                 {
-                    MessageBox.Show("Cập nhật lương thành công!");
+                    guna2MessageDialog1.Show("Cập nhật lương thành công!");
                     sua = false;
-                    LoadData(); 
+                    LoadData();
                 }
                 else
                 {
-                    MessageBox.Show("Lỗi: " + error);
+                    guna2MessageDialog1.Show("Lỗi: " + error);
+                }
+            }
+            else if (isNewSalaryGenerated)
+            {
+                bool success = _salaryBUS.LuuBangLuongMoi(dtLuong_new, ref error);
+                if (success)
+                {
+                    guna2MessageDialog1.Show("Thêm bảng lương mới thành công!");
+                    isNewSalaryGenerated = false;
+                    LoadData();
+                }
+                else
+                {
+                    guna2MessageDialog1.Show("Lỗi: " + error);
                 }
             }
             else
-                {
-                    MessageBox.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa trước khi nhấn Lưu");
-                }
+            {
+                guna2MessageDialog1.Show("Vui lòng chọn hành động Thêm/Xóa/Sửa/Bảng Lương Mới trước khi nhấn Lưu");
+            }
         }
 
         private void dgvLuong_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -266,7 +286,8 @@ namespace CompanyHRManagement.GUI.admin
 
                 // Gán vào textbox
                 txtSalaryID.Text = input;
-            } else if (dgvLuong.SelectedRows.Count == 1)
+            }
+            else if (dgvLuong.SelectedRows.Count == 1)
             {
                 // Lấy dòng đang được chọn
                 DataGridViewRow row = dgvLuong.Rows[e.RowIndex];
@@ -335,6 +356,110 @@ namespace CompanyHRManagement.GUI.admin
             txtPenalty.Enabled = false;
             txtOvertimeHours.Enabled = false;
             sua = true;
+        }
+
+        private void btnSalarythismonth_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra đầu vào
+            if (!int.TryParse(cbMonth.Text, out int month) || month < 1 || month > 12)
+            {
+                MessageBox.Show("Vui lòng chọn tháng hợp lệ (1 - 12).", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(cbYear.Text, out int year) || year < 1900 || year > DateTime.Now.Year + 1)
+            {
+                MessageBox.Show("Vui lòng nhập năm hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Tạo dialog Guna2MessageDialog
+            guna2MessageDialog1.Caption = "Chọn thao tác";
+            guna2MessageDialog1.Text = "Bạn muốn tính bảng lương tháng mới hay xem bảng lương cũ?\n\n" +
+                          "Chọn Yes để tính bảng lương mới.\n" +
+                          "Chọn No để xem bảng lương cũ.";
+            guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+            guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
+            guna2MessageDialog1.Buttons = MessageDialogButtons.YesNoCancel;
+
+            // Hiện dialog và lấy kết quả
+            var result = guna2MessageDialog1.Show();
+
+
+            if (result == DialogResult.Yes)
+            {
+                // Lấy thời gian hiện tại
+                var now = DateTime.Now;
+                var currentMonth = now.Month;
+                var currentYear = now.Year;
+
+                // Cho phép chỉ tháng hiện tại hoặc tháng trước
+                bool isValidMonth = (year == currentYear && (month == currentMonth || month == currentMonth - 1)) ||
+                                    (year == currentYear - 1 && currentMonth == 1 && month == 12); // ví dụ: tháng 1 năm nay, cho phép tháng 12 năm ngoái
+
+                if (!isValidMonth)
+                {
+                    guna2MessageDialog1.Parent = this.FindForm();
+                    guna2MessageDialog1.Caption = "Tháng/Năm không hợp lệ";
+                    guna2MessageDialog1.Text = "Chỉ được tính lương cho tháng hiện tại hoặc tháng trước.\nVui lòng chọn lại.";
+                    guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
+                    guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Show();
+                    return;
+                }
+
+                // Gọi hàm tính bảng lương mới
+                dtLuong_new = _salaryBUS.XuatBangLuongThangMoi(month, year);
+                isNewSalaryGenerated = true;
+    }
+            else if (result == DialogResult.No)
+            {
+                dtLuong_new = _salaryBUS.LayLuongTheoThangNam(month, year);
+            }
+            else
+            {
+                return;
+            }
+
+            // Gán dữ liệu vào dgvLuong
+            dgvLuong.DataSource = dtLuong_new;
+
+            // Đổi tiêu đề các cột thành tiếng Việt
+            dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
+            dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvLuong.Columns["FullName"].HeaderText = "Họ và tên";
+            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
+            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
+            dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
+            dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
+            dgvLuong.Columns["Bonus"].HeaderText = "Tiền thưởng";
+            dgvLuong.Columns["Penalty"].HeaderText = "Tiền phạt";
+            dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ làm thêm";
+            dgvLuong.Columns["TotalSalary"].HeaderText = "Tổng lương";
+
+            // Ẩn cột EmployeeID
+            dgvLuong.Columns["EmployeeID"].Visible = false;
+
+            // Căn chỉnh tự động
+            dgvLuong.AutoResizeColumns();
+            dgvLuong.ReadOnly = true;
+            dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLuong.AllowUserToAddRows = false;
+        }
+
+
+        private void dgvLuong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvLuong.Columns[e.ColumnIndex].Name == "TotalSalary" && e.Value != null)
+            {
+                // Tô đỏ nền
+                e.CellStyle.BackColor = Color.Red;
+                // In đậm chữ
+                e.CellStyle.Font = new System.Drawing.Font(dgvLuong.Font, FontStyle.Bold);
+                // Màu chữ trắng để dễ nhìn hơn trên nền đỏ
+                e.CellStyle.ForeColor = Color.White;
+            }
         }
     }
 }

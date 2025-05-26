@@ -27,7 +27,6 @@ namespace CompanyHRManagement.GUI.admin
         {
             InitializeComponent();
         }
-
         void LoadData()
         {
             try
@@ -46,8 +45,35 @@ namespace CompanyHRManagement.GUI.admin
                 dgv_Leaves.DataSource = Leave;
                 
                 dgv_Attendance.AutoResizeColumns();
-                dgv_Leaves.AutoResizeColumns();
-                
+                dgv_Attendance.Columns["AttendanceID"].HeaderText = "Mã";
+                dgv_Attendance.Columns["EmployeeID"].HeaderText = "Mã NV";
+                dgv_Attendance.Columns["EmployeeName"].HeaderText = "Tên NV";
+                dgv_Attendance.Columns["WorkDate"].HeaderText = "Ngày làm";
+                dgv_Attendance.Columns["CheckIn"].HeaderText = "Từ";
+                dgv_Attendance.Columns["CheckOut"].HeaderText = "Đến";
+                dgv_Attendance.Columns["OvertimeHours"].HeaderText = "Giờ Tăng ca";
+                dgv_Attendance.Columns["AbsenceStatus"].HeaderText = "Trạng thái";
+                dgv_Attendance.DefaultCellStyle.Font = new Font("Segoe UI", 11);
+                dgv_Attendance.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+
+                //dgv_Leaves.AutoResizeColumns();
+                dgv_Leaves.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+                dgv_Leaves.ScrollBars = ScrollBars.Both;
+                dgv_Leaves.Columns["leaveID"].HeaderText = "Mã";
+                dgv_Leaves.Columns["employeeID"].HeaderText = "Mã NV";
+                dgv_Leaves.Columns["employeeName"].HeaderText = "Tên NV";
+                dgv_Leaves.Columns["employeeName"].Width = 200;
+                dgv_Leaves.Columns["startDate"].HeaderText = "Từ ngày";
+                dgv_Leaves.Columns["startDate"].Width = 80;
+                dgv_Leaves.Columns["endDate"].HeaderText = "Đến ngày";
+                dgv_Leaves.Columns["endDate"].Width = 80;
+                dgv_Leaves.Columns["reason"].HeaderText = "Lý do";
+                dgv_Leaves.Columns["reason"].Width = 100;
+                dgv_Leaves.Columns["status"].HeaderText = "Trạng thái";
+                dgv_Leaves.Columns["status"].Width = 80;
+                dgv_Leaves.DefaultCellStyle.Font = new Font("Segoe UI", 11);
+                dgv_Leaves.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+
                 this.txtID.ResetText();
                 this.txtTenNV.ResetText(); ;
                 this.txtStartDate.ResetText();
@@ -59,6 +85,7 @@ namespace CompanyHRManagement.GUI.admin
                 //this.panel1.Enabled = false;
 
                 dgv_Attendance.ReadOnly = !isEdit;
+                dgv_Leaves.ReadOnly = true;
                 //btnChinhSua.Enabled = isEdit;
                 btnLuu.Enabled = isEdit;
                 btnXoa.Enabled = isEdit;

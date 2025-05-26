@@ -141,6 +141,31 @@ public class SalaryDAO
 
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error);
     }
+    //Xóa các bản ghi trùng lặp
+    public bool DeleteDuplicateSalariesKeepFirst()
+    {
+        string query = @"
+        WITH CTE AS (
+            SELECT 
+                SalaryID,
+                ROW_NUMBER() OVER (PARTITION BY EmployeeID, SalaryMonth, SalaryYear ORDER BY SalaryID) AS rn
+            FROM Salaries
+        )
+        DELETE FROM CTE WHERE rn > 1;
+    ";
+
+        string error = "";
+        bool success = db.MyExecuteNonQuery(query, CommandType.Text, ref error);
+
+        if (!success)
+        {
+            // Xử lý lỗi hoặc log
+            Console.WriteLine("Lỗi khi xóa bản ghi trùng: " + error);
+        }
+
+        return success;
+    }
+
 
     //Trả về danh sách các năm có trong bảng
     public List<int> GetDistinctSalaryYears()
@@ -240,7 +265,6 @@ public class SalaryDAO
 
         return list;
     }
-
     public bool InsertSalary(string employeeName, int month, int year,
     decimal allowance, decimal bonus, decimal penalty, int overtimeHours, ref string error)
     {
@@ -352,8 +376,59 @@ public class SalaryDAO
 
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error, parameters);
     }
+    //Tính lương cho tất cả nhân viên
+    public DataTable GetSalariesByMonthYear(int month, int year)
+    {
+        string query = $@"
+        SELECT
+            s.SalaryID,
+            e.EmployeeID,
+            e.FullName,
+            s.SalaryMonth,
+            s.SalaryYear,
+            s.BaseSalary,
+            s.Allowance,
+            s.Bonus,
+            s.Penalty,
+            s.OvertimeHours,
+            (s.BaseSalary + s.Allowance + s.Bonus - s.Penalty + (s.OvertimeHours * 50000)) AS TotalSalary
+        FROM 
+            Salaries s
+        JOIN 
+            Employees e ON s.EmployeeID = e.EmployeeID
+        WHERE 
+            s.SalaryMonth = {month} AND s.SalaryYear = {year}";
 
+        DBConnection db = new DBConnection();
+        DataSet ds = db.ExecuteQueryDataSet(query, CommandType.Text);
+        return ds.Tables[0];
+    }
+    //Lấy lương của tháng này
+    public DataTable GetAllSalaries(int month, int year)
+    {
+        string query = $@"
+    SELECT
+        ISNULL(s.SalaryID, 0) AS SalaryID,
+        e.EmployeeID,
+        e.FullName,
+        ISNULL(s.SalaryMonth, {month}) AS SalaryMonth,
+        ISNULL(s.SalaryYear, {year}) AS SalaryYear,
+        ISNULL(s.BaseSalary, 0) AS BaseSalary,
+        ISNULL(s.Allowance, 0) AS Allowance,
+        ISNULL(s.Bonus, 0) AS Bonus,
+        ISNULL(s.Penalty, 0) AS Penalty,
+        ISNULL(s.OvertimeHours, 0) AS OvertimeHours,
+        (ISNULL(s.BaseSalary, 0) + ISNULL(s.Allowance, 0) + ISNULL(s.Bonus, 0) 
+         - ISNULL(s.Penalty, 0) + (ISNULL(s.OvertimeHours, 0) * 50000)) AS TotalSalary
+    FROM 
+        Employees e
+    LEFT JOIN 
+        Salaries s ON e.EmployeeID = s.EmployeeID AND s.SalaryMonth = {month} AND s.SalaryYear = {year}
+    WHERE 
+        e.isFired = 0";  // chưa nghỉ việc (false)
 
-
+        DataSet ds = db.ExecuteQueryDataSet(query, CommandType.Text);
+        return ds.Tables[0];
+    }
 
 }

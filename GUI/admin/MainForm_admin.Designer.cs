@@ -41,8 +41,8 @@ namespace CompanyHRManagement.GUI.admin
             this.btnNhanVien = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.btnCaiDat = new Guna.UI2.WinForms.Guna2Button();
-            this.lblUsername = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -59,8 +59,8 @@ namespace CompanyHRManagement.GUI.admin
             this.panel_main = new CompanyHRManagement.GUI.admin.Panel_main();
             this.panel_NhanVien = new CompanyHRManagement.GUI.admin.Panel_NhanVien();
             this.panel_Luong = new CompanyHRManagement.GUI.admin.Panel_Luong();
-            this.panel_ChamCong = new CompanyHRManagement.GUI.admin.Panel_ChamCong();
-            this.panel_Message = new CompanyHRManagement.GUI.admin.Panel_Message();
+            this.panel_ChamCong1 = new CompanyHRManagement.GUI.admin.Panel_ChamCong();
+            this.panel_Message1 = new CompanyHRManagement.GUI.admin.Panel_Message();
             this.sidebarPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -126,7 +126,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnDangXuat.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDangXuat.FillColor = System.Drawing.Color.Transparent;
             this.btnDangXuat.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDangXuat.ForeColor = System.Drawing.Color.Black;
+            this.btnDangXuat.ForeColor = System.Drawing.Color.SteelBlue;
             this.btnDangXuat.Location = new System.Drawing.Point(12, 698);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Size = new System.Drawing.Size(193, 40);
@@ -155,7 +155,7 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2Button17.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2Button17.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button17.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button17.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button17.ForeColor = System.Drawing.Color.SteelBlue;
             this.guna2Button17.Location = new System.Drawing.Point(12, 633);
             this.guna2Button17.Name = "guna2Button17";
             this.guna2Button17.Size = new System.Drawing.Size(193, 40);
@@ -183,7 +183,7 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2Button15.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2Button15.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button15.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button15.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button15.ForeColor = System.Drawing.Color.SteelBlue;
             this.guna2Button15.Location = new System.Drawing.Point(12, 572);
             this.guna2Button15.Name = "guna2Button15";
             this.guna2Button15.Size = new System.Drawing.Size(193, 40);
@@ -211,7 +211,7 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2Button13.Cursor = System.Windows.Forms.Cursors.Hand;
             this.guna2Button13.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button13.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button13.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button13.ForeColor = System.Drawing.Color.SteelBlue;
             this.guna2Button13.Location = new System.Drawing.Point(12, 503);
             this.guna2Button13.Name = "guna2Button13";
             this.guna2Button13.Size = new System.Drawing.Size(193, 40);
@@ -239,7 +239,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnLuong.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLuong.FillColor = System.Drawing.Color.Transparent;
             this.btnLuong.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.btnLuong.ForeColor = System.Drawing.Color.Black;
+            this.btnLuong.ForeColor = System.Drawing.Color.SteelBlue;
             this.btnLuong.Location = new System.Drawing.Point(12, 433);
             this.btnLuong.Name = "btnLuong";
             this.btnLuong.Size = new System.Drawing.Size(193, 40);
@@ -268,7 +268,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnMessage.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMessage.FillColor = System.Drawing.Color.Transparent;
             this.btnMessage.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.btnMessage.ForeColor = System.Drawing.Color.Black;
+            this.btnMessage.ForeColor = System.Drawing.Color.SteelBlue;
             this.btnMessage.Location = new System.Drawing.Point(12, 370);
             this.btnMessage.Name = "btnMessage";
             this.btnMessage.Size = new System.Drawing.Size(193, 40);
@@ -297,7 +297,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnChamCong.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnChamCong.FillColor = System.Drawing.Color.Transparent;
             this.btnChamCong.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.btnChamCong.ForeColor = System.Drawing.Color.Black;
+            this.btnChamCong.ForeColor = System.Drawing.Color.SteelBlue;
             this.btnChamCong.Location = new System.Drawing.Point(12, 297);
             this.btnChamCong.Name = "btnChamCong";
             this.btnChamCong.Size = new System.Drawing.Size(193, 40);
@@ -326,7 +326,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnNhanVien.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNhanVien.FillColor = System.Drawing.Color.Transparent;
             this.btnNhanVien.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNhanVien.ForeColor = System.Drawing.Color.Black;
+            this.btnNhanVien.ForeColor = System.Drawing.Color.SteelBlue;
             this.btnNhanVien.Location = new System.Drawing.Point(12, 232);
             this.btnNhanVien.Name = "btnNhanVien";
             this.btnNhanVien.Size = new System.Drawing.Size(193, 40);
@@ -352,12 +352,23 @@ namespace CompanyHRManagement.GUI.admin
             // guna2Panel1
             // 
             this.guna2Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.guna2Panel1.Controls.Add(this.btnCaiDat);
             this.guna2Panel1.Controls.Add(this.lblUsername);
+            this.guna2Panel1.Controls.Add(this.btnCaiDat);
             this.guna2Panel1.Location = new System.Drawing.Point(12, 93);
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(196, 43);
             this.guna2Panel1.TabIndex = 28;
+            // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoEllipsis = true;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblUsername.Location = new System.Drawing.Point(4, 12);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(145, 23);
+            this.lblUsername.TabIndex = 6;
+            this.lblUsername.Text = "usernameeeeeeeeeeeee";
             // 
             // btnCaiDat
             // 
@@ -373,23 +384,13 @@ namespace CompanyHRManagement.GUI.admin
             this.btnCaiDat.Name = "btnCaiDat";
             this.btnCaiDat.Size = new System.Drawing.Size(38, 36);
             this.btnCaiDat.TabIndex = 28;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.BackColor = System.Drawing.Color.Transparent;
-            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.Black;
-            this.lblUsername.Location = new System.Drawing.Point(20, 6);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(75, 33);
-            this.lblUsername.TabIndex = 20;
-            this.lblUsername.Text = "Admin";
+            this.btnCaiDat.Click += new System.EventHandler(this.btnCaiDat_Click);
             // 
             // guna2HtmlLabel4
             // 
             this.guna2HtmlLabel4.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.SlateGray;
+            this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.LightBlue;
             this.guna2HtmlLabel4.Location = new System.Drawing.Point(21, 54);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
             this.guna2HtmlLabel4.Size = new System.Drawing.Size(59, 22);
@@ -411,7 +412,7 @@ namespace CompanyHRManagement.GUI.admin
             // 
             this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel3.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Black;
+            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.SteelBlue;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(21, 24);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
             this.guna2HtmlLabel3.Size = new System.Drawing.Size(87, 29);
@@ -424,7 +425,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnTrangChu.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnTrangChu.FillColor = System.Drawing.Color.Transparent;
             this.btnTrangChu.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTrangChu.ForeColor = System.Drawing.Color.Black;
+            this.btnTrangChu.ForeColor = System.Drawing.Color.SteelBlue;
             this.btnTrangChu.Location = new System.Drawing.Point(12, 163);
             this.btnTrangChu.Name = "btnTrangChu";
             this.btnTrangChu.Size = new System.Drawing.Size(193, 40);
@@ -527,20 +528,20 @@ namespace CompanyHRManagement.GUI.admin
             this.panel_Luong.Size = new System.Drawing.Size(1050, 787);
             this.panel_Luong.TabIndex = 3;
             // 
-            // panel_ChamCong
+            // panel_ChamCong1
             // 
-            this.panel_ChamCong.Location = new System.Drawing.Point(237, 12);
-            this.panel_ChamCong.Name = "panel_ChamCong";
-            this.panel_ChamCong.Size = new System.Drawing.Size(1050, 787);
-            this.panel_ChamCong.TabIndex = 4;
+            this.panel_ChamCong1.Location = new System.Drawing.Point(237, 12);
+            this.panel_ChamCong1.Name = "panel_ChamCong1";
+            this.panel_ChamCong1.Size = new System.Drawing.Size(1050, 787);
+            this.panel_ChamCong1.TabIndex = 4;
             // 
-            // panel_Message
+            // panel_Message1
             // 
-            this.panel_Message.CurrentUserId = 0;
-            this.panel_Message.Location = new System.Drawing.Point(237, 0);
-            this.panel_Message.Name = "panel_Message";
-            this.panel_Message.Size = new System.Drawing.Size(1050, 787);
-            this.panel_Message.TabIndex = 5;
+            this.panel_Message1.CurrentUserId = 0;
+            this.panel_Message1.Location = new System.Drawing.Point(237, 0);
+            this.panel_Message1.Name = "panel_Message1";
+            this.panel_Message1.Size = new System.Drawing.Size(1050, 787);
+            this.panel_Message1.TabIndex = 5;
             // 
             // MainForm_admin
             // 
@@ -550,8 +551,8 @@ namespace CompanyHRManagement.GUI.admin
             this.Controls.Add(this.panel_main);
             this.Controls.Add(this.panel_NhanVien);
             this.Controls.Add(this.panel_Luong);
-            this.Controls.Add(this.panel_ChamCong);
-            this.Controls.Add(this.panel_Message);
+            this.Controls.Add(this.panel_ChamCong1);
+            this.Controls.Add(this.panel_Message1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm_admin";
@@ -562,7 +563,6 @@ namespace CompanyHRManagement.GUI.admin
             this.sidebarPanel.ResumeLayout(false);
             this.sidebarPanel.PerformLayout();
             this.guna2Panel1.ResumeLayout(false);
-            this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -571,7 +571,6 @@ namespace CompanyHRManagement.GUI.admin
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel lblUsername;
         private Guna.UI2.WinForms.Guna2Button btnCaiDat;
         private Guna.UI2.WinForms.Guna2Button guna2Button8;
         private Guna.UI2.WinForms.Guna2Button btnMessage;
@@ -601,7 +600,8 @@ namespace CompanyHRManagement.GUI.admin
         private Panel_main panel_main;
         private Panel_NhanVien panel_NhanVien;
         private Panel_Luong panel_Luong;
-        private Panel_ChamCong panel_ChamCong;
-        private Panel_Message panel_Message;
+        private Panel_ChamCong panel_ChamCong1;
+        private Panel_Message panel_Message1;
+        private Label lblUsername;
     }
 }

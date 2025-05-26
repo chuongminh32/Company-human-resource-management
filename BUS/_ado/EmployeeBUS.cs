@@ -26,4 +26,9 @@ public class EmployeeBUS
     {
         return employeeDAO.GetAllEmployees();
     }
+
+    public List<Employee> GetEmployeeStatuses()
+    {
+        return employeeDAO.GetEmployeeStatus();
+    }
 }

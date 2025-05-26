@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 
 public class SalaryBUS
 {
@@ -21,7 +22,7 @@ public class SalaryBUS
 
     public bool TaiLaiDataLuong(ref string error)
     {
-        return salaryDAO.UpdateSalaries(ref error);
+        return salaryDAO.UpdateSalaries(ref error) && salaryDAO.DeleteDuplicateSalariesKeepFirst();
     }
 
     public List<int> LayDanhSachNam()
@@ -142,5 +143,40 @@ public class SalaryBUS
         return salaryDAO.UpdateSalaryByID(salaryID, fullName, allowance, month, year, ref error);
     }
 
+    public DataTable LayLuongTheoThangNam(int month, int year)
+    { 
+        return salaryDAO.GetSalariesByMonthYear(month, year);
+    }
+
+    public DataTable XuatBangLuongThangMoi(int month, int year)
+    {
+        return salaryDAO.GetAllSalaries(month, year);
+    }
+
+    public bool LuuBangLuongMoi(DataTable table, ref string error)
+    {
+        bool allSuccess = true;
+
+        foreach (DataRow row in table.Rows)
+        {
+            string name = row["FullName"].ToString();
+            int month = Convert.ToInt32(row["SalaryMonth"]);
+            int year = Convert.ToInt32(row["SalaryYear"]);
+            decimal allowance = Convert.ToDecimal(row["Allowance"]);
+            decimal bonus = Convert.ToDecimal(row["Bonus"]);
+            decimal penalty = Convert.ToDecimal(row["Penalty"]);
+            int overtimeHours = Convert.ToInt32(row["OvertimeHours"]);
+
+            bool result = salaryDAO.InsertSalary(name, month, year, allowance, bonus, penalty, overtimeHours, ref error);
+
+            if (!result)
+            {
+                allSuccess = false;
+                break;
+            }
+        }
+
+        return allSuccess;
+    }
 
 }

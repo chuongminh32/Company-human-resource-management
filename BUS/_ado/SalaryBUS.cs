@@ -30,23 +30,27 @@ public class SalaryBUS
         return salaryDAO.GetDistinctSalaryYears();
     }
     public List<Salary> Loc_TimKiem(
-        string salaryIDStr,
-        string fullName,
-        string baseSalaryStr,
-        string allowanceStr,
-        string bonusStr,
-        string penaltyStr,
-        string overtimeHoursStr,
-        string salaryMonthStr,
-        string salaryYearStr)
+    string salaryIDStr,
+    string fullName,
+    string baseSalaryStr,
+    string allowanceStr,
+    string bonusStr,
+    string penaltyStr,
+    string overtimeHoursStr,
+    string salaryMonthStr,
+    string salaryYearStr,
+    string departmentName,
+    string positionName
+)
     {
-        // Chuyển đổi string sang kiểu dữ liệu chuẩn
         int? salaryID = TryParseIntNullable(salaryIDStr);
         decimal? baseSalary = TryParseDecimalNullable(baseSalaryStr);
         decimal? allowance = TryParseDecimalNullable(allowanceStr);
         decimal? bonus = TryParseDecimalNullable(bonusStr);
         decimal? penalty = TryParseDecimalNullable(penaltyStr);
         int? overtimeHours = TryParseIntNullable(overtimeHoursStr);
+
+        
 
         return salaryDAO.SearchSalaries(
             salaryID,
@@ -57,7 +61,9 @@ public class SalaryBUS
             penalty,
             overtimeHours,
             salaryMonthStr,
-            salaryYearStr
+            salaryYearStr,
+            departmentName,
+            positionName
         );
     }
 
@@ -74,6 +80,7 @@ public class SalaryBUS
             return result;
         return null;
     }
+
 
     public bool ThemLuong(string fullName,
     string monthStr, string yearStr, string allowanceStr, ref string error)

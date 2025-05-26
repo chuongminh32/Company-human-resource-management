@@ -89,6 +89,8 @@ namespace CompanyHRManagement.GUI.admin
             cbPhong.Items.Clear();
             cbPhong.Items.Add("Tất cả"); // Thêm tùy chọn trống hoặc "Tất cả"
             cbPhong.Items.AddRange(departments.ToArray());
+            cbPhong.SelectedIndex = 0;
+
         }
         private void LoadMonthtoCB()
         {
@@ -101,7 +103,8 @@ namespace CompanyHRManagement.GUI.admin
             cbChucVu.Items.Clear();
             cbChucVu.Items.Add("Tất cả"); // Thêm tùy chọn trống hoặc "Tất cả"
             cbChucVu.Items.AddRange(Positions.ToArray());
-        }
+            cbChucVu.SelectedIndex = 0;
+          }
 
         private void LoadYearToCB()
         {
@@ -153,11 +156,12 @@ namespace CompanyHRManagement.GUI.admin
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            LoadDGV(_salaryBUS.Loc_TimKiem(txtSalaryID.Text.ToString(),
-                txtFullName.Text.ToString(), txtBaseSalary.Text.ToString(),
+            LoadDGV(_salaryBUS.Loc_TimKiem(txtSalaryID.Text.ToString(), 
+                txtFullName.Text.ToString(), txtBaseSalary.Text.ToString(), 
                 txtAllowance.Text.ToString(), txtBonus.Text.ToString(),
-                txtPenalty.Text.ToString(), txtOvertimeHours.Text.ToString(),
-                cbMonth.Text.ToString(), cbYear.Text.ToString()));
+                txtPenalty.Text.ToString(), txtOvertimeHours.Text.ToString(), 
+                cbMonth.Text.ToString(), cbYear.Text.ToString(), 
+                cbPhong.Text.ToString(), cbChucVu.Text.ToString()));
         }
 
         private void btnThem_Click(object sender, EventArgs e)

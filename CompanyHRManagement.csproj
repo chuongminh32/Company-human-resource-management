@@ -125,6 +125,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\_ado\AuthenticationBUS.cs" />
+    <Compile Include="BUS\_ado\DisciplineBUS.cs" />
+    <Compile Include="DAL\_ado\DisciplineDAO.cs" />
+    <Compile Include="BUS\_ado\RewardBUS.cs" />
     <Compile Include="BUS\_ado\DashBoard_adminBUS.cs" />
     <Compile Include="BUS\_ado\DepartmentBUS.cs" />
     <Compile Include="BUS\_ado\MessageBUS.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="BUS\_ado\AttendanceBUS.cs" />
     <Compile Include="BUS\_ado\PositionBUS.cs" />
     <Compile Include="BUS\_ado\SalaryBUS.cs" />
+    <Compile Include="DAL\_ado\RewardDAO.cs" />
     <Compile Include="DAL\_ado\DepartmentDAO.cs" />
     <Compile Include="DAL\_ado\MessageDAO.cs" />
     <Compile Include="DAL\_ado\LeaveDAO.cs" />
@@ -194,6 +198,8 @@
     <Compile Include="GUI\user\MainForm_user.Designer.cs">
       <DependentUpon>MainForm_user.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Discipline .cs" />
+    <Compile Include="Models\Reward.cs" />
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Message.cs" />

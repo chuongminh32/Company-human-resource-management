@@ -28,6 +28,8 @@ namespace CompanyHRManagement.GUI.user
         private SalaryBUS salaryBUS = new SalaryBUS();
         private LeavesBUS leaveBUS = new LeavesBUS();
         private MessageBUS messageBUS = new MessageBUS();
+        private RewardBUS rewardBUS = new RewardBUS();
+        private DisciplineBUS disciplineBUS = new DisciplineBUS();
 
         private string fullname;
         private int user_id;
@@ -207,13 +209,13 @@ namespace CompanyHRManagement.GUI.user
 
         private void TaiLaiTatCaDuLieu()
         {
+            // Reset panel giao diện
+            AnTatCaPanel();
             TaiBieuDoLuong();  // Tải lại biểu đồ lương
             TaiBieuDoCong();  // Tải lại biểu đồ ngày công
             TaiDuLieuLenDashBoard();  // Tải lại các thông tin tổng quan như tên, chức vụ
             TaiThongTinNhanVien(user_id); // Tải lại thông tin nhân viên
 
-            // Reset panel giao diện
-            AnTatCaPanel();
             panelTrangChu_user.Visible = true;
         }
 
@@ -363,6 +365,9 @@ namespace CompanyHRManagement.GUI.user
             dgvBangChamCong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
             dgvBangChamCong.Columns["AbsenceStatus"].HeaderText = "Trạng thái";
 
+            dgvBangChamCong.Columns["MonthYear"].Visible = false;
+            dgvBangChamCong.Columns["WorkDays"].Visible = false;
+
         }
 
         private void btnChamCongHomNay_Click(object sender, EventArgs e)
@@ -406,9 +411,43 @@ namespace CompanyHRManagement.GUI.user
             panelThongTin.Visible = true;
             panelThongTin_BangLuong.Visible = true;
             TaiLuongNhanVien(user_id);
+            TaiThuongNhanVien(user_id);
+            TaiPhatNhanVien(user_id);
             DinhDangDGV(dgvLuong);
+            DinhDangDGV(dgvPhat);
+            DinhDangDGV(dgvThuong);
 
 
+        }
+
+        private void TaiThuongNhanVien(int employeeId)
+        {
+            var list = rewardBUS.LayDanhSachThuongTheoNhanVien(employeeId);
+            dgvThuong.DataSource = list;
+
+            // Đặt tiêu đề cho các cột
+            dgvThuong.Columns["RewardID"].HeaderText = "Mã thưởng";
+            dgvThuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvThuong.Columns["Reason"].HeaderText = "Lý do";
+            dgvThuong.Columns["RewardDate"].HeaderText = "Ngày thưởng";
+            dgvThuong.Columns["Amount"].HeaderText = "Số tiền thưởng";
+        }
+
+
+        private void TaiPhatNhanVien(int employeeId)
+        {
+            var list = disciplineBUS.LayDanhSachPhatTheoNhanVien(employeeId);
+            dgvPhat.DataSource = list;
+
+            // Đổi tiêu đề các cột
+            dgvPhat.Columns["DisciplineID"].HeaderText = "Mã kỷ luật";
+            dgvPhat.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvPhat.Columns["Reason"].HeaderText = "Lý do";
+            dgvPhat.Columns["DisciplineDate"].HeaderText = "Ngày kỷ luật";
+            dgvPhat.Columns["Amount"].HeaderText = "Số tiền phạt";
+
+            // (Tùy chọn) Định dạng cột số tiền
+            dgvPhat.Columns["Amount"].DefaultCellStyle.Format = "N0";
         }
 
         private void TaiLuongNhanVien(int employeeId)
@@ -425,6 +464,9 @@ namespace CompanyHRManagement.GUI.user
             dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
             dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
             dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
+            // Ẩn các cột không muốn hiển thị
+            dgvLuong.Columns["FullName"].Visible = false;
+            dgvLuong.Columns["TotalSalary"].Visible = false;
 
         }
         private void btnTinhTongLuong_Click(object sender, EventArgs e)
@@ -943,6 +985,7 @@ namespace CompanyHRManagement.GUI.user
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.Teal;
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 
             // Grid và border
             dgv.GridColor = Color.DarkGray;
@@ -953,6 +996,8 @@ namespace CompanyHRManagement.GUI.user
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToResizeRows = false;
+
+
         }
 
 

@@ -376,7 +376,7 @@ public class SalaryDAO
 
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error, parameters);
     }
-    
+
     //Lấy lương của tháng này
     public DataTable GetAllSalaries(int month, int year)
     {

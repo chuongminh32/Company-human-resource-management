@@ -180,7 +180,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvNhanVien.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvNhanVien.ColumnHeadersHeight = 35;
+            this.dgvNhanVien.ColumnHeadersHeight = 40;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(233)))), ((int)(((byte)(252)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -203,7 +203,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvNhanVien.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvNhanVien.RowHeadersVisible = false;
-            this.dgvNhanVien.RowHeadersWidth = 51;
+            this.dgvNhanVien.RowHeadersWidth = 60;
             this.dgvNhanVien.Size = new System.Drawing.Size(1047, 385);
             this.dgvNhanVien.TabIndex = 62;
             this.dgvNhanVien.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Blue;
@@ -219,7 +219,7 @@
             this.dgvNhanVien.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvNhanVien.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dgvNhanVien.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgvNhanVien.ThemeStyle.HeaderStyle.Height = 35;
+            this.dgvNhanVien.ThemeStyle.HeaderStyle.Height = 40;
             this.dgvNhanVien.ThemeStyle.ReadOnly = true;
             this.dgvNhanVien.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(233)))), ((int)(((byte)(252)))));
             this.dgvNhanVien.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
@@ -564,7 +564,7 @@
             this.guna2HtmlLabel14.Name = "guna2HtmlLabel14";
             this.guna2HtmlLabel14.Size = new System.Drawing.Size(120, 22);
             this.guna2HtmlLabel14.TabIndex = 95;
-            this.guna2HtmlLabel14.Text = "DepartmentID";
+            this.guna2HtmlLabel14.Text = "Mã phòng ban";
             // 
             // txtPositionID
             // 
@@ -591,9 +591,9 @@
             this.guna2HtmlLabel15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel15.Location = new System.Drawing.Point(15, 655);
             this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
-            this.guna2HtmlLabel15.Size = new System.Drawing.Size(90, 22);
+            this.guna2HtmlLabel15.Size = new System.Drawing.Size(100, 22);
             this.guna2HtmlLabel15.TabIndex = 97;
-            this.guna2HtmlLabel15.Text = "PositionID";
+            this.guna2HtmlLabel15.Text = "Mã bộ phận";
             // 
             // guna2HtmlLabel16
             // 
@@ -601,9 +601,9 @@
             this.guna2HtmlLabel16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel16.Location = new System.Drawing.Point(15, 706);
             this.guna2HtmlLabel16.Name = "guna2HtmlLabel16";
-            this.guna2HtmlLabel16.Size = new System.Drawing.Size(79, 22);
+            this.guna2HtmlLabel16.Size = new System.Drawing.Size(99, 22);
             this.guna2HtmlLabel16.TabIndex = 99;
-            this.guna2HtmlLabel16.Text = "HireDate";
+            this.guna2HtmlLabel16.Text = "Tuyển dụng";
             // 
             // txtIsProbation
             // 
@@ -668,9 +668,9 @@
             this.guna2HtmlLabel17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel17.Location = new System.Drawing.Point(706, 706);
             this.guna2HtmlLabel17.Name = "guna2HtmlLabel17";
-            this.guna2HtmlLabel17.Size = new System.Drawing.Size(85, 22);
+            this.guna2HtmlLabel17.Size = new System.Drawing.Size(79, 22);
             this.guna2HtmlLabel17.TabIndex = 106;
-            this.guna2HtmlLabel17.Text = "Password";
+            this.guna2HtmlLabel17.Text = "Mật khẩu";
             // 
             // btnSua
             // 

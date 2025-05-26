@@ -34,6 +34,27 @@ namespace CompanyHRManagement.GUI.admin
                 dgvNhanVien.DataSource = dtNV;
                 dgvNhanVien.AutoResizeColumns();
 
+                dgvNhanVien.ReadOnly = true;
+
+                dgvNhanVien.Columns["EmployeeID"].HeaderText = "Mã NV";
+                dgvNhanVien.Columns["FullName"].HeaderText = "Họ tên";
+                dgvNhanVien.Columns["BirthDate"].HeaderText = "Ngày sinh";
+                dgvNhanVien.Columns["Gender"].HeaderText = "Giới tính";
+                dgvNhanVien.Columns["Address"].HeaderText = "Địa chỉ";
+                dgvNhanVien.Columns["Phone"].HeaderText = "SĐT";
+                dgvNhanVien.Columns["Email"].HeaderText = "Email";
+                dgvNhanVien.Columns["DepartmentID"].HeaderText = "Mã Phòng";
+                dgvNhanVien.Columns["PositionID"].HeaderText = "Mã Bộ phận";
+                dgvNhanVien.Columns["DepartmentName"].HeaderText = "Tên Phòng ban";
+                dgvNhanVien.Columns["PositionName"].HeaderText = "Tên Bộ phận";
+                dgvNhanVien.Columns["HireDate"].HeaderText = "Ngày tuyển dụng";
+                dgvNhanVien.Columns["IsProbation"].HeaderText = "Thử việc";
+                dgvNhanVien.Columns["IsFired"].HeaderText = "Đã nghỉ";
+                dgvNhanVien.Columns["Password"].HeaderText = "Mật khẩu";
+
+                dgvNhanVien.DefaultCellStyle.Font = new Font("Segoe UI", 11);
+                dgvNhanVien.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+
                 var distinctDepartments = dtNV.AsEnumerable()
                     .Select(r => r.Field<string>("DepartmentName"))
                     .Where(x => x != null)
@@ -92,8 +113,6 @@ namespace CompanyHRManagement.GUI.admin
         private void Panel_NhanVien_Load(object sender, EventArgs e)
         {
             LoadData();
-            dgvNhanVien.AllowUserToAddRows = true;
-            dgvNhanVien.ReadOnly = false;
             dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 

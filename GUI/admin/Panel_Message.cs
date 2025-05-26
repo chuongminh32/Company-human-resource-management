@@ -39,6 +39,18 @@ namespace CompanyHRManagement.GUI.admin
                 dgvMess.DataSource = TNMoi;
 
                 dgvMess.AutoResizeColumns();
+                dgvMess.ReadOnly = true;
+
+                dgvMess.Columns["MessageID"].HeaderText = "Mã tin";
+                dgvMess.Columns["SenderID"].HeaderText = "Mã ngưởi gửi";
+                dgvMess.Columns["ReceiverID"].HeaderText = "Mã người nhận";
+                dgvMess.Columns["ReceiverName"].HeaderText = "Tên người nhận";
+                dgvMess.Columns["Content"].HeaderText = "Nội dung";
+                dgvMess.Columns["SentAt"].HeaderText = "Thời gian";
+
+                dgvMess.DefaultCellStyle.Font = new Font("Segoe UI", 11);
+                dgvMess.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 11, FontStyle.Bold);
+
                 if (!dgvMess.Columns.Contains("colEdit"))
                 {
                     DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn

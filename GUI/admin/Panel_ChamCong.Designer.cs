@@ -124,7 +124,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv_Attendance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv_Attendance.ColumnHeadersHeight = 29;
+            this.dgv_Attendance.ColumnHeadersHeight = 40;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -152,7 +152,7 @@
             this.dgv_Attendance.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgv_Attendance.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dgv_Attendance.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dgv_Attendance.ThemeStyle.HeaderStyle.Height = 29;
+            this.dgv_Attendance.ThemeStyle.HeaderStyle.Height = 40;
             this.dgv_Attendance.ThemeStyle.ReadOnly = false;
             this.dgv_Attendance.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dgv_Attendance.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
@@ -188,7 +188,7 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv_Leaves.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgv_Leaves.ColumnHeadersHeight = 4;
+            this.dgv_Leaves.ColumnHeadersHeight = 40;
             this.dgv_Leaves.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
@@ -202,7 +202,7 @@
             this.dgv_Leaves.Location = new System.Drawing.Point(685, 150);
             this.dgv_Leaves.Name = "dgv_Leaves";
             this.dgv_Leaves.RowHeadersVisible = false;
-            this.dgv_Leaves.RowHeadersWidth = 51;
+            this.dgv_Leaves.RowHeadersWidth = 100;
             this.dgv_Leaves.RowTemplate.Height = 24;
             this.dgv_Leaves.Size = new System.Drawing.Size(362, 243);
             this.dgv_Leaves.TabIndex = 87;
@@ -218,7 +218,7 @@
             this.dgv_Leaves.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(254)));
             this.dgv_Leaves.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dgv_Leaves.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgv_Leaves.ThemeStyle.HeaderStyle.Height = 4;
+            this.dgv_Leaves.ThemeStyle.HeaderStyle.Height = 40;
             this.dgv_Leaves.ThemeStyle.ReadOnly = false;
             this.dgv_Leaves.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dgv_Leaves.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;

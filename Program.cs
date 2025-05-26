@@ -19,8 +19,8 @@ namespace CompanyHRManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new LoginForm());
-            Application.Run(new MainForm_user("chuongminh@gmail.com"));
+            Application.Run(new LoginForm());
+            //Application.Run(new MainForm_user("chuongminh@gmail.com"));
             //Application.Run(new MainForm_admin("chuong@gmail.com"));
         }
     }

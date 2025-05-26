@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using System.Windows.Forms;
 using CompanyHRManagement.BUS._ado;
 using Guna.UI2.WinForms;
@@ -71,27 +72,9 @@ namespace CompanyHRManagement.GUI.admin
 
                 dgvLuong.DataSource = danhSachLuong;
 
-                // Ẩn cột EmployeeID
-                dgvLuong.Columns["EmployeeID"].Visible = false;
+                FormatSalaryGrid();
+                dgvLuong.Columns["TotalSalary"].Visible = false;
 
-                // Đổi tiêu đề các cột sang tiếng Việt
-                dgvLuong.Columns["FullName"].HeaderText = "Họ và tên";
-                dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
-                dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
-                dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
-                dgvLuong.Columns["Bonus"].HeaderText = "Thưởng";
-                dgvLuong.Columns["Penalty"].HeaderText = "Phạt";
-                dgvLuong.Columns["OvertimeHours"].HeaderText = "Số giờ tăng ca";
-                dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
-                dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
-
-                dgvLuong.Columns["FullName"].DisplayIndex = 1;
-
-                // Tùy chọn thêm: căn giữa hoặc chỉnh độ rộng
-                dgvLuong.AutoResizeColumns();
-                dgvLuong.ReadOnly = true;
-                dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-                dgvLuong.AllowUserToAddRows = true;
 
             }
             catch (SqlException e)
@@ -360,42 +343,41 @@ namespace CompanyHRManagement.GUI.admin
 
         private void btnSalarythismonth_Click(object sender, EventArgs e)
         {
-            // Kiểm tra đầu vào
-            if (!int.TryParse(cbMonth.Text, out int month) || month < 1 || month > 12)
-            {
-                MessageBox.Show("Vui lòng chọn tháng hợp lệ (1 - 12).", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (!int.TryParse(cbYear.Text, out int year) || year < 1900 || year > DateTime.Now.Year + 1)
-            {
-                MessageBox.Show("Vui lòng nhập năm hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            // Tạo dialog Guna2MessageDialog
+            // Thiết lập dialog hỏi người dùng
             guna2MessageDialog1.Caption = "Chọn thao tác";
             guna2MessageDialog1.Text = "Bạn muốn tính bảng lương tháng mới hay xem bảng lương cũ?\n\n" +
-                          "Chọn Yes để tính bảng lương mới.\n" +
-                          "Chọn No để xem bảng lương cũ.";
+                                       "Chọn Yes để tính bảng lương mới.\n" +
+                                       "Chọn No để xem bảng lương cũ.";
             guna2MessageDialog1.Style = Guna.UI2.WinForms.MessageDialogStyle.Default;
             guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Question;
             guna2MessageDialog1.Buttons = MessageDialogButtons.YesNoCancel;
 
-            // Hiện dialog và lấy kết quả
+            // Hiển thị dialog
             var result = guna2MessageDialog1.Show();
-
 
             if (result == DialogResult.Yes)
             {
-                // Lấy thời gian hiện tại
+                // Kiểm tra tháng
+                if (!int.TryParse(cbMonth.Text, out int month) || month < 1 || month > 12)
+                {
+                    MessageBox.Show("Vui lòng chọn tháng hợp lệ (1 - 12).", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra năm
+                if (!int.TryParse(cbYear.Text, out int year) || year < 1900 || year > DateTime.Now.Year + 1)
+                {
+                    MessageBox.Show("Vui lòng nhập năm hợp lệ.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Chỉ cho phép tính lương tháng hiện tại hoặc tháng trước
                 var now = DateTime.Now;
                 var currentMonth = now.Month;
                 var currentYear = now.Year;
 
-                // Cho phép chỉ tháng hiện tại hoặc tháng trước
                 bool isValidMonth = (year == currentYear && (month == currentMonth || month == currentMonth - 1)) ||
-                                    (year == currentYear - 1 && currentMonth == 1 && month == 12); // ví dụ: tháng 1 năm nay, cho phép tháng 12 năm ngoái
+                                    (year == currentYear - 1 && currentMonth == 1 && month == 12);
 
                 if (!isValidMonth)
                 {
@@ -412,40 +394,22 @@ namespace CompanyHRManagement.GUI.admin
                 // Gọi hàm tính bảng lương mới
                 dtLuong_new = _salaryBUS.XuatBangLuongThangMoi(month, year);
                 isNewSalaryGenerated = true;
-    }
+
+                // Gán dữ liệu mới vào DataGridView
+                dgvLuong.DataSource = dtLuong_new;
+                FormatSalaryGrid();
+
+            }
             else if (result == DialogResult.No)
             {
-                dtLuong_new = _salaryBUS.LayLuongTheoThangNam(month, year);
+                FormatSalaryGrid();
+                return;
             }
             else
             {
+                // Người dùng bấm Cancel
                 return;
-            }
-
-            // Gán dữ liệu vào dgvLuong
-            dgvLuong.DataSource = dtLuong_new;
-
-            // Đổi tiêu đề các cột thành tiếng Việt
-            dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
-            dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
-            dgvLuong.Columns["FullName"].HeaderText = "Họ và tên";
-            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
-            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
-            dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
-            dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
-            dgvLuong.Columns["Bonus"].HeaderText = "Tiền thưởng";
-            dgvLuong.Columns["Penalty"].HeaderText = "Tiền phạt";
-            dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ làm thêm";
-            dgvLuong.Columns["TotalSalary"].HeaderText = "Tổng lương";
-
-            // Ẩn cột EmployeeID
-            dgvLuong.Columns["EmployeeID"].Visible = false;
-
-            // Căn chỉnh tự động
-            dgvLuong.AutoResizeColumns();
-            dgvLuong.ReadOnly = true;
-            dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvLuong.AllowUserToAddRows = false;
+            }           
         }
 
 
@@ -461,5 +425,80 @@ namespace CompanyHRManagement.GUI.admin
                 e.CellStyle.ForeColor = Color.White;
             }
         }
+
+        private void FormatSalaryGrid()
+        {
+            if (dgvLuong.Columns.Count == 0) return;
+
+            // Đặt kích thước DataGridView cố định
+            dgvLuong.Width = 1028;
+            dgvLuong.Height = 417;
+
+            // Tắt auto resize để chỉnh tay cột
+            dgvLuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Đặt tiêu đề tiếng Việt
+            dgvLuong.Columns["SalaryID"].HeaderText = "Mã lương";
+            dgvLuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
+            dgvLuong.Columns["FullName"].HeaderText = "Họ và tên";
+            dgvLuong.Columns["SalaryMonth"].HeaderText = "Tháng";
+            dgvLuong.Columns["SalaryYear"].HeaderText = "Năm";
+            dgvLuong.Columns["BaseSalary"].HeaderText = "Lương cơ bản";
+            dgvLuong.Columns["Allowance"].HeaderText = "Phụ cấp";
+            dgvLuong.Columns["Bonus"].HeaderText = "Tiền thưởng";
+            dgvLuong.Columns["Penalty"].HeaderText = "Tiền phạt";
+            dgvLuong.Columns["OvertimeHours"].HeaderText = "Giờ làm thêm";
+
+            // Ẩn cột không cần thiết
+            dgvLuong.Columns["EmployeeID"].Visible = false;
+
+            // Đổi thứ tự cột: FullName ngay sau SalaryID
+            dgvLuong.Columns["SalaryID"].DisplayIndex = 0;
+            dgvLuong.Columns["FullName"].DisplayIndex = 1;
+
+            // Các cột khác lần lượt từ 2 trở đi
+            int displayIndex = 2;
+            string[] otherCols = new string[]
+            {
+        "SalaryMonth", "SalaryYear", "BaseSalary", "Allowance", "Bonus", "Penalty", "OvertimeHours"
+            };
+
+            foreach (var colName in otherCols)
+            {
+                if (dgvLuong.Columns.Contains(colName))
+                {
+                    dgvLuong.Columns[colName].DisplayIndex = displayIndex;
+                    displayIndex++;
+                }
+            }
+
+            // Đặt độ rộng từng cột (pixels)
+            dgvLuong.Columns["SalaryID"].Width = 80;
+            dgvLuong.Columns["FullName"].Width = 200;
+            dgvLuong.Columns["SalaryMonth"].Width = 60;
+            dgvLuong.Columns["SalaryYear"].Width = 60;
+            dgvLuong.Columns["BaseSalary"].Width = 110;
+            dgvLuong.Columns["Allowance"].Width = 90;
+            dgvLuong.Columns["Bonus"].Width = 90;
+            dgvLuong.Columns["Penalty"].Width = 90;
+            dgvLuong.Columns["OvertimeHours"].Width = 90;
+
+            // Cột TotalSalary
+            if (dgvLuong.Columns.Contains("TotalSalary"))
+            {
+                dgvLuong.Columns["TotalSalary"].HeaderText = "Tổng lương";
+                dgvLuong.Columns["TotalSalary"].Visible = true;
+                dgvLuong.Columns["TotalSalary"].Width = 150;
+                dgvLuong.Columns["TotalSalary"].DisplayIndex = displayIndex; // đặt cuối cùng
+            }
+
+            // Thiết lập khác
+            dgvLuong.ReadOnly = true;
+            dgvLuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvLuong.AllowUserToAddRows = false;
+        }
     }
+
+
+
 }

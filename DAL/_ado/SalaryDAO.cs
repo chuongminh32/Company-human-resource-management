@@ -376,33 +376,7 @@ public class SalaryDAO
 
         return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error, parameters);
     }
-    //Tính lương cho tất cả nhân viên
-    public DataTable GetSalariesByMonthYear(int month, int year)
-    {
-        string query = $@"
-        SELECT
-            s.SalaryID,
-            e.EmployeeID,
-            e.FullName,
-            s.SalaryMonth,
-            s.SalaryYear,
-            s.BaseSalary,
-            s.Allowance,
-            s.Bonus,
-            s.Penalty,
-            s.OvertimeHours,
-            (s.BaseSalary + s.Allowance + s.Bonus - s.Penalty + (s.OvertimeHours * 50000)) AS TotalSalary
-        FROM 
-            Salaries s
-        JOIN 
-            Employees e ON s.EmployeeID = e.EmployeeID
-        WHERE 
-            s.SalaryMonth = {month} AND s.SalaryYear = {year}";
-
-        DBConnection db = new DBConnection();
-        DataSet ds = db.ExecuteQueryDataSet(query, CommandType.Text);
-        return ds.Tables[0];
-    }
+    
     //Lấy lương của tháng này
     public DataTable GetAllSalaries(int month, int year)
     {

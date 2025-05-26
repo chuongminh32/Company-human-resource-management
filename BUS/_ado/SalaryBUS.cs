@@ -22,7 +22,7 @@ public class SalaryBUS
 
     public bool TaiLaiDataLuong(ref string error)
     {
-        return salaryDAO.UpdateSalaries(ref error) && salaryDAO.DeleteDuplicateSalariesKeepFirst();
+        return salaryDAO.DeleteDuplicateSalariesKeepFirst() && salaryDAO.UpdateSalaries(ref error);
     }
 
     public List<int> LayDanhSachNam()
@@ -143,10 +143,6 @@ public class SalaryBUS
         return salaryDAO.UpdateSalaryByID(salaryID, fullName, allowance, month, year, ref error);
     }
 
-    public DataTable LayLuongTheoThangNam(int month, int year)
-    { 
-        return salaryDAO.GetSalariesByMonthYear(month, year);
-    }
 
     public DataTable XuatBangLuongThangMoi(int month, int year)
     {

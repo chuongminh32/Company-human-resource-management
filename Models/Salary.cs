@@ -11,4 +11,12 @@
     public int SalaryYear { get; set; }
 
     public string FullName { get; set; }
+
+    public decimal TotalSalary
+    {
+        get
+        {
+            return BaseSalary + Allowance + Bonus - Penalty + (OvertimeHours * 50000);
+        }
+    }
 }

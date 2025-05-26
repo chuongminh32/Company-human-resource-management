@@ -134,7 +134,7 @@
             this.guna2Button26.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.guna2Button26.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
             this.guna2Button26.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button26.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button26.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2Button26.ForeColor = System.Drawing.Color.White;
             this.guna2Button26.Location = new System.Drawing.Point(3, 106);
             this.guna2Button26.Name = "guna2Button26";
@@ -202,7 +202,7 @@
             this.guna2Button28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button28.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button28.BorderRadius = 10;
-            this.guna2Button28.BorderThickness = 2;
+            this.guna2Button28.BorderThickness = 1;
             this.guna2Button28.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button28.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button28.ForeColor = System.Drawing.Color.White;
@@ -258,7 +258,7 @@
             this.guna2Button27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button27.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button27.BorderRadius = 10;
-            this.guna2Button27.BorderThickness = 2;
+            this.guna2Button27.BorderThickness = 1;
             this.guna2Button27.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button27.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button27.ForeColor = System.Drawing.Color.White;
@@ -314,7 +314,7 @@
             this.guna2Button25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button25.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button25.BorderRadius = 10;
-            this.guna2Button25.BorderThickness = 2;
+            this.guna2Button25.BorderThickness = 1;
             this.guna2Button25.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button25.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button25.ForeColor = System.Drawing.Color.White;
@@ -370,7 +370,7 @@
             this.guna2Button24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button24.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button24.BorderRadius = 10;
-            this.guna2Button24.BorderThickness = 2;
+            this.guna2Button24.BorderThickness = 1;
             this.guna2Button24.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button24.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button24.ForeColor = System.Drawing.Color.White;
@@ -426,7 +426,7 @@
             this.guna2Button23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button23.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button23.BorderRadius = 10;
-            this.guna2Button23.BorderThickness = 2;
+            this.guna2Button23.BorderThickness = 1;
             this.guna2Button23.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button23.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button23.ForeColor = System.Drawing.Color.White;
@@ -471,7 +471,7 @@
             this.guna2Button22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2Button22.BackColor = System.Drawing.Color.Transparent;
             this.guna2Button22.BorderRadius = 10;
-            this.guna2Button22.BorderThickness = 2;
+            this.guna2Button22.BorderThickness = 1;
             this.guna2Button22.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button22.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button22.ForeColor = System.Drawing.Color.White;
@@ -481,6 +481,7 @@
             this.guna2Button22.Name = "guna2Button22";
             this.guna2Button22.Size = new System.Drawing.Size(69, 53);
             this.guna2Button22.TabIndex = 61;
+            this.guna2Button22.Click += new System.EventHandler(this.guna2Button22_Click);
             // 
             // lblTongNhanVien
             // 
@@ -564,11 +565,11 @@
             this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblTime.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTime.ForeColor = System.Drawing.Color.SlateGray;
             this.lblTime.Location = new System.Drawing.Point(811, 21);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(50, 30);
+            this.lblTime.Size = new System.Drawing.Size(48, 30);
             this.lblTime.TabIndex = 56;
             this.lblTime.Text = "Time";
             // 
@@ -577,11 +578,11 @@
             this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblDate.BackColor = System.Drawing.Color.Transparent;
-            this.lblDate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDate.ForeColor = System.Drawing.Color.SlateGray;
             this.lblDate.Location = new System.Drawing.Point(811, 51);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(93, 30);
+            this.lblDate.Size = new System.Drawing.Size(91, 30);
             this.lblDate.TabIndex = 55;
             this.lblDate.Text = "Hôm nay: ";
             // 

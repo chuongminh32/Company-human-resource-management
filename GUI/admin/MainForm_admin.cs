@@ -66,8 +66,6 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_NhanVien.Visible = true;
             panel_NhanVien.BringToFront();
-
-
         }
 
 
@@ -112,6 +110,13 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_Luong.Visible = true;
             panel_Luong.BringToFront();
+        }
+
+        private void btnCaiDat_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_NhanVien.Visible = true;
+            panel_NhanVien.BringToFront();
         }
     }
 }

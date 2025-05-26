@@ -41,6 +41,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnNhanVien = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblUsername = new System.Windows.Forms.Label();
             this.btnCaiDat = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
@@ -60,7 +61,6 @@ namespace CompanyHRManagement.GUI.admin
             this.panel_Luong = new CompanyHRManagement.GUI.admin.Panel_Luong();
             this.panel_ChamCong1 = new CompanyHRManagement.GUI.admin.Panel_ChamCong();
             this.panel_Message1 = new CompanyHRManagement.GUI.admin.Panel_Message();
-            this.lblUsername = new System.Windows.Forms.Label();
             this.sidebarPanel.SuspendLayout();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
@@ -103,7 +103,7 @@ namespace CompanyHRManagement.GUI.admin
             this.sidebarPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.sidebarPanel.Location = new System.Drawing.Point(0, 0);
             this.sidebarPanel.Name = "sidebarPanel";
-            this.sidebarPanel.Size = new System.Drawing.Size(231, 787);
+            this.sidebarPanel.Size = new System.Drawing.Size(231, 768);
             this.sidebarPanel.TabIndex = 0;
             // 
             // guna2Button18
@@ -359,6 +359,17 @@ namespace CompanyHRManagement.GUI.admin
             this.guna2Panel1.Size = new System.Drawing.Size(196, 43);
             this.guna2Panel1.TabIndex = 28;
             // 
+            // lblUsername
+            // 
+            this.lblUsername.AutoEllipsis = true;
+            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsername.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblUsername.Location = new System.Drawing.Point(4, 12);
+            this.lblUsername.Name = "lblUsername";
+            this.lblUsername.Size = new System.Drawing.Size(145, 23);
+            this.lblUsername.TabIndex = 6;
+            this.lblUsername.Text = "usernameeeeeeeeeeeee";
+            // 
             // btnCaiDat
             // 
             this.btnCaiDat.BackColor = System.Drawing.Color.Transparent;
@@ -373,6 +384,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnCaiDat.Name = "btnCaiDat";
             this.btnCaiDat.Size = new System.Drawing.Size(38, 36);
             this.btnCaiDat.TabIndex = 28;
+            this.btnCaiDat.Click += new System.EventHandler(this.btnCaiDat_Click);
             // 
             // guna2HtmlLabel4
             // 
@@ -530,17 +542,6 @@ namespace CompanyHRManagement.GUI.admin
             this.panel_Message1.Name = "panel_Message1";
             this.panel_Message1.Size = new System.Drawing.Size(1050, 787);
             this.panel_Message1.TabIndex = 5;
-            // 
-            // lblUsername
-            // 
-            this.lblUsername.AutoEllipsis = true;
-            this.lblUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUsername.ForeColor = System.Drawing.Color.SteelBlue;
-            this.lblUsername.Location = new System.Drawing.Point(4, 12);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(145, 23);
-            this.lblUsername.TabIndex = 6;
-            this.lblUsername.Text = "usernameeeeeeeeeeeee";
             // 
             // MainForm_admin
             // 

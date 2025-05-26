@@ -101,5 +101,10 @@ namespace CompanyHRManagement.GUI.admin
             lblTime.Text = "Time:  " + DateTime.Now.ToString("hh:mm:ss tt");
             lblDate.Text = "Today:  " + DateTime.Now.ToString("dd/MM/yyyy");
         }
+
+        private void guna2Button22_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

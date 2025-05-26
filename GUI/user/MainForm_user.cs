@@ -365,6 +365,9 @@ namespace CompanyHRManagement.GUI.user
             dgvBangChamCong.Columns["OvertimeHours"].HeaderText = "Giờ tăng ca";
             dgvBangChamCong.Columns["AbsenceStatus"].HeaderText = "Trạng thái";
 
+            dgvBangChamCong.Columns["MonthYear"].Visible = false;
+            dgvBangChamCong.Columns["WorkDays"].Visible = false;
+
         }
 
         private void btnChamCongHomNay_Click(object sender, EventArgs e)
@@ -411,8 +414,8 @@ namespace CompanyHRManagement.GUI.user
             TaiThuongNhanVien(user_id);
             TaiPhatNhanVien(user_id);
             DinhDangDGV(dgvLuong);
-            //DinhDangDGV(dgvPhat);
-            //DinhDangDGV(dgvThuong);
+            DinhDangDGV(dgvPhat);
+            DinhDangDGV(dgvThuong);
 
 
         }
@@ -982,6 +985,7 @@ namespace CompanyHRManagement.GUI.user
             dgv.ColumnHeadersDefaultCellStyle.BackColor = Color.Teal;
             dgv.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dgv.EnableHeadersVisualStyles = false;
+            dgv.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 
             // Grid và border
             dgv.GridColor = Color.DarkGray;
@@ -992,6 +996,8 @@ namespace CompanyHRManagement.GUI.user
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToResizeRows = false;
+
+
         }
 
 

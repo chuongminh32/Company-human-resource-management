@@ -556,7 +556,42 @@ namespace CompanyHRManagement.GUI.admin
                 rbAsc.Checked = false;
             }
         }
-    }
-   
 
- }
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            DataTable luongData = GetLuongDataTable(); // Lấy từ dgvLuong
+            ReportSalaries_Form reportForm = new ReportSalaries_Form(luongData);
+            reportForm.ShowDialog();
+        }
+
+        public DataTable GetLuongDataTable()
+        {
+            DataTable dt = new DataTable();
+
+            // Thêm cột tương ứng với dgvLuong
+            foreach (DataGridViewColumn col in dgvLuong.Columns)
+            {
+                dt.Columns.Add(col.Name, typeof(string)); // hoặc đúng kiểu dữ liệu nếu cần
+            }
+
+            // Thêm dữ liệu
+            foreach (DataGridViewRow row in dgvLuong.Rows)
+            {
+                if (!row.IsNewRow)
+                {
+                    DataRow dr = dt.NewRow();
+                    foreach (DataGridViewColumn col in dgvLuong.Columns)
+                    {
+                        dr[col.Name] = row.Cells[col.Name].Value?.ToString();
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            return dt;
+        }
+
+    }
+
+
+}

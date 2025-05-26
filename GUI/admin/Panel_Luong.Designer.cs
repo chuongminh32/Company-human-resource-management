@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2Button26 = new Guna.UI2.WinForms.Guna2Button();
             this.panelInfoDB_admin = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2VSeparator2 = new Guna.UI2.WinForms.Guna2VSeparator();
@@ -55,7 +55,7 @@
             this.btnTim = new Guna.UI2.WinForms.Guna2Button();
             this.btnXoa = new Guna.UI2.WinForms.Guna2Button();
             this.btnLuu = new Guna.UI2.WinForms.Guna2Button();
-            this.btnXuatExcel = new Guna.UI2.WinForms.Guna2Button();
+            this.btnXuat = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtFullName = new Guna.UI2.WinForms.Guna2TextBox();
@@ -132,7 +132,6 @@
             this.guna2Button21.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button21.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button21.ForeColor = System.Drawing.Color.White;
-            this.guna2Button21.Image = global::CompanyHRManagement.Properties.Resources.admin;
             this.guna2Button21.ImageSize = new System.Drawing.Size(40, 40);
             this.guna2Button21.Location = new System.Drawing.Point(651, 21);
             this.guna2Button21.Name = "guna2Button21";
@@ -146,7 +145,6 @@
             this.guna2Button20.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button20.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button20.ForeColor = System.Drawing.Color.White;
-            this.guna2Button20.Image = global::CompanyHRManagement.Properties.Resources.welcome;
             this.guna2Button20.ImageSize = new System.Drawing.Size(40, 40);
             this.guna2Button20.Location = new System.Drawing.Point(290, 20);
             this.guna2Button20.Name = "guna2Button20";
@@ -199,7 +197,6 @@
             this.guna2Button3.FillColor = System.Drawing.Color.Transparent;
             this.guna2Button3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guna2Button3.ForeColor = System.Drawing.Color.White;
-            this.guna2Button3.Image = global::CompanyHRManagement.Properties.Resources.sun;
             this.guna2Button3.ImageSize = new System.Drawing.Size(40, 40);
             this.guna2Button3.Location = new System.Drawing.Point(961, 20);
             this.guna2Button3.Name = "guna2Button3";
@@ -259,12 +256,13 @@
             // btnRefresh
             // 
             this.btnRefresh.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnRefresh.BackgroundImage = global::CompanyHRManagement.Properties.Resources.reload;
+            this.btnRefresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnRefresh.BorderRadius = 20;
             this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRefresh.FillColor = System.Drawing.Color.Transparent;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-            this.btnRefresh.Image = global::CompanyHRManagement.Properties.Resources.reload;
             this.btnRefresh.ImageSize = new System.Drawing.Size(40, 40);
             this.btnRefresh.Location = new System.Drawing.Point(975, 89);
             this.btnRefresh.Name = "btnRefresh";
@@ -311,25 +309,25 @@
             // 
             // dgvLuong
             // 
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.White;
-            this.dgvLuong.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLuong.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            this.dgvLuong.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(88)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvLuong.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvLuong.ColumnHeadersHeight = 29;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvLuong.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(71)))), ((int)(((byte)(69)))), ((int)(((byte)(94)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvLuong.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvLuong.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
             this.dgvLuong.Location = new System.Drawing.Point(3, 132);
             this.dgvLuong.Name = "dgvLuong";
@@ -443,18 +441,19 @@
             this.btnLuu.Text = "Lưu";
             this.btnLuu.Click += new System.EventHandler(this.btnLuu_Click);
             // 
-            // btnXuatExcel
+            // btnXuat
             // 
-            this.btnXuatExcel.BorderRadius = 10;
-            this.btnXuatExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnXuatExcel.FillColor = System.Drawing.Color.Green;
-            this.btnXuatExcel.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.btnXuatExcel.ForeColor = System.Drawing.Color.White;
-            this.btnXuatExcel.Location = new System.Drawing.Point(923, 160);
-            this.btnXuatExcel.Name = "btnXuatExcel";
-            this.btnXuatExcel.Size = new System.Drawing.Size(100, 40);
-            this.btnXuatExcel.TabIndex = 111;
-            this.btnXuatExcel.Text = "Xuất Excel";
+            this.btnXuat.BorderRadius = 10;
+            this.btnXuat.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnXuat.FillColor = System.Drawing.Color.Green;
+            this.btnXuat.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnXuat.ForeColor = System.Drawing.Color.White;
+            this.btnXuat.Location = new System.Drawing.Point(903, 160);
+            this.btnXuat.Name = "btnXuat";
+            this.btnXuat.Size = new System.Drawing.Size(120, 40);
+            this.btnXuat.TabIndex = 111;
+            this.btnXuat.Text = "Xuất Báo cáo";
+            this.btnXuat.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // guna2HtmlLabel3
             // 
@@ -562,7 +561,7 @@
             this.panel_thongtin.Controls.Add(this.cbMonth);
             this.panel_thongtin.Controls.Add(this.btnThem);
             this.panel_thongtin.Controls.Add(this.btnSua);
-            this.panel_thongtin.Controls.Add(this.btnXuatExcel);
+            this.panel_thongtin.Controls.Add(this.btnXuat);
             this.panel_thongtin.Controls.Add(this.btnLuu);
             this.panel_thongtin.Controls.Add(this.cbYear);
             this.panel_thongtin.Controls.Add(this.guna2HtmlLabel11);
@@ -888,7 +887,7 @@
         private Guna.UI2.WinForms.Guna2Button btnTim;
         private Guna.UI2.WinForms.Guna2Button btnXoa;
         private Guna.UI2.WinForms.Guna2Button btnLuu;
-        private Guna.UI2.WinForms.Guna2Button btnXuatExcel;
+        private Guna.UI2.WinForms.Guna2Button btnXuat;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2TextBox txtFullName;

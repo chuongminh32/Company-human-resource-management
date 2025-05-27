@@ -186,6 +186,12 @@
     <Compile Include="GUI\admin\Panel_NhanVien.Designer.cs">
       <DependentUpon>Panel_NhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\admin\Panel_ThuongPhat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_ThuongPhat.Designer.cs">
+      <DependentUpon>Panel_ThuongPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\admin\ReportSalaries_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,9 +238,12 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="GUI\admin\ForgotPassForm.resx">
-      <DependentUpon>ForgotPassForm.cs</DependentUpon>
-    </EmbeddedResource>
+<EmbeddedResource Include="GUI\admin\ForgotPassForm.resx">
+  <DependentUpon>ForgotPassForm.cs</DependentUpon>
+</EmbeddedResource>
+<EmbeddedResource Include="GUI\admin\Panel_ThuongPhat.resx">
+  <DependentUpon>Panel_ThuongPhat.cs</DependentUpon>
+</EmbeddedResource>
     <EmbeddedResource Include="Reports\RptSalaries.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

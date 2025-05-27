@@ -567,8 +567,9 @@ namespace CompanyHRManagement.GUI.admin
             DataTable luongData = GetLuongDataTable(); // Lấy từ dgvLuong
             string chucVu = cbChucVu.Text.Trim();
             string phongBan = cbPhong.Text.Trim();
+            string countLuong = luongData.Rows.Count.ToString();
 
-            ReportSalaries_Form reportForm = new ReportSalaries_Form(luongData, chucVu, phongBan);
+            ReportSalaries_Form reportForm = new ReportSalaries_Form(luongData, chucVu, phongBan, countLuong);
             reportForm.ShowDialog();
         }
 

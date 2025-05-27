@@ -17,12 +17,14 @@ namespace CompanyHRManagement.GUI.admin
         private DataTable luongTable;
         private string chucVu;
         private string phongban;
-        public ReportSalaries_Form(DataTable dt, string chucVuText, string phongBanText )
+        private string countLuong;
+        public ReportSalaries_Form(DataTable dt, string chucVuText, string phongBanText, string countLuongText )
         {
             InitializeComponent();
             luongTable = dt;
             chucVu = chucVuText;
             phongban = phongBanText;
+            countLuong = countLuongText;
         }
 
         private void ReportSalaries_Form_Load(object sender, EventArgs e)
@@ -32,8 +34,10 @@ namespace CompanyHRManagement.GUI.admin
             // Gán giá trị cho tham số
             ReportParameter[] reportParams = new ReportParameter[]
             {
-        new ReportParameter("chucVu", chucVu),
-        new ReportParameter("phongBan", phongban)
+                new ReportParameter("chucVu", chucVu),
+                new ReportParameter("phongBan", phongban),
+                new ReportParameter("CountNV", countLuong)
+
             };
 
             reportViewer1.LocalReport.DataSources.Clear();

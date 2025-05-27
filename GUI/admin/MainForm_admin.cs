@@ -44,6 +44,7 @@ namespace CompanyHRManagement.GUI.admin
             panel_ChamCong1.Visible = false;
             panel_Message1.Visible = false;
             panel_Luong.Visible = false;
+            panel_ThuongPhat.Visible = false;
         }
 
 
@@ -117,6 +118,13 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_NhanVien.Visible = true;
             panel_NhanVien.BringToFront();
+        }
+
+        private void guna2Button13_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_ThuongPhat.Visible = true;
+            panel_ThuongPhat.BringToFront();
         }
     }
 }

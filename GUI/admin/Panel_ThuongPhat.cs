@@ -1,0 +1,210 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace CompanyHRManagement.GUI.admin
+{
+    public partial class Panel_ThuongPhat : UserControl
+    {
+        private RewardBUS _rewardBUS = new RewardBUS();
+        private DisciplineBUS _disciplineBUS = new DisciplineBUS();
+        public Panel_ThuongPhat()
+        {
+            InitializeComponent();
+        }
+        private void LoadData()
+        {
+            LoadDGVThuong(_rewardBUS.LayDanhSachKhenThuong());
+            LoadDGVPhat(_disciplineBUS.LayDanhSachPhat());
+
+        }
+        private void LoadDGVThuong(List<Reward> danhSachThuong)
+        {
+            try
+            {
+                dgvThuong.DataSource = danhSachThuong;
+
+                dgvThuong.Columns["EmployeeID"].Visible = false;
+
+                dgvThuong.Columns["RewardID"].HeaderText = "Mã khen thưởng";
+                dgvThuong.Columns["FullName"].HeaderText = "Họ tên";
+                dgvThuong.Columns["Reason"].HeaderText = "Lý do";
+                dgvThuong.Columns["RewardDate"].HeaderText = "Ngày thưởng";
+                dgvThuong.Columns["Amount"].HeaderText = "Số tiền";
+
+                dgvThuong.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvThuong.ReadOnly = true;
+                dgvThuong.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvThuong.AllowUserToAddRows = false;
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("Không lấy được nội dung bảng thưởng. Đã xảy ra lỗi!\n" + e.Message);
+            }
+        }
+
+        private void LoadDGVPhat(List<Discipline> danhSachPhat)
+        {
+            try
+            {
+                dgvPhat.DataSource = danhSachPhat;
+
+                dgvPhat.Columns["EmployeeID"].Visible = false;
+
+                // Đặt tiêu đề cho các cột hiển thị
+                dgvPhat.Columns["DisciplineID"].HeaderText = "Mã kỷ luật";
+                dgvPhat.Columns["FullName"].HeaderText = "Họ tên";
+                dgvPhat.Columns["Reason"].HeaderText = "Lý do";
+                dgvPhat.Columns["DisciplineDate"].HeaderText = "Ngày kỷ luật";
+                dgvPhat.Columns["Amount"].HeaderText = "Số tiền";
+
+                dgvPhat.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvPhat.ReadOnly = true;
+                dgvPhat.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                dgvPhat.AllowUserToAddRows = false;
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("Không lấy được nội dung bảng kỷ luật. Đã xảy ra lỗi!\n" + e.Message);
+            }
+        }
+
+
+        private void Panel_ThuongPhat_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void dgvThuong_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Kiểm tra nếu người dùng bấm vào tiêu đề cột hoặc ngoài vùng dữ liệu
+            if (e.RowIndex < 0)
+                return;
+
+            // Lấy số hàng đang được chọn
+            int selectedCount = dgvThuong.SelectedRows.Count;
+            cbAction.SelectedIndex = 0;
+            // Nếu chọn nhiều dòng
+            if (selectedCount > 1)
+            {
+                List<string> rewardIDs = new List<string>();
+                foreach (DataGridViewRow row in dgvThuong.SelectedRows)
+                {
+                    if (row.Cells["RewardID"].Value != null)
+                        rewardIDs.Add(row.Cells["RewardID"].Value.ToString());
+                }
+
+                txtRewDisID.Text = string.Join(",", rewardIDs);
+                ClearAllText();
+
+            }
+            else // Nếu chỉ chọn 1 dòng
+            {
+                DataGridViewRow row = dgvThuong.Rows[e.RowIndex];
+
+                txtRewDisID.Text = row.Cells["RewardID"].Value?.ToString();
+                txtFullName.Text = row.Cells["FullName"].Value?.ToString();
+                txtReason.Text = row.Cells["Reason"].Value?.ToString();
+                txtAmount.Text = row.Cells["Amount"].Value?.ToString();
+
+                if (DateTime.TryParse(row.Cells["RewardDate"].Value?.ToString(), out DateTime rewardDate))
+                {
+                    txtDay.Text = rewardDate.Day.ToString();
+                    txtMonth.Text = rewardDate.Month.ToString();
+                    txtYear.Text = rewardDate.Year.ToString();
+                }
+                else
+                {
+                    txtDay.Clear();
+                    txtMonth.Clear();
+                    txtYear.Clear();
+                }
+            }
+        }
+
+        private void ClearAllText()
+        {
+            txtFullName.Clear();
+            txtReason.Clear();
+            txtAmount.Clear();
+            txtDay.Clear();
+            txtMonth.Clear();
+            txtYear.Clear();
+        }
+
+        private void dgvPhat_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Kiểm tra nếu người dùng bấm vào tiêu đề cột hoặc ngoài vùng dữ liệu
+            if (e.RowIndex < 0)
+                return;
+
+            // Lấy số hàng đang được chọn
+            int selectedCount = dgvPhat.SelectedRows.Count;
+            cbAction.SelectedIndex = 1;
+
+            // Nếu chọn nhiều dòng
+            if (selectedCount > 1)
+            {
+                List<string> disciplineIDs = new List<string>();
+                foreach (DataGridViewRow row in dgvPhat.SelectedRows)
+                {
+                    if (row.Cells["DisciplineID"].Value != null)
+                        disciplineIDs.Add(row.Cells["DisciplineID"].Value.ToString());
+                }
+
+                txtRewDisID.Text = string.Join(",", disciplineIDs);
+                ClearAllText();
+            }
+            else // Nếu chỉ chọn 1 dòng
+            {
+                DataGridViewRow row = dgvPhat.Rows[e.RowIndex];
+
+                txtRewDisID.Text = row.Cells["DisciplineID"].Value?.ToString();
+                txtFullName.Text = row.Cells["FullName"].Value?.ToString();
+                txtReason.Text = row.Cells["Reason"].Value?.ToString();
+                txtAmount.Text = row.Cells["Amount"].Value?.ToString();
+
+                if (DateTime.TryParse(row.Cells["DisciplineDate"].Value?.ToString(), out DateTime disciplineDate))
+                {
+                    txtDay.Text = disciplineDate.Day.ToString();
+                    txtMonth.Text = disciplineDate.Month.ToString();
+                    txtYear.Text = disciplineDate.Year.ToString();
+                }
+                else
+                {
+                    txtDay.Clear();
+                    txtMonth.Clear();
+                    txtYear.Clear();
+                }
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            if (cbAction.SelectedIndex == 0)
+            {
+                LoadDGVThuong(_rewardBUS.TimKiemThuong(txtRewDisID.Text.ToString(), txtFullName.Text.ToString(),
+                    txtAmount.Text.ToString(), txtDay.Text.ToString(), txtMonth.Text.ToString(),
+                    txtYear.Text.ToString(), txtReason.Text.ToString()));
+
+            }
+            else if (cbAction.SelectedIndex == 1)
+            {
+                LoadDGVPhat(_disciplineBUS.TimKiemPhat(txtRewDisID.Text.ToString(), txtFullName.Text.ToString(),
+                    txtAmount.Text.ToString(), txtDay.Text.ToString(), txtMonth.Text.ToString(),
+                    txtYear.Text.ToString(), txtReason.Text.ToString()));
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn hành động là Thưởng hoặc Phạt");
+            }
+        }
+    }
+}

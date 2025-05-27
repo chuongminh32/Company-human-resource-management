@@ -82,16 +82,16 @@ namespace CompanyHRManagement.GUI.admin
             {
                 MessageBox.Show("Không lấy được nội dung trong table Message. Lỗi rồi!!!");
             }
-            
+
         }
 
         private void LoadReceiverList()
         {
-            var dt = new EmployeeDAO().GetAllEmployees(); 
+            var dt = new EmployeeDAO().GetAllEmployees();
 
             cbReceiver.DataSource = dt;
-            cbReceiver.DisplayMember = "FullName";    
-            cbReceiver.ValueMember = "EmployeeID";    
+            cbReceiver.DisplayMember = "FullName";
+            cbReceiver.ValueMember = "EmployeeID";
             cbReceiver.SelectedIndex = -1;
         }
 
@@ -121,7 +121,9 @@ namespace CompanyHRManagement.GUI.admin
         {
             if (e.RowIndex < 0) return;
 
-            int messageId = Convert.ToInt32(dgvMess.Rows[e.RowIndex].Cells["MessageID"].Value);
+            object val = dgvMess.CurrentRow.Cells["MessageID"].Value;
+            int messageId = val != DBNull.Value ? Convert.ToInt32(val) : -1; // hoặc xử lý khác tùy logic
+
 
             if (dgvMess.Columns[e.ColumnIndex].Name == "colEdit")
             {

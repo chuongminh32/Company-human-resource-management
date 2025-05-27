@@ -144,6 +144,12 @@
     <Compile Include="DAL\_ado\DashBoardDAO.cs" />
     <Compile Include="DAL\_ado\DashBoard_adminDAO.cs" />
     <Compile Include="DAL\_ado\PositionDAO.cs" />
+    <Compile Include="GUI\admin\ForgotPassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\ForgotPassForm.Designer.cs">
+      <DependentUpon>ForgotPassForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\admin\MainForm_admin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +217,7 @@
     </Compile>
     <Compile Include="Reports\ExportUtils.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Utils\EmailHelper.cs" />
     <Content Include="Resources\Logo HCMUTE_White background.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
@@ -225,6 +232,9 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="GUI\admin\ForgotPassForm.resx">
+      <DependentUpon>ForgotPassForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\RptSalaries.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

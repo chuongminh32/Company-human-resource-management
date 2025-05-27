@@ -30,6 +30,7 @@ namespace CompanyHRManagement.GUI.user
         private MessageBUS messageBUS = new MessageBUS();
         private RewardBUS rewardBUS = new RewardBUS();
         private DisciplineBUS disciplineBUS = new DisciplineBUS();
+        private LoginForm login = new LoginForm();
 
         private string fullname;
         private int user_id;
@@ -42,8 +43,9 @@ namespace CompanyHRManagement.GUI.user
         private int editingMessageID = -1;
 
 
+
         // Constructor
-        public MainForm_user(string email)
+        public MainForm_user(string email, LoginForm login)
         {
             Employee emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.email = email;
@@ -51,6 +53,7 @@ namespace CompanyHRManagement.GUI.user
             this.fullname = emp.FullName;
             this.name_dapartment = db_BUS.LayTenPhongBanQuaID(emp.EmployeeID);
             this.name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
+            this.login = login;
 
             InitializeComponent();
         }
@@ -81,26 +84,17 @@ namespace CompanyHRManagement.GUI.user
         }
 
 
-        // Form đóng
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnDangXuat_Click(object sender, EventArgs e)
         {
-            // Tạo Guna2MessageDialog và cài đặt các thuộc tính
             var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất ?", "Xác nhận thoát");
+            if (result == DialogResult.Yes)
+            {
+                login.ResetFields();
+                this.Close(); // Đóng MainForm (sẽ kích hoạt sự kiện FormClosed ở LoginForm)
+            }
 
-            // xử lý kết quả
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true; // Hủy bỏ việc đóng form
-            }
-            else
-            {
-                // Thoát toàn bộ ứng dụng sau khi form đóng xong
-                this.BeginInvoke(new Action(() =>
-                {
-                    Application.Exit();
-                }));
-            }
         }
+
 
         // --------- BUTTON ---------
         // Khởi tạo các nút điều hướng
@@ -236,15 +230,6 @@ namespace CompanyHRManagement.GUI.user
 
         }
 
-        private void btnDangXuat_Click(object sender, EventArgs e)
-        {
-            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất ?", "Xác nhận thoát");
-            if (result == DialogResult.Yes)
-            {
-                new LoginForm().Show();
-                this.Hide();
-            }
-        }
 
 
 

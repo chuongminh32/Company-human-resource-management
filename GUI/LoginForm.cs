@@ -25,20 +25,29 @@ namespace CompanyHRManagement.GUI
             txtEmail.Focus();
         }
 
+        public void ResetFields()
+        {
+            txtEmail.Text = "";
+            txtPassword.Text = "";
+            txtEmail.Focus(); // Đặt con trỏ về ô Email
+        }
+
+
         public void check_role(string email)
         {
             string name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
             if (name_position == "Admin")
             {
-                MainForm_admin m = new MainForm_admin(email);
-                m.Show();
-                this.Hide();
+
+                MainForm_admin mainForm = new MainForm_admin(email, this); // Tạo MainForm
+                mainForm.FormClosed += (s, args) => this.Show(); // Khi MainForm đóng, hiện lại Login
+                mainForm.Show();
             }
             else
             {
-                MainForm_user m_u = new MainForm_user(email);
-                m_u.Show();
-                this.Hide();
+                MainForm_user mainForm_user = new MainForm_user(email, this); // Tạo MainForm
+                mainForm_user.FormClosed += (s, args) => this.Show(); // Khi MainForm đóng, hiện lại Login
+                mainForm_user.Show();
             }
         }
 
@@ -101,5 +110,12 @@ namespace CompanyHRManagement.GUI
 
         }
 
+        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
+        {
+            ForgotPassForm forgotForm = new ForgotPassForm();
+            forgotForm.FormClosed += (s, args) => this.Show(); // khi form forgot đóng, show lại LoginForm
+            forgotForm.Show();
+        }
     }
 }
+

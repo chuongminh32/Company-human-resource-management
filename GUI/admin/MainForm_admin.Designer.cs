@@ -132,7 +132,7 @@ namespace CompanyHRManagement.GUI.admin
             this.btnDangXuat.TabIndex = 46;
             this.btnDangXuat.Text = "Đăng xuất";
             this.btnDangXuat.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.btnDangXuat.Click += new System.EventHandler(this.guna2Button19_Click);
+            this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
             // guna2Button16
             // 
@@ -557,7 +557,6 @@ namespace CompanyHRManagement.GUI.admin
             this.Name = "MainForm_admin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý nhân sự";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_admin_Load);
             this.sidebarPanel.ResumeLayout(false);
             this.sidebarPanel.PerformLayout();

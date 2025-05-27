@@ -333,4 +333,18 @@ public class EmployeeDAO
         // Trả về danh sách thống kê
         return list;
     }
+
+
+    public string GetEmailByEmail(string email)
+    {
+        using (SqlConnection conn = DBConnection.GetConnection())
+        {
+            string query = "SELECT Email FROM Employees WHERE Email = @Email";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Email", email);
+            conn.Open();
+            var result = cmd.ExecuteScalar();
+            return result?.ToString();
+        }
+    }
 }

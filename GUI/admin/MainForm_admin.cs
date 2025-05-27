@@ -19,13 +19,15 @@ namespace CompanyHRManagement.GUI.admin
         private int user_id;
         private string username;
         private Employee emp = new Employee();
+        private LoginForm loginForm;
 
-        public MainForm_admin(string email)
+        public MainForm_admin(string email, LoginForm loginForm)
         {
             InitializeComponent();
             this.emp = employeeBUS.LayDuLieuNhanVienQuaEmail(email);
             this.user_id = emp.EmployeeID;
             this.username = emp.FullName;
+            this.loginForm = loginForm;
 
 
         }
@@ -47,20 +49,11 @@ namespace CompanyHRManagement.GUI.admin
         }
 
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+
+        private void guna2Button19_Click(object sender, EventArgs e)
         {
-            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất?", "Xác nhận thoát");
 
-            if (result == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
-            else
-            {
-                Environment.Exit(0); // Thoát toàn bộ app lập tức
-            }
         }
-
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
             HideAllPanels();
@@ -69,19 +62,6 @@ namespace CompanyHRManagement.GUI.admin
         }
 
 
-        private void guna2Button19_Click(object sender, EventArgs e)
-        {
-            // Tạo Guna2MessageDialog và cài đặt các thuộc tính
-            var result = guna2MessageDialog.Show("Bạn thực sự muốn thoát ?", "Xác nhận thoát");
-
-            // xử lý kết quả
-            if (result == DialogResult.Yes)
-            {
-                LoginForm lg = new LoginForm();
-                lg.Show();
-                this.Hide();
-            }
-        }
 
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
@@ -117,6 +97,16 @@ namespace CompanyHRManagement.GUI.admin
             HideAllPanels();
             panel_NhanVien.Visible = true;
             panel_NhanVien.BringToFront();
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            var result = guna2MessageDialog.Show("Bạn thực sự muốn đăng xuất ?", "Xác nhận thoát");
+            if (result == DialogResult.Yes)
+            {
+                loginForm.ResetFields(); // Xóa email + password khi quay lại
+                this.Close(); // Gọi Close để quay về Login
+            }
         }
     }
 }

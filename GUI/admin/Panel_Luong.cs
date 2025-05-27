@@ -546,6 +546,11 @@ namespace CompanyHRManagement.GUI.admin
             dgvLuong.DataSource = null; // Xóa binding cũ để cập nhật binding mới
             dgvLuong.DataSource = danhSachSapXep;
             FormatSalaryGrid();
+            if (dgvLuong.Columns.Contains("TotalSalary") && cbSapxep.SelectedIndex != 2)
+            {
+                dgvLuong.Columns["TotalSalary"].Visible = false;
+            }
+            
         }
 
         private void rbAsc_Click(object sender, EventArgs e)
@@ -560,7 +565,10 @@ namespace CompanyHRManagement.GUI.admin
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
             DataTable luongData = GetLuongDataTable(); // Lấy từ dgvLuong
-            ReportSalaries_Form reportForm = new ReportSalaries_Form(luongData);
+            string chucVu = cbChucVu.Text.Trim();
+            string phongBan = cbPhong.Text.Trim();
+
+            ReportSalaries_Form reportForm = new ReportSalaries_Form(luongData, chucVu, phongBan);
             reportForm.ShowDialog();
         }
 

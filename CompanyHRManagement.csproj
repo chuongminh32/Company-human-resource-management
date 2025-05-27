@@ -211,6 +211,7 @@
     </Compile>
     <Compile Include="Reports\ExportUtils.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Content Include="Resources\Logo HCMUTE_White background.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -239,6 +240,8 @@
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Properties\DataSources\CompanyHRManagement.Models.Department.datasource" />
+    <None Include="Properties\DataSources\CompanyHRManagement.Models.Position.datasource" />
     <None Include="Properties\DataSources\Salary.datasource" />
     <None Include="Resources\staff_icon.png" />
     <None Include="Resources\fiter.png" />

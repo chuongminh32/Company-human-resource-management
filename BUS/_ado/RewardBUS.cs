@@ -60,4 +60,9 @@ public class RewardBUS
 
         return rewardDAO.InsertReward(fullName, reason, rewardDate, amount, ref error);
     }
+
+    public bool xoaThuong(List<int> rewardIDs, ref string error)
+    {
+        return rewardDAO.DeleteRewardsByIDs(rewardIDs, ref error);
+    }
 }

@@ -167,4 +167,19 @@ public class DisciplineDAO
 
         return db.MyExecuteNonQuery(insertQuery, CommandType.Text, ref error);
     }
+
+    public bool DeleteDisciplinesByIDs(List<int> disciplineIDs, ref string error)
+    {
+        if (disciplineIDs == null || disciplineIDs.Count == 0)
+        {
+            error = "Danh sách ID không hợp lệ.";
+            return false;
+        }
+
+        string joinedIDs = string.Join(",", disciplineIDs);
+        string query = $"DELETE FROM Disciplines WHERE DisciplineID IN ({joinedIDs})";
+
+        return db.MyExecuteNonQuery(query, CommandType.Text, ref error);
+    }
+
 }

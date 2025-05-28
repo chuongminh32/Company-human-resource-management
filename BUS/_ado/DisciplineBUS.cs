@@ -60,4 +60,9 @@ public class DisciplineBUS
 
         return disciplineDAO.InsertDiscipline(fullName, reason, disciplineDate, amount, ref error);
     }
+
+    public bool xoaPhat(List<int> rewardIDs, ref string error)
+    {
+        return disciplineDAO.DeleteDisciplinesByIDs(rewardIDs, ref error);
+    }
 }

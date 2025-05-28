@@ -269,12 +269,69 @@ namespace CompanyHRManagement.GUI.admin
             }
         }
 
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            string error = "";
+            string input = txtRewDisID.Text;  // Lấy danh sách ID từ txtRewDisID
+            bool result = false;    
+            // 1. Phân tách danh sách ID từ người dùng nhập
+            List<int> IDs = input.Split(',')
+                .Select(id => int.TryParse(id.Trim(), out int parsedId) ? parsedId : 0)
+                .Where(id => id > 0)
+                .ToList();
+
+            if (IDs.Count == 0)
+            {
+                MessageBox.Show("Vui lòng nhập ID hợp lệ để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (cbAction.SelectedIndex == 0)
+            {
+                // 2. Xác nhận người dùng
+                DialogResult dialogResult = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn xóa {IDs.Count} bản ghi thưởng?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.No)
+                    return;
+
+                // 3. Gọi BUS để xóa
+                result = _rewardBUS.xoaThuong(IDs, ref error);
+
+            }
+            else if (cbAction.SelectedIndex == 1) {
+                // 2. Xác nhận người dùng
+                DialogResult dialogResult = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn xóa {IDs.Count} bản ghi phạt?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+                if (dialogResult == DialogResult.No)
+                    return;
+
+                // 3. Gọi BUS để xóa
+                result = _disciplineBUS.xoaPhat(IDs, ref error);
+            }
+            // 4. Kết quả
+            if (result)
+            {
+                MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Xóa thất bại: " + error, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             them = true;
             ClearAllText();
             txtRewDisID.Enabled = false;
-
         }
     }
 }

@@ -168,5 +168,19 @@ public class RewardDAO
         return db.MyExecuteNonQuery(insertQuery, CommandType.Text, ref error);
     }
 
+    public bool DeleteRewardsByIDs(List<int> rewardIDs, ref string error)
+    {
+        if (rewardIDs == null || rewardIDs.Count == 0)
+        {
+            error = "Danh sách ID không hợp lệ.";
+            return false;
+        }
+
+        string joinedIDs = string.Join(",", rewardIDs);
+        string query = $"DELETE FROM Rewards WHERE RewardID IN ({joinedIDs})";
+
+        return db.MyExecuteNonQuery(query, CommandType.Text, ref error);
+    }
+
 
 }

@@ -20,8 +20,6 @@ namespace CompanyHRManagement
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
-            //Application.Run(new MainForm_user("23110187@student.hcmute.edu.vn"));
-            //Application.Run(new MainForm_admin("chuong@gmail.com"));
         }
     }
 }

@@ -224,7 +224,10 @@
     <Compile Include="Reports\ExportUtils.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Utils\EmailHelper.cs" />
+    <None Include="Resources\icons8-salary-32.png" />
     <Content Include="Resources\Logo HCMUTE_White background.png" />
+    <None Include="Resources\time.png" />
+    <None Include="Resources\reward.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

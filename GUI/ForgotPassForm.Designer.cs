@@ -99,9 +99,9 @@
             this.btnDoiMatKhau.FillColor2 = System.Drawing.Color.CornflowerBlue;
             this.btnDoiMatKhau.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDoiMatKhau.ForeColor = System.Drawing.Color.White;
-            this.btnDoiMatKhau.Location = new System.Drawing.Point(144, 571);
+            this.btnDoiMatKhau.Location = new System.Drawing.Point(103, 584);
             this.btnDoiMatKhau.Name = "btnDoiMatKhau";
-            this.btnDoiMatKhau.Size = new System.Drawing.Size(320, 45);
+            this.btnDoiMatKhau.Size = new System.Drawing.Size(400, 45);
             this.btnDoiMatKhau.TabIndex = 51;
             this.btnDoiMatKhau.Text = "Đổi mật khẩu";
             this.btnDoiMatKhau.Click += new System.EventHandler(this.btnDoiMatKhau_Click);

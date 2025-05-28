@@ -1,5 +1,6 @@
 ﻿using CompanyHRManagement.BUS;
 using CompanyHRManagement.BUS._ado;
+using Guna.UI2.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,6 +21,10 @@ namespace CompanyHRManagement.GUI.admin
         private string username;
         private Employee emp = new Employee();
         private LoginForm loginForm;
+        private List<Guna2Button> navButtons;
+
+
+
 
         public MainForm_admin(string email, LoginForm loginForm)
         {
@@ -35,6 +40,7 @@ namespace CompanyHRManagement.GUI.admin
         {
             panel_main.LoadDashBoard_Count(emp);
             lblUsername.Text = emp.FullName;
+            KhoiTaoDanhSachNutDieuHuong();
         }
 
 
@@ -47,6 +53,30 @@ namespace CompanyHRManagement.GUI.admin
             panel_Message1.Visible = false;
             panel_Luong.Visible = false;
             panel_ThuongPhat.Visible = false;
+        }
+
+
+        private void KhoiTaoDanhSachNutDieuHuong()
+        {
+            navButtons = new List<Guna2Button> { btnNhanVien, btnTrangChu, btnChamCong, btnLuong, btnTinNhan, btnThuongPhat };
+            navButtons.ForEach(btn => btn.Click += NavButton_Click);
+        }
+
+        // Xử lý sự kiện khi nhấn nút điều hướng
+        private void NavButton_Click(object sender, EventArgs e)
+        {
+            var clickedBtn = sender as Guna2Button;
+
+            navButtons.ForEach(btn =>
+            {
+                btn.FillColor = Color.Transparent;
+                btn.ForeColor = Color.Black;
+                btn.Font = new Font(btn.Font, FontStyle.Regular);
+            });
+
+            clickedBtn.FillColor = Color.LightBlue;
+            clickedBtn.ForeColor = Color.White;
+            clickedBtn.Font = new Font(clickedBtn.Font, FontStyle.Bold);
         }
 
 
@@ -78,13 +108,6 @@ namespace CompanyHRManagement.GUI.admin
             panel_NhanVien.BringToFront();
         }
 
-        private void btnMessage_Click(object sender, EventArgs e)
-        {
-            HideAllPanels();
-            panel_Message1.Visible = true;
-            panel_Message1.CurrentUserId = user_id;
-            panel_Message1.BringToFront();
-        }
 
         private void btnLuong_Click(object sender, EventArgs e)
         {
@@ -111,12 +134,19 @@ namespace CompanyHRManagement.GUI.admin
             }
         }
 
-        private void guna2Button13_Click(object sender, EventArgs e)
+        private void btnThuongPhat_Click(object sender, EventArgs e)
         {
             HideAllPanels();
             panel_ThuongPhat.Visible = true;
             panel_ThuongPhat.BringToFront();
+        }
 
+        private void btnTinNhan_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_Message1.Visible = true;
+            panel_Message1.CurrentUserId = user_id;
+            panel_Message1.BringToFront();
         }
     }
 }

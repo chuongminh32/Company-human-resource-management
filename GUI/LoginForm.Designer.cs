@@ -52,7 +52,8 @@ namespace CompanyHRManagement.GUI
             this.guna2Separator1 = new Guna.UI2.WinForms.Guna2Separator();
             this.guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
             this.guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.guna2AnimateWindow1 = new Guna.UI2.WinForms.Guna2AnimateWindow(this.components);
+            this.btnForgotpass = new Guna.UI2.WinForms.Guna2Button();
             this.guna2ShadowPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -99,11 +100,12 @@ namespace CompanyHRManagement.GUI
             // btnLogin
             // 
             this.btnLogin.BorderRadius = 15;
+            this.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLogin.FillColor = System.Drawing.Color.MidnightBlue;
             this.btnLogin.FillColor2 = System.Drawing.Color.CornflowerBlue;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.btnLogin.ForeColor = System.Drawing.Color.White;
-            this.btnLogin.Location = new System.Drawing.Point(73, 324);
+            this.btnLogin.Location = new System.Drawing.Point(73, 339);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(320, 45);
             this.btnLogin.TabIndex = 5;
@@ -172,7 +174,7 @@ namespace CompanyHRManagement.GUI
             // guna2ShadowPanel1
             // 
             this.guna2ShadowPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2ShadowPanel1.Controls.Add(this.guna2HtmlLabel3);
+            this.guna2ShadowPanel1.Controls.Add(this.btnForgotpass);
             this.guna2ShadowPanel1.Controls.Add(this.lblTitle);
             this.guna2ShadowPanel1.Controls.Add(this.btnLogin);
             this.guna2ShadowPanel1.Controls.Add(this.txtPassword);
@@ -248,18 +250,23 @@ namespace CompanyHRManagement.GUI
             this.guna2PictureBox1.TabIndex = 15;
             this.guna2PictureBox1.TabStop = false;
             // 
-            // guna2HtmlLabel3
+            // btnForgotpass
             // 
-            this.guna2HtmlLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel3.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
-                | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.guna2HtmlLabel3.Location = new System.Drawing.Point(270, 281);
-            this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(123, 22);
-            this.guna2HtmlLabel3.TabIndex = 7;
-            this.guna2HtmlLabel3.Text = "Quên mật khẩu ?";
-            this.guna2HtmlLabel3.Click += new System.EventHandler(this.guna2HtmlLabel3_Click);
+            this.btnForgotpass.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnForgotpass.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnForgotpass.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnForgotpass.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnForgotpass.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnForgotpass.FillColor = System.Drawing.Color.Transparent;
+            this.btnForgotpass.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)(((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic) 
+                | System.Drawing.FontStyle.Underline))));
+            this.btnForgotpass.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.btnForgotpass.Location = new System.Drawing.Point(226, 286);
+            this.btnForgotpass.Name = "btnForgotpass";
+            this.btnForgotpass.Size = new System.Drawing.Size(167, 32);
+            this.btnForgotpass.TabIndex = 8;
+            this.btnForgotpass.Text = "Quên mật khẩu ?";
+            this.btnForgotpass.Click += new System.EventHandler(this.btnForgotpass_Click);
             // 
             // LoginForm
             // 
@@ -293,6 +300,7 @@ namespace CompanyHRManagement.GUI
         private Guna.UI2.WinForms.Guna2Separator guna2Separator1;
         private Guna.UI2.WinForms.Guna2ControlBox guna2ControlBox2;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
+        private Guna.UI2.WinForms.Guna2Button btnForgotpass;
+        private Guna.UI2.WinForms.Guna2AnimateWindow guna2AnimateWindow1;
     }
 }

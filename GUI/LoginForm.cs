@@ -110,7 +110,7 @@ namespace CompanyHRManagement.GUI
 
         }
 
-        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
+        private void btnForgotpass_Click(object sender, EventArgs e)
         {
             ForgotPassForm forgotForm = new ForgotPassForm();
             forgotForm.FormClosed += (s, args) => this.Show(); // khi form forgot đóng, show lại LoginForm

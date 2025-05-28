@@ -600,6 +600,10 @@ namespace CompanyHRManagement.GUI.admin
             return dt;
         }
 
+        private void panel_thongtin_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
 

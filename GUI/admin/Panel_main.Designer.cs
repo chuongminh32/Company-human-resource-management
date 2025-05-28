@@ -43,39 +43,39 @@
             this.guna2Panel9 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblSoBaoHiemConHan = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel17 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button28 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel8 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblTongLuongThuong = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button27 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel7 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblNhanVienThuViec = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button25 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblSoPhongBan = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button24 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
             this.lblSoChucVu = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel11 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button23 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2HtmlLabel10 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button22 = new Guna.UI2.WinForms.Guna2Button();
             this.lblTongNhanVien = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.panelInfoDB_admin = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2VSeparator2 = new Guna.UI2.WinForms.Guna2VSeparator();
-            this.guna2Button21 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button20 = new Guna.UI2.WinForms.Guna2Button();
             this.lblRole = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblTime = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.lblDate = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             this.lblXinChao = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2VSeparator1 = new Guna.UI2.WinForms.Guna2VSeparator();
             this.timerClock = new System.Windows.Forms.Timer(this.components);
+            this.guna2Button28 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button27 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button25 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button24 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button23 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button22 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button21 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button20 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartAttendance)).BeginInit();
             this.guna2Panel3.SuspendLayout();
@@ -197,22 +197,6 @@
             this.guna2HtmlLabel17.TabIndex = 48;
             this.guna2HtmlLabel17.Text = "Bảo hiểm còn hạn";
             // 
-            // guna2Button28
-            // 
-            this.guna2Button28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button28.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button28.BorderRadius = 10;
-            this.guna2Button28.BorderThickness = 1;
-            this.guna2Button28.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button28.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button28.ForeColor = System.Drawing.Color.White;
-            this.guna2Button28.Image = global::CompanyHRManagement.Properties.Resources.insurance;
-            this.guna2Button28.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button28.Location = new System.Drawing.Point(169, 16);
-            this.guna2Button28.Name = "guna2Button28";
-            this.guna2Button28.Size = new System.Drawing.Size(69, 53);
-            this.guna2Button28.TabIndex = 61;
-            // 
             // guna2Panel8
             // 
             this.guna2Panel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -252,22 +236,6 @@
             this.guna2HtmlLabel15.Size = new System.Drawing.Size(280, 33);
             this.guna2HtmlLabel15.TabIndex = 48;
             this.guna2HtmlLabel15.Text = "Tổng thưởng (triệu đồng)";
-            // 
-            // guna2Button27
-            // 
-            this.guna2Button27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button27.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button27.BorderRadius = 10;
-            this.guna2Button27.BorderThickness = 1;
-            this.guna2Button27.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button27.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button27.ForeColor = System.Drawing.Color.White;
-            this.guna2Button27.Image = global::CompanyHRManagement.Properties.Resources.salary_total_icon;
-            this.guna2Button27.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button27.Location = new System.Drawing.Point(169, 16);
-            this.guna2Button27.Name = "guna2Button27";
-            this.guna2Button27.Size = new System.Drawing.Size(69, 53);
-            this.guna2Button27.TabIndex = 61;
             // 
             // guna2Panel7
             // 
@@ -309,22 +277,6 @@
             this.guna2HtmlLabel14.TabIndex = 48;
             this.guna2HtmlLabel14.Text = "Nhân viên thử việc";
             // 
-            // guna2Button25
-            // 
-            this.guna2Button25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button25.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button25.BorderRadius = 10;
-            this.guna2Button25.BorderThickness = 1;
-            this.guna2Button25.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button25.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button25.ForeColor = System.Drawing.Color.White;
-            this.guna2Button25.Image = global::CompanyHRManagement.Properties.Resources.staff_intern_total_icon;
-            this.guna2Button25.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button25.Location = new System.Drawing.Point(169, 16);
-            this.guna2Button25.Name = "guna2Button25";
-            this.guna2Button25.Size = new System.Drawing.Size(69, 53);
-            this.guna2Button25.TabIndex = 61;
-            // 
             // guna2Panel6
             // 
             this.guna2Panel6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -364,22 +316,6 @@
             this.guna2HtmlLabel13.Size = new System.Drawing.Size(152, 33);
             this.guna2HtmlLabel13.TabIndex = 48;
             this.guna2HtmlLabel13.Text = "Số phòng ban";
-            // 
-            // guna2Button24
-            // 
-            this.guna2Button24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button24.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button24.BorderRadius = 10;
-            this.guna2Button24.BorderThickness = 1;
-            this.guna2Button24.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button24.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button24.ForeColor = System.Drawing.Color.White;
-            this.guna2Button24.Image = global::CompanyHRManagement.Properties.Resources.room_total_icon;
-            this.guna2Button24.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button24.Location = new System.Drawing.Point(169, 16);
-            this.guna2Button24.Name = "guna2Button24";
-            this.guna2Button24.Size = new System.Drawing.Size(69, 53);
-            this.guna2Button24.TabIndex = 61;
             // 
             // guna2Panel5
             // 
@@ -421,22 +357,6 @@
             this.guna2HtmlLabel11.TabIndex = 48;
             this.guna2HtmlLabel11.Text = "Số chức vụ ";
             // 
-            // guna2Button23
-            // 
-            this.guna2Button23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button23.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button23.BorderRadius = 10;
-            this.guna2Button23.BorderThickness = 1;
-            this.guna2Button23.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button23.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button23.ForeColor = System.Drawing.Color.White;
-            this.guna2Button23.Image = global::CompanyHRManagement.Properties.Resources.rank_total_icon;
-            this.guna2Button23.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button23.Location = new System.Drawing.Point(169, 16);
-            this.guna2Button23.Name = "guna2Button23";
-            this.guna2Button23.Size = new System.Drawing.Size(69, 53);
-            this.guna2Button23.TabIndex = 61;
-            // 
             // guna2Panel4
             // 
             this.guna2Panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -466,23 +386,6 @@
             this.guna2HtmlLabel10.TabIndex = 48;
             this.guna2HtmlLabel10.Text = "Tổng nhân viên ";
             // 
-            // guna2Button22
-            // 
-            this.guna2Button22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button22.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button22.BorderRadius = 10;
-            this.guna2Button22.BorderThickness = 1;
-            this.guna2Button22.FillColor = System.Drawing.Color.Transparent;
-            this.guna2Button22.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button22.ForeColor = System.Drawing.Color.White;
-            this.guna2Button22.Image = global::CompanyHRManagement.Properties.Resources.staff_total_icon;
-            this.guna2Button22.ImageSize = new System.Drawing.Size(40, 40);
-            this.guna2Button22.Location = new System.Drawing.Point(169, 16);
-            this.guna2Button22.Name = "guna2Button22";
-            this.guna2Button22.Size = new System.Drawing.Size(69, 53);
-            this.guna2Button22.TabIndex = 61;
-            this.guna2Button22.Click += new System.EventHandler(this.guna2Button22_Click);
-            // 
             // lblTongNhanVien
             // 
             this.lblTongNhanVien.BackColor = System.Drawing.Color.Transparent;
@@ -507,6 +410,7 @@
             this.panelInfoDB_admin.Controls.Add(this.lblXinChao);
             this.panelInfoDB_admin.Controls.Add(this.guna2HtmlLabel1);
             this.panelInfoDB_admin.Controls.Add(this.guna2VSeparator1);
+            this.panelInfoDB_admin.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelInfoDB_admin.Location = new System.Drawing.Point(2, 7);
             this.panelInfoDB_admin.Name = "panelInfoDB_admin";
             this.panelInfoDB_admin.Size = new System.Drawing.Size(1029, 93);
@@ -518,6 +422,179 @@
             this.guna2VSeparator2.Name = "guna2VSeparator2";
             this.guna2VSeparator2.Size = new System.Drawing.Size(10, 56);
             this.guna2VSeparator2.TabIndex = 60;
+            // 
+            // lblRole
+            // 
+            this.lblRole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRole.BackColor = System.Drawing.Color.Transparent;
+            this.lblRole.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRole.ForeColor = System.Drawing.Color.SlateGray;
+            this.lblRole.Location = new System.Drawing.Point(521, 32);
+            this.lblRole.Name = "lblRole";
+            this.lblRole.Size = new System.Drawing.Size(62, 27);
+            this.lblRole.TabIndex = 57;
+            this.lblRole.Text = "Vai trò: ";
+            // 
+            // lblTime
+            // 
+            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTime.BackColor = System.Drawing.Color.Transparent;
+            this.lblTime.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.ForeColor = System.Drawing.Color.SlateGray;
+            this.lblTime.Location = new System.Drawing.Point(811, 21);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(43, 27);
+            this.lblTime.TabIndex = 56;
+            this.lblTime.Text = "Time";
+            // 
+            // lblDate
+            // 
+            this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDate.BackColor = System.Drawing.Color.Transparent;
+            this.lblDate.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDate.ForeColor = System.Drawing.Color.SlateGray;
+            this.lblDate.Location = new System.Drawing.Point(811, 51);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(80, 27);
+            this.lblDate.TabIndex = 55;
+            this.lblDate.Text = "Hôm nay: ";
+            // 
+            // lblXinChao
+            // 
+            this.lblXinChao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblXinChao.BackColor = System.Drawing.Color.Transparent;
+            this.lblXinChao.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblXinChao.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblXinChao.Location = new System.Drawing.Point(12, 32);
+            this.lblXinChao.Name = "lblXinChao";
+            this.lblXinChao.Size = new System.Drawing.Size(108, 33);
+            this.lblXinChao.TabIndex = 54;
+            this.lblXinChao.Text = "Xin chào :";
+            // 
+            // guna2HtmlLabel1
+            // 
+            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.SlateGray;
+            this.guna2HtmlLabel1.Location = new System.Drawing.Point(961, 46);
+            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(3, 2);
+            this.guna2HtmlLabel1.TabIndex = 48;
+            this.guna2HtmlLabel1.Text = null;
+            // 
+            // guna2VSeparator1
+            // 
+            this.guna2VSeparator1.Location = new System.Drawing.Point(784, 18);
+            this.guna2VSeparator1.Name = "guna2VSeparator1";
+            this.guna2VSeparator1.Size = new System.Drawing.Size(10, 56);
+            this.guna2VSeparator1.TabIndex = 53;
+            // 
+            // timerClock
+            // 
+            this.timerClock.Enabled = true;
+            this.timerClock.Interval = 1000;
+            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
+            // 
+            // guna2Button28
+            // 
+            this.guna2Button28.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button28.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button28.BorderRadius = 10;
+            this.guna2Button28.BorderThickness = 1;
+            this.guna2Button28.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button28.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button28.ForeColor = System.Drawing.Color.White;
+            this.guna2Button28.Image = global::CompanyHRManagement.Properties.Resources.insurance;
+            this.guna2Button28.ImageSize = new System.Drawing.Size(40, 40);
+            this.guna2Button28.Location = new System.Drawing.Point(169, 16);
+            this.guna2Button28.Name = "guna2Button28";
+            this.guna2Button28.Size = new System.Drawing.Size(69, 53);
+            this.guna2Button28.TabIndex = 61;
+            // 
+            // guna2Button27
+            // 
+            this.guna2Button27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button27.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button27.BorderRadius = 10;
+            this.guna2Button27.BorderThickness = 1;
+            this.guna2Button27.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button27.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button27.ForeColor = System.Drawing.Color.White;
+            this.guna2Button27.Image = global::CompanyHRManagement.Properties.Resources.salary_total_icon;
+            this.guna2Button27.ImageSize = new System.Drawing.Size(40, 40);
+            this.guna2Button27.Location = new System.Drawing.Point(169, 16);
+            this.guna2Button27.Name = "guna2Button27";
+            this.guna2Button27.Size = new System.Drawing.Size(69, 53);
+            this.guna2Button27.TabIndex = 61;
+            // 
+            // guna2Button25
+            // 
+            this.guna2Button25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button25.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button25.BorderRadius = 10;
+            this.guna2Button25.BorderThickness = 1;
+            this.guna2Button25.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button25.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button25.ForeColor = System.Drawing.Color.White;
+            this.guna2Button25.Image = global::CompanyHRManagement.Properties.Resources.staff_intern_total_icon;
+            this.guna2Button25.ImageSize = new System.Drawing.Size(40, 40);
+            this.guna2Button25.Location = new System.Drawing.Point(169, 16);
+            this.guna2Button25.Name = "guna2Button25";
+            this.guna2Button25.Size = new System.Drawing.Size(69, 53);
+            this.guna2Button25.TabIndex = 61;
+            // 
+            // guna2Button24
+            // 
+            this.guna2Button24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button24.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button24.BorderRadius = 10;
+            this.guna2Button24.BorderThickness = 1;
+            this.guna2Button24.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button24.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button24.ForeColor = System.Drawing.Color.White;
+            this.guna2Button24.Image = global::CompanyHRManagement.Properties.Resources.room_total_icon;
+            this.guna2Button24.ImageSize = new System.Drawing.Size(40, 40);
+            this.guna2Button24.Location = new System.Drawing.Point(169, 16);
+            this.guna2Button24.Name = "guna2Button24";
+            this.guna2Button24.Size = new System.Drawing.Size(69, 53);
+            this.guna2Button24.TabIndex = 61;
+            // 
+            // guna2Button23
+            // 
+            this.guna2Button23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button23.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button23.BorderRadius = 10;
+            this.guna2Button23.BorderThickness = 1;
+            this.guna2Button23.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button23.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button23.ForeColor = System.Drawing.Color.White;
+            this.guna2Button23.Image = global::CompanyHRManagement.Properties.Resources.rank_total_icon;
+            this.guna2Button23.ImageSize = new System.Drawing.Size(40, 40);
+            this.guna2Button23.Location = new System.Drawing.Point(169, 16);
+            this.guna2Button23.Name = "guna2Button23";
+            this.guna2Button23.Size = new System.Drawing.Size(69, 53);
+            this.guna2Button23.TabIndex = 61;
+            // 
+            // guna2Button22
+            // 
+            this.guna2Button22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button22.BackColor = System.Drawing.Color.Transparent;
+            this.guna2Button22.BorderRadius = 10;
+            this.guna2Button22.BorderThickness = 1;
+            this.guna2Button22.FillColor = System.Drawing.Color.Transparent;
+            this.guna2Button22.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button22.ForeColor = System.Drawing.Color.White;
+            this.guna2Button22.Image = global::CompanyHRManagement.Properties.Resources.staff_total_icon;
+            this.guna2Button22.ImageSize = new System.Drawing.Size(40, 40);
+            this.guna2Button22.Location = new System.Drawing.Point(169, 16);
+            this.guna2Button22.Name = "guna2Button22";
+            this.guna2Button22.Size = new System.Drawing.Size(69, 53);
+            this.guna2Button22.TabIndex = 61;
+            this.guna2Button22.Click += new System.EventHandler(this.guna2Button22_Click);
             // 
             // guna2Button21
             // 
@@ -547,45 +624,6 @@
             this.guna2Button20.Size = new System.Drawing.Size(69, 53);
             this.guna2Button20.TabIndex = 58;
             // 
-            // lblRole
-            // 
-            this.lblRole.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRole.BackColor = System.Drawing.Color.Transparent;
-            this.lblRole.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRole.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblRole.Location = new System.Drawing.Point(521, 32);
-            this.lblRole.Name = "lblRole";
-            this.lblRole.Size = new System.Drawing.Size(72, 30);
-            this.lblRole.TabIndex = 57;
-            this.lblRole.Text = "Vai trò: ";
-            // 
-            // lblTime
-            // 
-            this.lblTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTime.BackColor = System.Drawing.Color.Transparent;
-            this.lblTime.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblTime.Location = new System.Drawing.Point(811, 21);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(48, 30);
-            this.lblTime.TabIndex = 56;
-            this.lblTime.Text = "Time";
-            // 
-            // lblDate
-            // 
-            this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDate.BackColor = System.Drawing.Color.Transparent;
-            this.lblDate.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDate.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblDate.Location = new System.Drawing.Point(811, 51);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(91, 30);
-            this.lblDate.TabIndex = 55;
-            this.lblDate.Text = "Hôm nay: ";
-            // 
             // guna2Button3
             // 
             this.guna2Button3.BackColor = System.Drawing.Color.Transparent;
@@ -599,43 +637,6 @@
             this.guna2Button3.Name = "guna2Button3";
             this.guna2Button3.Size = new System.Drawing.Size(69, 53);
             this.guna2Button3.TabIndex = 29;
-            // 
-            // lblXinChao
-            // 
-            this.lblXinChao.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblXinChao.BackColor = System.Drawing.Color.Transparent;
-            this.lblXinChao.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblXinChao.ForeColor = System.Drawing.Color.SlateGray;
-            this.lblXinChao.Location = new System.Drawing.Point(12, 32);
-            this.lblXinChao.Name = "lblXinChao";
-            this.lblXinChao.Size = new System.Drawing.Size(127, 39);
-            this.lblXinChao.TabIndex = 54;
-            this.lblXinChao.Text = "Xin chào :";
-            // 
-            // guna2HtmlLabel1
-            // 
-            this.guna2HtmlLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.SlateGray;
-            this.guna2HtmlLabel1.Location = new System.Drawing.Point(961, 46);
-            this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(3, 2);
-            this.guna2HtmlLabel1.TabIndex = 48;
-            this.guna2HtmlLabel1.Text = null;
-            // 
-            // guna2VSeparator1
-            // 
-            this.guna2VSeparator1.Location = new System.Drawing.Point(784, 18);
-            this.guna2VSeparator1.Name = "guna2VSeparator1";
-            this.guna2VSeparator1.Size = new System.Drawing.Size(10, 56);
-            this.guna2VSeparator1.TabIndex = 53;
-            // 
-            // timerClock
-            // 
-            this.timerClock.Enabled = true;
-            this.timerClock.Interval = 1000;
-            this.timerClock.Tick += new System.EventHandler(this.timerClock_Tick);
             // 
             // Panel_main
             // 

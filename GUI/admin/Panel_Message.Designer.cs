@@ -127,8 +127,10 @@
             this.txtND.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtND.Location = new System.Drawing.Point(123, 70);
             this.txtND.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtND.Multiline = true;
             this.txtND.Name = "txtND";
             this.txtND.PlaceholderText = "";
+            this.txtND.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtND.SelectedText = "";
             this.txtND.Size = new System.Drawing.Size(851, 167);
             this.txtND.TabIndex = 61;

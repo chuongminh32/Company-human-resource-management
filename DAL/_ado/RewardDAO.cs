@@ -182,5 +182,46 @@ public class RewardDAO
         return db.MyExecuteNonQuery(query, CommandType.Text, ref error);
     }
 
+    public bool UpdateRewardByID(int rewardID, string fullName, string reason, DateTime rewardDate, decimal amount, ref string error)
+    {
+        // 1. Lấy EmployeeID từ FullName
+        string queryGetEmployeeID = "SELECT EmployeeID FROM Employees WHERE FullName = @FullName";
+        SqlParameter[] paramGetEmp = {
+        new SqlParameter("@FullName", SqlDbType.NVarChar, 100) { Value = fullName }
+    };
+        object empIDObj = DBConnection.ExecuteScalar(queryGetEmployeeID, paramGetEmp);
+
+        if (empIDObj == null || empIDObj == DBNull.Value)
+        {
+            error = "Tên nhân viên không tồn tại.";
+            return false;
+        }
+
+        if (!int.TryParse(empIDObj.ToString(), out int employeeID) || employeeID == 0)
+        {
+            error = "Tên nhân viên không hợp lệ.";
+            return false;
+        }
+
+        // 2. Câu truy vấn cập nhật
+        string updateQuery = @"
+        UPDATE Rewards
+        SET EmployeeID = @EmployeeID,
+            Reason = @Reason,
+            RewardDate = @RewardDate,
+            Amount = @Amount
+        WHERE RewardID = @RewardID";
+
+        SqlParameter[] parameters = {
+        new SqlParameter("@EmployeeID", employeeID),
+        new SqlParameter("@Reason", SqlDbType.NVarChar, 250) { Value = (object)reason ?? DBNull.Value },
+        new SqlParameter("@RewardDate", rewardDate),
+        new SqlParameter("@Amount", amount),
+        new SqlParameter("@RewardID", rewardID)
+    };
+
+        return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error, parameters);
+    }
+
 
 }

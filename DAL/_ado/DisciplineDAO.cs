@@ -182,4 +182,43 @@ public class DisciplineDAO
         return db.MyExecuteNonQuery(query, CommandType.Text, ref error);
     }
 
+    public bool UpdateDisciplineByID(int disciplineID, string fullName, string reason, DateTime disciplineDate, decimal amount, ref string error)
+    {
+        // Lấy EmployeeID từ FullName
+        string queryGetEmployeeID = "SELECT EmployeeID FROM Employees WHERE FullName = @FullName";
+        SqlParameter[] paramGetEmp = {
+            new SqlParameter("@FullName", SqlDbType.NVarChar, 100) { Value = fullName }
+        };
+
+        object empIDObj = DBConnection.ExecuteScalar(queryGetEmployeeID, paramGetEmp);
+        if (empIDObj == null || empIDObj == DBNull.Value)
+        {
+            error = "Tên nhân viên không tồn tại.";
+            return false;
+        }
+
+        if (!int.TryParse(empIDObj.ToString(), out int employeeID) || employeeID <= 0)
+        {
+            error = "EmployeeID không hợp lệ.";
+            return false;
+        }
+
+        string updateQuery = @"
+            UPDATE Disciplines
+            SET EmployeeID = @EmployeeID,
+                Reason = @Reason,
+                DisciplineDate = @DisciplineDate,
+                Amount = @Amount
+            WHERE DisciplineID = @DisciplineID";
+
+        SqlParameter[] parameters = {
+            new SqlParameter("@EmployeeID", employeeID),
+            new SqlParameter("@Reason", reason),
+            new SqlParameter("@DisciplineDate", disciplineDate),
+            new SqlParameter("@Amount", amount),
+            new SqlParameter("@DisciplineID", disciplineID)
+        };
+
+        return db.MyExecuteNonQuery(updateQuery, CommandType.Text, ref error, parameters);
+    }
 }

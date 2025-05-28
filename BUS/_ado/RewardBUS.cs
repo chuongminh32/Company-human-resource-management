@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 public class RewardBUS
 {
@@ -65,4 +66,41 @@ public class RewardBUS
     {
         return rewardDAO.DeleteRewardsByIDs(rewardIDs, ref error);
     }
+
+    public bool CapNhatReward(string rewardIDStr, string fullName, string reason, string dayStr, string monthStr, string yearStr, decimal amount, ref string error)
+    {
+        // Chuyển RewardID
+        if (!int.TryParse(rewardIDStr.Trim(), out int rewardID))
+        {
+            error = "RewardID không hợp lệ.";
+            return false;
+        }
+
+        // Chuyển ngày tháng năm
+        if (!int.TryParse(dayStr.Trim(), out int day) ||
+            !int.TryParse(monthStr.Trim(), out int month) ||
+            !int.TryParse(yearStr.Trim(), out int year))
+        {
+            error = "Ngày, tháng hoặc năm không hợp lệ.";
+            return false;
+        }
+
+        
+        // Tạo DateTime
+        DateTime rewardDate;
+        try
+        {
+            rewardDate = new DateTime(year, month, day);
+        }
+        catch
+        {
+            error = "Giá trị ngày tháng không hợp lệ.";
+            return false;
+        }
+
+        // Gọi DAO để cập nhật
+        return rewardDAO.UpdateRewardByID(rewardID, fullName, reason, rewardDate, amount, ref error);
+    }
+
+
 }

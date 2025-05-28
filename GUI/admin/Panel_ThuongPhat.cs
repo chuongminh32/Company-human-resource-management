@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CompanyHRManagement.GUI.admin
@@ -217,55 +213,67 @@ namespace CompanyHRManagement.GUI.admin
             string month = txtMonth.Text.Trim();
             string year = txtYear.Text.Trim();
             string amountStr = txtAmount.Text.Trim();
+            string ID = txtRewDisID.Text.Trim();
+            bool result = false;
+            if (!decimal.TryParse(amountStr, out decimal amount))
+            {
+                MessageBox.Show("Số tiền không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (them == true)
             {
                 if (cbAction.SelectedIndex == 0)
                 {
-                    
-                    if (!decimal.TryParse(amountStr, out decimal amount))
-                    {
-                        MessageBox.Show("Số tiền thưởng không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    bool result = _rewardBUS.ThemThuong(fullName, reason, day, month, year, amount, ref error);
-
-                    if (result)
-                    {
-                        MessageBox.Show("Thêm khen thưởng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadData();
-                        them = false;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Lỗi khi thêm khen thưởng: " + error, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    result = _rewardBUS.ThemThuong(fullName, reason, day, month, year, amount, ref error);
+                                        
                 } else if (cbAction.SelectedIndex == 1)
                 {
-                    if (!decimal.TryParse(amountStr, out decimal amount))
-                    {
-                        MessageBox.Show("Số tiền phạt không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-
-                    bool ok = _disciplineBUS.Themphat(fullName, reason, day, month, year, amount, ref error);
-
-                    if (ok)
-                    {
-                        MessageBox.Show("Thêm kỷ luật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadData();
-                        them = false;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Lỗi khi thêm kỷ luật: " + error, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    result = _disciplineBUS.Themphat(fullName, reason, day, month, year, amount, ref error);
                 }
                 else
                 {
                     MessageBox.Show("Vui lòng chọn hành động là Thưởng/Phạt");
                 }
+
+                if (result)
+                {
+                    MessageBox.Show("Thêm khen thưởng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                    them = false;
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi khi thêm khen thưởng: " + error, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 
+            } else
+            {
+                if (sua == true)
+                {
+                    panel_thongtin.Enabled = true;
+                    txtRewDisID.Enabled = false;
+                    if (cbAction.SelectedIndex == 0)
+                    {
+                        // 2. Gọi BUS để cập nhật
+                        result = _rewardBUS.CapNhatReward(ID, fullName, reason, day, month, year, amount, ref error);
+                    } else if (cbAction.SelectedIndex == 1)
+                    {
+                        result = _disciplineBUS.CapNhatDiscipline(ID, fullName, reason, day, month, year, amount, ref error);
+                    }
+
+                    // 3. Hiển thị kết quả
+                    if (result)
+                    {
+                        MessageBox.Show("Cập nhật thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData();
+                        sua = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Lỗi: " + error, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
         }
 
@@ -325,6 +333,12 @@ namespace CompanyHRManagement.GUI.admin
             {
                 MessageBox.Show("Xóa thất bại: " + error, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnMod_Click(object sender, EventArgs e)
+        {
+            sua = true;
+            txtRewDisID.Enabled = false;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)

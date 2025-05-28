@@ -65,4 +65,38 @@ public class DisciplineBUS
     {
         return disciplineDAO.DeleteDisciplinesByIDs(rewardIDs, ref error);
     }
+
+    public bool CapNhatDiscipline(string disciplineIDStr, string fullName, string reason, string dayStr, string monthStr, string yearStr, decimal amount, ref string error)
+    {
+        // Ép kiểu DisciplineID
+        if (!int.TryParse(disciplineIDStr.Trim(), out int disciplineID))
+        {
+            error = "DisciplineID không hợp lệ.";
+            return false;
+        }
+
+        // Ép kiểu ngày tháng năm
+        if (!int.TryParse(dayStr.Trim(), out int day) ||
+            !int.TryParse(monthStr.Trim(), out int month) ||
+            !int.TryParse(yearStr.Trim(), out int year))
+        {
+            error = "Ngày / tháng / năm không hợp lệ.";
+            return false;
+        }
+
+        
+        // Tạo DateTime
+        DateTime disciplineDate;
+        try
+        {
+            disciplineDate = new DateTime(year, month, day);
+        }
+        catch
+        {
+            error = "Giá trị ngày tháng không hợp lệ.";
+            return false;
+        }
+
+        return disciplineDAO.UpdateDisciplineByID(disciplineID, fullName, reason, disciplineDate, amount, ref error);
+    }
 }

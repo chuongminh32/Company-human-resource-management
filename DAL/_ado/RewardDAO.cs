@@ -144,7 +144,29 @@ public class RewardDAO
 
         return rewards;
     }
+    //Thêm bản ghi thưởng
+    public bool InsertReward(string fullName, string reason, DateTime rewardDate, decimal amount, ref string error)
+    {
+        // Lấy EmployeeID từ tên nhân viên
+        string queryEmpID = $"SELECT EmployeeID FROM Employees WHERE FullName = N'{fullName.Replace("'", "''")}'";
+        object result = DBConnection.ExecuteScalar(queryEmpID);
 
+        if (result == null || result.ToString() == "0")
+        {
+            error = "Không tìm thấy nhân viên.";
+            return false;
+        }
+
+        int employeeID = Convert.ToInt32(result);
+        string dateStr = rewardDate.ToString("yyyy-MM-dd");
+        reason = reason.Replace("'", "''"); // Tránh lỗi do dấu nháy đơn
+
+        string insertQuery = $@"
+            INSERT INTO Rewards (EmployeeID, Reason, RewardDate, Amount)
+            VALUES ({employeeID}, N'{reason}', '{dateStr}', {amount})";
+
+        return db.MyExecuteNonQuery(insertQuery, CommandType.Text, ref error);
+    }
 
 
 }

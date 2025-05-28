@@ -175,6 +175,7 @@ namespace CompanyHRManagement.GUI.admin
         {
             FalseAllActions();
             panel_thongtin.Enabled = true;
+            ClearAllText();
             txtSalaryID.Enabled = false;
             txtBaseSalary.Enabled = false;
             txtBonus.Enabled = false;

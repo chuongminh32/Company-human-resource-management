@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System;
+using System.Data;
 
 public class DisciplineDAO
 {
-
+    DBConnection db = new DBConnection();
     public List<Discipline> GetDisciplinesByEmployeeId(int employeeId)
     {
         List<Discipline> disciplines = new List<Discipline>();
@@ -142,5 +143,28 @@ public class DisciplineDAO
         }
 
         return disciplines;
+    }
+    //Thêm phạt
+    public bool InsertDiscipline(string fullName, string reason, DateTime disciplineDate, decimal amount, ref string error)
+    {
+        // Lấy EmployeeID từ tên
+        string queryEmpID = $"SELECT EmployeeID FROM Employees WHERE FullName = N'{fullName.Replace("'", "''")}'";
+        object result = DBConnection.ExecuteScalar(queryEmpID);
+
+        if (result == null || result.ToString() == "0")
+        {
+            error = "Không tìm thấy nhân viên.";
+            return false;
+        }
+
+        int employeeID = Convert.ToInt32(result);
+        string dateStr = disciplineDate.ToString("yyyy-MM-dd");
+        reason = reason.Replace("'", "''");
+
+        string insertQuery = $@"
+            INSERT INTO Disciplines (EmployeeID, Reason, DisciplineDate, Amount)
+            VALUES ({employeeID}, N'{reason}', '{dateStr}', {amount})";
+
+        return db.MyExecuteNonQuery(insertQuery, CommandType.Text, ref error);
     }
 }

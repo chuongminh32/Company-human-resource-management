@@ -124,26 +124,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BUS\_ado\AuthenticationBUS.cs" />
-    <Compile Include="BUS\_ado\DisciplineBUS.cs" />
-    <Compile Include="DAL\_ado\DisciplineDAO.cs" />
-    <Compile Include="BUS\_ado\RewardBUS.cs" />
-    <Compile Include="BUS\_ado\DashBoard_adminBUS.cs" />
-    <Compile Include="BUS\_ado\DepartmentBUS.cs" />
-    <Compile Include="BUS\_ado\MessageBUS.cs" />
-    <Compile Include="BUS\_ado\LeavesBUS.cs" />
-    <Compile Include="BUS\_ado\DashBoardBUS.cs" />
-    <Compile Include="BUS\_ado\EmployeeBUS.cs" />
-    <Compile Include="BUS\_ado\AttendanceBUS.cs" />
-    <Compile Include="BUS\_ado\PositionBUS.cs" />
-    <Compile Include="BUS\_ado\SalaryBUS.cs" />
-    <Compile Include="DAL\_ado\RewardDAO.cs" />
-    <Compile Include="DAL\_ado\DepartmentDAO.cs" />
-    <Compile Include="DAL\_ado\MessageDAO.cs" />
-    <Compile Include="DAL\_ado\LeaveDAO.cs" />
-    <Compile Include="DAL\_ado\DashBoardDAO.cs" />
-    <Compile Include="DAL\_ado\DashBoard_adminDAO.cs" />
-    <Compile Include="DAL\_ado\PositionDAO.cs" />
+    <Compile Include="BUS\AuthenticationBUS.cs" />
+    <Compile Include="BUS\DisciplineBUS.cs" />
+    <Compile Include="DAL\DisciplineDAO.cs" />
+    <Compile Include="BUS\RewardBUS.cs" />
+    <Compile Include="BUS\DashBoard_adminBUS.cs" />
+    <Compile Include="BUS\DepartmentBUS.cs" />
+    <Compile Include="BUS\MessageBUS.cs" />
+    <Compile Include="BUS\LeavesBUS.cs" />
+    <Compile Include="BUS\DashBoardBUS.cs" />
+    <Compile Include="BUS\EmployeeBUS.cs" />
+    <Compile Include="BUS\AttendanceBUS.cs" />
+    <Compile Include="BUS\PositionBUS.cs" />
+    <Compile Include="BUS\SalaryBUS.cs" />
+    <Compile Include="DAL\RewardDAO.cs" />
+    <Compile Include="DAL\DepartmentDAO.cs" />
+    <Compile Include="DAL\MessageDAO.cs" />
+    <Compile Include="DAL\LeaveDAO.cs" />
+    <Compile Include="DAL\DashBoardDAO.cs" />
+    <Compile Include="DAL\DashBoard_adminDAO.cs" />
+    <Compile Include="DAL\PositionDAO.cs" />
     <Compile Include="GUI\ForgotPassForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -250,13 +250,10 @@
     <EmbeddedResource Include="Reports\RptSalaries.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Compile Include="DAL\_ado\SalaryDAO.cs" />
-    <Compile Include="DAL\_ado\DBConnection.cs" />
-    <Compile Include="DAL\_ado\EmployeeDAO.cs" />
-    <Compile Include="DAL\_ado\AttendanceDAO.cs" />
-    <Compile Include="DAL\_ef\AppDbContext.cs" />
-    <Compile Include="DAL\_ef\AttendanceRepository.cs" />
-    <Compile Include="DAL\_ef\EmployeeRepository.cs" />
+    <Compile Include="DAL\SalaryDAO.cs" />
+    <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\EmployeeDAO.cs" />
+    <Compile Include="DAL\AttendanceDAO.cs" />
     <Compile Include="Models\Attendance.cs" />
     <Compile Include="Models\Salary.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -340,9 +337,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BUS\_ef\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

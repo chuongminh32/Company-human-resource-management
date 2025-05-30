@@ -34,9 +34,9 @@ namespace CompanyHRManagement.BUS._ado
             return DashBoard_adminDAO.GetTotalRewards(); 
         }
 
-        public int GetValidInsuranceCount()
-        {
-            return DashBoard_adminDAO.CountValidInsurances(); 
-        }
+        //public int GetValidInsuranceCount()
+        //{
+        //    return DashBoard_adminDAO.CountValidInsurances(); 
+        //}
     }
 }

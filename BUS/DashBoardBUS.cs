@@ -29,7 +29,7 @@ namespace CompanyHRManagement.BUS
 
 
         // lấy dữ liệu để hiển thị lên dashboard
-        public int GetTotalValidInsurances() => db_DAO.GetTotalValidInsurances();
+        //public int GetTotalValidInsurances() => db_DAO.GetTotalValidInsurances();
         public int GetToTalRewardSalary() => db_DAO.GetToTalRewardSalary();
         public int GetTotalEmployees() => db_DAO.GetTotalEmployees();
         public int GetTotalDepartments() => db_DAO.GetTotalDepartments();

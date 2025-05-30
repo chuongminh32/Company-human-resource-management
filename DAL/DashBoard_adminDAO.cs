@@ -57,27 +57,21 @@ namespace CompanyHRManagement.DAL._ado
             }
         }
         //Đếm số bảo hiểm còn hạn
-        public static int CountValidInsurances()
-        {
-            string query = "SELECT COUNT(*) FROM Insurance WHERE ExpiryDate > GETDATE()";
+        //public static int CountValidInsurances()
+        //{
+        //    string query = "SELECT COUNT(*) FROM Insurance WHERE ExpiryDate > GETDATE()";
 
-            object result = DBConnection.ExecuteScalar(query);
+        //    object result = DBConnection.ExecuteScalar(query);
 
-            if (result == null || result == DBNull.Value)
-            {
-                return 0;
-            }
-            else
-            {
-                return Convert.ToInt32(result);
-            }
-        }
-
-
-
-
-
-
+        //    if (result == null || result == DBNull.Value)
+        //    {
+        //        return 0;
+        //    }
+        //    else
+        //    {
+        //        return Convert.ToInt32(result);
+        //    }
+        //}
 
     }
 }

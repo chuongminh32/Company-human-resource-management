@@ -79,11 +79,11 @@ namespace CompanyHRManagement.DAL._ado
         }
 
 
-        public int GetTotalValidInsurances()
-        {
-            string query = "SELECT COUNT(*) FROM Insurance WHERE ExpiryDate >= GETDATE()";
-            return (int)DBConnection.ExecuteScalar(query);
-        }
+        //public int GetTotalValidInsurances()
+        //{
+        //    string query = "SELECT COUNT(*) FROM Insurance WHERE ExpiryDate >= GETDATE()";
+        //    return (int)DBConnection.ExecuteScalar(query);
+        //}
 
 
         public int GetTotalEmployees()

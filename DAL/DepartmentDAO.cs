@@ -112,11 +112,11 @@ namespace CompanyHRManagement.DAL._ado
         // Xóa phòng ban
         public bool DeleteDepartment(int departmentID, ref string error)
         {
-            // Kiểm tra xem có nhân viên nào thuộc phòng ban này không
+            // Bước 1: Kiểm tra phòng ban có nhân viên hay không
             string checkQuery = "SELECT COUNT(*) FROM Employees WHERE DepartmentID = @id";
             SqlParameter[] checkParams = {
-            new SqlParameter("@id", departmentID)
-            };
+        new SqlParameter("@id", departmentID)
+    };
 
             object result = DBConnection.ExecuteScalar(checkQuery, checkParams);
             int employeeCount = Convert.ToInt32(result);
@@ -127,10 +127,15 @@ namespace CompanyHRManagement.DAL._ado
                 return false;
             }
 
-            // Nếu không có nhân viên, tiếp tục xóa
+            // Bước 2: Xóa phòng ban – KHÔNG dùng lại checkParams
             string deleteQuery = "DELETE FROM Departments WHERE DepartmentID = @id";
+            SqlParameter[] deleteParams = {
+        new SqlParameter("@id", departmentID)  // Tạo mới tham số
+    };
+
             DBConnection db = new DBConnection();
-            return db.MyExecuteNonQuery(deleteQuery, CommandType.Text, ref error, checkParams);
+            return db.MyExecuteNonQuery(deleteQuery, CommandType.Text, ref error, deleteParams);
         }
+
     }
 }

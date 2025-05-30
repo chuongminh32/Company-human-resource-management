@@ -59,7 +59,7 @@ namespace CompanyHRManagement.GUI.admin
 
         private void KhoiTaoDanhSachNutDieuHuong()
         {
-            navButtons = new List<Guna2Button> { btnNhanVien, btnTrangChu, btnChamCong, btnLuong, btnTinNhan, btnThuongPhat };
+            navButtons = new List<Guna2Button> { btnDepPos, btnNhanVien, btnTrangChu, btnChamCong, btnLuong, btnTinNhan, btnThuongPhat };
             navButtons.ForEach(btn => btn.Click += NavButton_Click);
         }
 

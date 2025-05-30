@@ -53,6 +53,7 @@ namespace CompanyHRManagement.GUI.admin
             panel_Message1.Visible = false;
             panel_Luong.Visible = false;
             panel_ThuongPhat.Visible = false;
+            panel_PhongChucVu.Visible = false;
         }
 
 
@@ -147,6 +148,13 @@ namespace CompanyHRManagement.GUI.admin
             panel_Message1.Visible = true;
             panel_Message1.CurrentUserId = user_id;
             panel_Message1.BringToFront();
+        }
+
+        private void btnDepPos_Click(object sender, EventArgs e)
+        {
+            HideAllPanels();
+            panel_PhongChucVu.Visible = true;
+            panel_PhongChucVu.BringToFront();
         }
     }
 }

@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CompanyHRManagement.Models;
 
 namespace CompanyHRManagement.DAL._ado
 {
     public class DepartmentDAO
     {
+        DBConnection db = new DBConnection();
+
         //Lấy danh sách tên trả vào comboBox
         public List<string> GetDepartmentNames()
         {
@@ -32,6 +36,101 @@ namespace CompanyHRManagement.DAL._ado
             }
 
             return departments;
+        }
+
+        public List<Department> GetAllDepartments()
+        {
+            List<Department> departments = new List<Department>();
+            string query = "SELECT DepartmentID, DepartmentName FROM Departments";
+
+            using (SqlDataReader reader = DBConnection.ExecuteReader(query))
+            {
+                while (reader.Read())
+                {
+                    Department dept = new Department
+                    {
+                        DepartmentID = Convert.ToInt32(reader["DepartmentID"]),
+                        DepartmentName = reader["DepartmentName"].ToString()
+                    };
+                    departments.Add(dept);
+                }
+            }
+
+            return departments;
+        }
+
+        // Tìm kiếm phòng ban theo tên
+        public List<Department> SearchDepartments(string keyword)
+        {
+            List<Department> departments = new List<Department>();
+            string query = "SELECT DepartmentID, DepartmentName FROM Departments WHERE DepartmentName LIKE @keyword";
+            SqlParameter[] parameters = {
+            new SqlParameter("@keyword", "%" + keyword + "%")
+        };
+
+            using (SqlDataReader reader = DBConnection.ExecuteReader(query, parameters))
+            {
+                while (reader.Read())
+                {
+                    departments.Add(new Department
+                    {
+                        DepartmentID = Convert.ToInt32(reader["DepartmentID"]),
+                        DepartmentName = reader["DepartmentName"].ToString()
+                    });
+                }
+            }
+
+            return departments;
+        }
+
+        // Thêm phòng ban
+        public bool AddDepartment(string departmentName, ref string error)
+        {
+            string query = "INSERT INTO Departments (DepartmentName) VALUES (@name)";
+            SqlParameter[] parameters = {
+            new SqlParameter("@name", departmentName)
+            };
+
+            return db.MyExecuteNonQuery(query, CommandType.Text, ref error, parameters);
+        }
+
+
+        // Sửa tên phòng ban
+        public bool UpdateDepartment(int departmentID, string newName, ref string error)
+        {
+            string query = "UPDATE Departments SET DepartmentName = @name WHERE DepartmentID = @id";
+            SqlParameter[] parameters = {
+            new SqlParameter("@name", newName),
+            new SqlParameter("@id", departmentID)
+            };
+
+            DBConnection db = new DBConnection();
+            return db.MyExecuteNonQuery(query, CommandType.Text, ref error, parameters);
+        }
+
+
+        // Xóa phòng ban
+        public bool DeleteDepartment(int departmentID, ref string error)
+        {
+            // Kiểm tra xem có nhân viên nào thuộc phòng ban này không
+            string checkQuery = "SELECT COUNT(*) FROM Employees WHERE DepartmentID = @id";
+            SqlParameter[] checkParams = {
+            new SqlParameter("@id", departmentID)
+            };
+
+            object result = DBConnection.ExecuteScalar(checkQuery, checkParams);
+            int employeeCount = Convert.ToInt32(result);
+
+            if (employeeCount > 0)
+            {
+                error = "Không thể xóa phòng ban vì vẫn còn nhân viên thuộc phòng ban này.";
+                return false;
+            }
+
+            // Nếu không có nhân viên, tiếp tục xóa
+            string deleteQuery = "DELETE FROM Departments WHERE DepartmentID = @id";
+            DBConnection db = new DBConnection();
+            return db.MyExecuteNonQuery(deleteQuery, CommandType.Text, ref error, checkParams);
         }
     }
 }

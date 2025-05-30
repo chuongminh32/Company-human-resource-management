@@ -10,5 +10,6 @@ namespace CompanyHRManagement.Models
     {
         public int PositionID { get; set; }
         public string PositionName { get; set; }
+        public decimal BaseSalary {  get; set; }
     }
 }

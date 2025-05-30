@@ -144,6 +144,12 @@
     <Compile Include="DAL\DashBoardDAO.cs" />
     <Compile Include="DAL\DashBoard_adminDAO.cs" />
     <Compile Include="DAL\PositionDAO.cs" />
+    <Compile Include="GUI\admin\Panel_PhongChucVu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\admin\Panel_PhongChucVu.Designer.cs">
+      <DependentUpon>Panel_PhongChucVu.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\ForgotPassForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +247,9 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="GUI\admin\Panel_PhongChucVu.resx">
+      <DependentUpon>Panel_PhongChucVu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\ForgotPassForm.resx">
       <DependentUpon>ForgotPassForm.cs</DependentUpon>
     </EmbeddedResource>

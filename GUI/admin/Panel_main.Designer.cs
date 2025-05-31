@@ -419,7 +419,6 @@
             this.guna2Button22.Name = "guna2Button22";
             this.guna2Button22.Size = new System.Drawing.Size(69, 53);
             this.guna2Button22.TabIndex = 61;
-            this.guna2Button22.Click += new System.EventHandler(this.guna2Button22_Click);
             // 
             // lblTongNhanVien
             // 

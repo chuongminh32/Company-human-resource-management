@@ -335,16 +335,32 @@ public class EmployeeDAO
     }
 
 
-    public string GetEmailByEmail(string email)
+
+    // Forgot Password form 
+    public bool CheckEmailExists(string email)
     {
         using (SqlConnection conn = DBConnection.GetConnection())
         {
-            string query = "SELECT Email FROM Employees WHERE Email = @Email";
+            string query = "SELECT COUNT(*) FROM Employees WHERE Email = @Email";
             SqlCommand cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@Email", email);
             conn.Open();
-            var result = cmd.ExecuteScalar();
-            return result?.ToString();
+            int count = (int)cmd.ExecuteScalar();
+            return count > 0;
+        }
+    }
+
+    public bool UpdatePassword(string email, string newPassword)
+    {
+        using (SqlConnection conn = DBConnection.GetConnection())
+        {
+            string query = "UPDATE Employees SET Password = @Password WHERE Email = @Email";
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@Password", newPassword);
+            cmd.Parameters.AddWithValue("@Email", email);
+            conn.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            return rowsAffected > 0;
         }
     }
 }

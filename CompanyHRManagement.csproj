@@ -227,7 +227,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Reports\ExportUtils.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Utils\EmailHelper.cs" />
     <None Include="Resources\icons8-salary-32.png" />
@@ -294,7 +293,6 @@
     <Content Include="Scripts\InsertSampleData.sql" />
     <Content Include="Scripts\InitDatabase.sql" />
     <None Include="packages.config" />
-    <None Include="Reports\EmployeeStatisticsReport.rdlc" />
     <EmbeddedResource Include="GUI\admin\Panel_ChamCong.resx">
       <DependentUpon>Panel_ChamCong.cs</DependentUpon>
     </EmbeddedResource>

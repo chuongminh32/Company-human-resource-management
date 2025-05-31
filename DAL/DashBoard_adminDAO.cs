@@ -56,28 +56,6 @@ namespace CompanyHRManagement.DAL._ado
                 return Convert.ToDecimal(result);
             }
         }
-        //Đếm số bảo hiểm còn hạn
-        public static int CountValidInsurances()
-        {
-            string query = "SELECT COUNT(*) FROM Insurance WHERE ExpiryDate > GETDATE()";
-
-            object result = DBConnection.ExecuteScalar(query);
-
-            if (result == null || result == DBNull.Value)
-            {
-                return 0;
-            }
-            else
-            {
-                return Convert.ToInt32(result);
-            }
-        }
-
-
-
-
-
-
 
     }
 }

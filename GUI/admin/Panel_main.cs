@@ -33,7 +33,6 @@ namespace CompanyHRManagement.GUI.admin
             int countProbation = bus.GetProbationEmployeeCount();
             int countPosition = bus.GetPositionCount();
             decimal totalReward = bus.GetTotalRewardAmount() / 1000000;
-            int countInsurance = bus.GetValidInsuranceCount();
 
             // Hiển thị lên label
             lblSoPhongBan.Text = countDepartment.ToString();
@@ -42,7 +41,6 @@ namespace CompanyHRManagement.GUI.admin
             lblXinChao.Text = "Xin chào: " + emp.FullName;
             lblRole.Text = "Quyền hạn: " + positionBUS.LayTenChucVuTheoID(emp.PositionID);
             lblTongLuongThuong.Text = totalReward.ToString();
-            lblSoBaoHiemConHan.Text = countInsurance.ToString();
 
             // hiển thị ngày giờ 
             timerClock.Start();

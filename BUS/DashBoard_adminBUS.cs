@@ -31,12 +31,9 @@ namespace CompanyHRManagement.BUS._ado
 
         public decimal GetTotalRewardAmount()
         {
-            return DashBoard_adminDAO.GetTotalRewards(); 
+            return DashBoard_adminDAO.GetTotalRewards();
         }
 
-        public int GetValidInsuranceCount()
-        {
-            return DashBoard_adminDAO.CountValidInsurances(); 
-        }
+
     }
 }

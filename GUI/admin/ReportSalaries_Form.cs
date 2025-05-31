@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CompanyHRManagement.Reports;
 using Microsoft.Reporting.WinForms;
 
 namespace CompanyHRManagement.GUI.admin
@@ -18,7 +17,7 @@ namespace CompanyHRManagement.GUI.admin
         private string chucVu;
         private string phongban;
         private string countLuong;
-        public ReportSalaries_Form(DataTable dt, string chucVuText, string phongBanText, string countLuongText )
+        public ReportSalaries_Form(DataTable dt, string chucVuText, string phongBanText, string countLuongText)
         {
             InitializeComponent();
             luongTable = dt;

@@ -35,19 +35,13 @@ public class EmployeeBUS
 
     public bool CheckEmailExists(string email)
     {
-        return employeeDAO.GetEmailByEmail(email) != null;
+        return employeeDAO.CheckEmailExists(email);
     }
 
-    public bool UpdatePassword(string email, string newPassword)
+    public bool UpdatePassword(string email, string status)
     {
-        using (SqlConnection conn = DBConnection.GetConnection())
-        {
-            string query = "UPDATE Employees SET Password = @Password WHERE Email = @Email";
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@Password", newPassword);
-            cmd.Parameters.AddWithValue("@Email", email);
-            conn.Open();
-            return cmd.ExecuteNonQuery() > 0;
-        }
+        return employeeDAO.UpdatePassword(email, status);
     }
+
+
 }

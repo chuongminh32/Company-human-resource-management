@@ -32,7 +32,12 @@ namespace CompanyHRManagement.GUI.admin
             int countEmployees = bus.GetAllEmployeeCount();
             int countProbation = bus.GetProbationEmployeeCount();
             int countPosition = bus.GetPositionCount();
+<<<<<<< HEAD
             decimal totalReward = bus.GetTotalRewardAmount() / 1000000;
+=======
+            decimal totalReward = bus.GetTotalRewardAmount()/1000000;
+            //int countInsurance = bus.GetValidInsuranceCount();
+>>>>>>> d09c4af458b029ad99460e97c0480e4c03094419
 
             // Hiển thị lên label
             lblSoPhongBan.Text = countDepartment.ToString();
@@ -41,6 +46,10 @@ namespace CompanyHRManagement.GUI.admin
             lblXinChao.Text = "Xin chào: " + emp.FullName;
             lblRole.Text = "Quyền hạn: " + positionBUS.LayTenChucVuTheoID(emp.PositionID);
             lblTongLuongThuong.Text = totalReward.ToString();
+<<<<<<< HEAD
+=======
+            //lblSoBaoHiemConHan.Text = countInsurance.ToString();
+>>>>>>> d09c4af458b029ad99460e97c0480e4c03094419
 
             // hiển thị ngày giờ 
             timerClock.Start();
@@ -98,11 +107,6 @@ namespace CompanyHRManagement.GUI.admin
         {
             lblTime.Text = "Time:  " + DateTime.Now.ToString("hh:mm:ss tt");
             lblDate.Text = "Today:  " + DateTime.Now.ToString("dd/MM/yyyy");
-        }
-
-        private void guna2Button22_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

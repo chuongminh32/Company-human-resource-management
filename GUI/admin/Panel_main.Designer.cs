@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.entityCommand1 = new System.Data.Entity.Core.EntityClient.EntityCommand();
             this.chartStatus = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.chartAttendance = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -93,32 +93,32 @@
             // 
             // chartStatus
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartStatus.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartStatus.Legends.Add(legend1);
+            chartArea11.Name = "ChartArea1";
+            this.chartStatus.ChartAreas.Add(chartArea11);
+            legend11.Name = "Legend1";
+            this.chartStatus.Legends.Add(legend11);
             this.chartStatus.Location = new System.Drawing.Point(610, 501);
             this.chartStatus.Name = "chartStatus";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartStatus.Series.Add(series1);
+            series11.ChartArea = "ChartArea1";
+            series11.Legend = "Legend1";
+            series11.Name = "Series1";
+            this.chartStatus.Series.Add(series11);
             this.chartStatus.Size = new System.Drawing.Size(421, 268);
             this.chartStatus.TabIndex = 64;
             this.chartStatus.Text = "chart1";
             // 
             // chartAttendance
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartAttendance.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chartAttendance.Legends.Add(legend2);
+            chartArea12.Name = "ChartArea1";
+            this.chartAttendance.ChartAreas.Add(chartArea12);
+            legend12.Name = "Legend1";
+            this.chartAttendance.Legends.Add(legend12);
             this.chartAttendance.Location = new System.Drawing.Point(610, 173);
             this.chartAttendance.Name = "chartAttendance";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartAttendance.Series.Add(series2);
+            series12.ChartArea = "ChartArea1";
+            series12.Legend = "Legend1";
+            series12.Name = "Series1";
+            this.chartAttendance.Series.Add(series12);
             this.chartAttendance.Size = new System.Drawing.Size(421, 302);
             this.chartAttendance.TabIndex = 63;
             this.chartAttendance.Text = "chart1";
@@ -155,7 +155,7 @@
             // 
             this.guna2Panel8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Panel8.BackColor = System.Drawing.Color.Azure;
+            this.guna2Panel8.BackColor = System.Drawing.Color.Linen;
             this.guna2Panel8.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(8)))));
             this.guna2Panel8.BorderRadius = 10;
             this.guna2Panel8.BorderThickness = 5;
@@ -171,8 +171,8 @@
             // 
             this.lblTongLuongThuong.BackColor = System.Drawing.Color.Transparent;
             this.lblTongLuongThuong.Font = new System.Drawing.Font("Segoe UI Semibold", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTongLuongThuong.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.lblTongLuongThuong.Location = new System.Drawing.Point(23, 17);
+            this.lblTongLuongThuong.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.lblTongLuongThuong.Location = new System.Drawing.Point(23, 16);
             this.lblTongLuongThuong.Name = "lblTongLuongThuong";
             this.lblTongLuongThuong.Size = new System.Drawing.Size(41, 56);
             this.lblTongLuongThuong.TabIndex = 62;
@@ -184,8 +184,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.guna2HtmlLabel15.BackColor = System.Drawing.Color.Transparent;
             this.guna2HtmlLabel15.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.DarkSlateGray;
-            this.guna2HtmlLabel15.Location = new System.Drawing.Point(15, 104);
+            this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.SaddleBrown;
+            this.guna2HtmlLabel15.Location = new System.Drawing.Point(23, 113);
             this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
             this.guna2HtmlLabel15.Size = new System.Drawing.Size(280, 33);
             this.guna2HtmlLabel15.TabIndex = 48;
@@ -419,7 +419,10 @@
             this.guna2Button22.Name = "guna2Button22";
             this.guna2Button22.Size = new System.Drawing.Size(69, 53);
             this.guna2Button22.TabIndex = 61;
+<<<<<<< HEAD
             this.guna2Button22.Click += new System.EventHandler(this.guna2Button22_Click);
+=======
+>>>>>>> d09c4af458b029ad99460e97c0480e4c03094419
             // 
             // lblTongNhanVien
             // 

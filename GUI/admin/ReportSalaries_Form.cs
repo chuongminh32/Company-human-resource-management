@@ -29,14 +29,14 @@ namespace CompanyHRManagement.GUI.admin
         private void ReportSalaries_Form_Load(object sender, EventArgs e)
         {
             ReportDataSource rds = new ReportDataSource("LuongDataSet", luongTable); // "LuongDataSet" là tên dataset bạn gán trong RDLC
-
+            string ngayLapBaoCao = DateTime.Now.ToString("dd/MM/yyyy");
             // Gán giá trị cho tham số
             ReportParameter[] reportParams = new ReportParameter[]
             {
                 new ReportParameter("chucVu", chucVu),
                 new ReportParameter("phongBan", phongban),
-                new ReportParameter("CountNV", countLuong)
-
+                new ReportParameter("CountNV", countLuong),
+                new ReportParameter("NgayLapBaoCao", ngayLapBaoCao)
             };
 
             reportViewer1.LocalReport.DataSources.Clear();

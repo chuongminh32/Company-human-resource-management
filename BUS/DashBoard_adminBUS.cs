@@ -34,13 +34,6 @@ namespace CompanyHRManagement.BUS._ado
             return DashBoard_adminDAO.GetTotalRewards();
         }
 
-<<<<<<< HEAD
 
-=======
-        //public int GetValidInsuranceCount()
-        //{
-        //    return DashBoard_adminDAO.CountValidInsurances(); 
-        //}
->>>>>>> d09c4af458b029ad99460e97c0480e4c03094419
     }
 }

@@ -13,8 +13,6 @@ namespace CompanyHRManagement.DAL._ado
     {
         DBConnection db = new DBConnection();
 
-<<<<<<< HEAD
-=======
         public Dictionary<string, int> GetEmployeeCountByDepartment()
         {
             var result = new Dictionary<string, int>();
@@ -81,12 +79,6 @@ namespace CompanyHRManagement.DAL._ado
         }
 
 
-        //public int GetTotalValidInsurances()
-        //{
-        //    string query = "SELECT COUNT(*) FROM Insurance WHERE ExpiryDate >= GETDATE()";
-        //    return (int)DBConnection.ExecuteScalar(query);
-        //}
-
 
         public int GetTotalEmployees()
         {
@@ -115,7 +107,6 @@ namespace CompanyHRManagement.DAL._ado
 
 
 
->>>>>>> d09c4af458b029ad99460e97c0480e4c03094419
         //---------- Employee DashBoard - USER -----------
         // Lấy tên vị trí chức vụ theo ID 
         public string LayVitriChucVuTheoID(int userID)

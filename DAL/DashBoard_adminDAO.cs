@@ -56,6 +56,5 @@ namespace CompanyHRManagement.DAL._ado
                 return Convert.ToDecimal(result);
             }
         }
-
     }
 }

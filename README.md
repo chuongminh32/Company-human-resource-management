@@ -261,6 +261,10 @@ Viết báo cáo tổng hợp, hướng dẫn sử dụng
 │   └── InitDatabase.sql
 │   └── InsertSampleData.sql
 │   └── StoredProcedures.sql
+├── SqlServerTypes/                        
+│   └── x64
+│   └── x86
+│   └── Loader.cs
 |
 ├── Utils/                        # Các tiện ích chung
 │   └── EmailHelper.cs            # Hỗ trợ gửi email

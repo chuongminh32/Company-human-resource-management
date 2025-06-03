@@ -190,12 +190,10 @@ Viết báo cáo tổng hợp, hướng dẫn sử dụng
 ---
 
 
-## 🗂 Cấu trúc thư mục đề xuất
+## 🗂 Cấu trúc thư mục 
 
 
 # CompanyHRManagement/
-│
-│
 ├── BUS/                       # Tầng nghiệp vụ (Business Logic Layer)
 │   │── AttendanceBUS.cs	   # xử lý dữ liệu chấm công
 │   │── AuthenticationBUS.cs   # xửa lý cho xác thực đăng nhập	
@@ -263,6 +261,10 @@ Viết báo cáo tổng hợp, hướng dẫn sử dụng
 │   └── InitDatabase.sql
 │   └── InsertSampleData.sql
 │   └── StoredProcedures.sql
+├── SqlServerTypes/                        
+│   └── x64
+│   └── x86
+│   └── Loader.cs
 |
 ├── Utils/                        # Các tiện ích chung
 │   └── EmailHelper.cs            # Hỗ trợ gửi email

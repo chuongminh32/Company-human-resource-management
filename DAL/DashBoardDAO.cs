@@ -34,11 +34,11 @@ namespace CompanyHRManagement.DAL._ado
         {
             // Câu truy vấn: tìm tên phòng ban của nhân viên thông qua khóa ngoại DepartmentID
             string query = @"
-        SELECT D.DepartmentName
-        FROM Employees E
-        JOIN Departments D ON E.DepartmentID = D.DepartmentID
-        WHERE E.EmployeeID = @employeeId;
-    ";
+                SELECT D.DepartmentName
+                FROM Employees E
+                JOIN Departments D ON E.DepartmentID = D.DepartmentID
+                WHERE E.EmployeeID = @employeeId;
+            ";
 
             // Tạo tham số truyền vào truy vấn
             SqlParameter[] parameters = { new SqlParameter("@employeeId", employeeId) };

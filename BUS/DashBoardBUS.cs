@@ -15,9 +15,9 @@ namespace CompanyHRManagement.BUS
         private DashBoardDAO db_DAO = new DashBoardDAO();
 
 
-        public string LayTenPhongBanQuaID(int idDeparment)
+        public string LayTenPhongBanQuaID(int idEm)
         {
-            return db_DAO.LayTenPhongBanQuaEmployeeID(idDeparment);
+            return db_DAO.LayTenPhongBanQuaEmployeeID(idEm);
         }
         public string LayTenViTriChucVu(int userID)
         {

@@ -29,20 +29,27 @@ namespace CompanyHRManagement.DAL._ado
             return result?.ToString();
         }
 
-
-        public string LayTenPhongBanQuaID(int idDeparment)
+        // Phương thức lấy tên phòng ban thông qua ID nhân viên
+        public string LayTenPhongBanQuaEmployeeID(int employeeId)
         {
-            string query = @"       
-                SELECT D.DepartmentName
-                FROM Employees E
-                JOIN Departments D ON E.DepartmentID = D.DepartmentID
-                WHERE E.DepartmentID = @idDeparment;
-            ";
+            // Câu truy vấn: tìm tên phòng ban của nhân viên thông qua khóa ngoại DepartmentID
+            string query = @"
+        SELECT D.DepartmentName
+        FROM Employees E
+        JOIN Departments D ON E.DepartmentID = D.DepartmentID
+        WHERE E.EmployeeID = @employeeId;
+    ";
 
-            SqlParameter[] parameters = { new SqlParameter("@idDeparment", idDeparment) };
+            // Tạo tham số truyền vào truy vấn
+            SqlParameter[] parameters = { new SqlParameter("@employeeId", employeeId) };
+
+            // Thực thi truy vấn và lấy kết quả đơn (scalar)
             object result = DBConnection.ExecuteScalar(query, parameters);
-            return result?.ToString(); // tránh lỗi ép kiểu nếu result là int/null
+
+            // Trả về tên phòng ban, nếu null thì trả về null (hoặc có thể gán mặc định nếu muốn)
+            return result?.ToString();
         }
+
         // Tổng lương theo tháng của 1 nhân viên
         public List<(int Month, int Year, decimal TotalSalary)> TongLuongTheoThang(int employeeId)
         {

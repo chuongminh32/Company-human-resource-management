@@ -17,7 +17,7 @@ namespace CompanyHRManagement.BUS
 
         public string LayTenPhongBanQuaID(int idDeparment)
         {
-            return db_DAO.LayTenPhongBanQuaID(idDeparment);
+            return db_DAO.LayTenPhongBanQuaEmployeeID(idDeparment);
         }
         public string LayTenViTriChucVu(int userID)
         {

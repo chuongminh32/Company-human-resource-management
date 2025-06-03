@@ -6,37 +6,30 @@ using System.Data;
 public class DisciplineDAO
 {
     DBConnection db = new DBConnection();
-    public List<Discipline> GetDisciplinesByEmployeeId(int employeeId)
+    public DataTable GetDisciplinesByEmployeeId(int employeeId)
     {
-        List<Discipline> disciplines = new List<Discipline>();
+        // Tạo DataTable để chứa dữ liệu kỷ luật
+        DataTable table = new DataTable();
 
+        // Câu truy vấn lấy dữ liệu từ bảng Disciplines
         string query = "SELECT DisciplineID, EmployeeID, Reason, DisciplineDate, Amount " +
                        "FROM Disciplines WHERE EmployeeID = @EmployeeID";
 
+        // Kết nối đến cơ sở dữ liệu
         using (SqlConnection conn = DBConnection.GetConnection())
         using (SqlCommand cmd = new SqlCommand(query, conn))
         {
+            // Thêm tham số vào câu truy vấn
             cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
-            conn.Open();
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    Discipline discipline = new Discipline
-                    {
-                        DisciplineID = (int)reader["DisciplineID"],
-                        EmployeeID = (int)reader["EmployeeID"],
-                        Reason = reader["Reason"].ToString(),
-                        DisciplineDate = (DateTime)reader["DisciplineDate"],
-                        Amount = (decimal)reader["Amount"]
-                    };
-                    disciplines.Add(discipline);
-                }
-            }
+
+            // Tạo adapter để thực thi truy vấn và fill dữ liệu vào DataTable
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            adapter.Fill(table); // Đổ dữ liệu vào DataTable
         }
 
-        return disciplines;
+        return table;
     }
+
 
     public List<Discipline> GetDisciplinesWithEmployeeName()
     {

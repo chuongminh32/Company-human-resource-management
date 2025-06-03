@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 
 public class DisciplineBUS
 {
     private DisciplineDAO disciplineDAO = new DisciplineDAO();
 
-    public List<Discipline> LayDanhSachPhatTheoNhanVien(int employeeId)
+    public DataTable LayDanhSachPhatTheoNhanVien(int employeeId)
     {
         return disciplineDAO.GetDisciplinesByEmployeeId(employeeId);
     }
 
-    public List<Discipline> LayDanhSachPhat() {
+    public List<Discipline> LayDanhSachPhat()
+    {
         return disciplineDAO.GetDisciplinesWithEmployeeName();
     }
 
@@ -84,7 +86,7 @@ public class DisciplineBUS
             return false;
         }
 
-        
+
         // Tạo DateTime
         DateTime disciplineDate;
         try

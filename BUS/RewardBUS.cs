@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Windows.Forms;
 
 public class RewardBUS
 {
     private RewardDAO rewardDAO = new RewardDAO();
 
-    public List<Reward> LayDanhSachThuongTheoNhanVien(int employeeId)
+    public DataTable LayDanhSachThuongTheoNhanVien(int employeeId)
     {
         return rewardDAO.GetRewardsByEmployeeId(employeeId);
     }
@@ -85,7 +86,7 @@ public class RewardBUS
             return false;
         }
 
-        
+
         // Tạo DateTime
         DateTime rewardDate;
         try

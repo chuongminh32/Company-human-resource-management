@@ -37,7 +37,7 @@ public class AttendanceBUS
         var today = DateTime.Today;
         var now = DateTime.Now.TimeOfDay;
 
-        var ngayCongHomNay = attendanceDAO.KiemTraCongHomNay(employeeId, today);
+        var ngayCongHomNay = KiemTraCongHomNay(employeeId, today);
 
         if (ngayCongHomNay == null)
         {
@@ -52,7 +52,7 @@ public class AttendanceBUS
                 OvertimeHours = 0
             };
 
-            attendanceDAO.themCong(newAttendance);
+            themCong(newAttendance);
             return " Đã chấm công (Check-in) thành công!";
         }
         else if (ngayCongHomNay.CheckOut == null)
@@ -63,7 +63,7 @@ public class AttendanceBUS
             TimeSpan duration = now - ngayCongHomNay.CheckIn.GetValueOrDefault();
             ngayCongHomNay.OvertimeHours = (int)Math.Max(0, duration.TotalHours - 8);
 
-            attendanceDAO.capNhatCong(ngayCongHomNay);
+            capNhatCong(ngayCongHomNay);
             return " Đã cập nhật giờ ra (Check-out)!";
         }
         else

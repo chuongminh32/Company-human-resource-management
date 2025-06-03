@@ -7,37 +7,32 @@ public class RewardDAO
 {
     DBConnection db = new DBConnection();
 
-    public List<Reward> GetRewardsByEmployeeId(int employeeId)
-        {
-        List<Reward> rewards = new List<Reward>();
+    public DataTable GetRewardsByEmployeeId(int employeeId)
+    {
+        // Tạo DataTable để chứa dữ liệu trả về
+        DataTable dataTable = new DataTable();
 
+        // Câu lệnh SQL truy vấn thông tin thưởng của nhân viên
         string query = "SELECT RewardID, EmployeeID, Reason, RewardDate, Amount " +
                        "FROM Rewards WHERE EmployeeID = @EmployeeID";
 
         using (SqlConnection conn = DBConnection.GetConnection())
         using (SqlCommand cmd = new SqlCommand(query, conn))
         {
+            // Thêm tham số truy vấn
             cmd.Parameters.AddWithValue("@EmployeeID", employeeId);
-            conn.Open();
-            using (SqlDataReader reader = cmd.ExecuteReader())
+
+            // Sử dụng SqlDataAdapter để đổ dữ liệu vào DataTable
+            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
             {
-                while (reader.Read())
-                {
-                    Reward reward = new Reward
-                    {
-                        RewardID = (int)reader["RewardID"],
-                        EmployeeID = (int)reader["EmployeeID"],
-                        Reason = reader["Reason"].ToString(),
-                        RewardDate = (DateTime)reader["RewardDate"],
-                        Amount = (decimal)reader["Amount"]
-                    };
-                    rewards.Add(reward);
-                }
+                adapter.Fill(dataTable);
             }
         }
 
-        return rewards;
-        }
+        // Trả về DataTable đã có dữ liệu
+        return dataTable;
+    }
+
     public List<Reward> GetRewardsWithEmployeeName()
     {
         List<Reward> rewards = new List<Reward>();

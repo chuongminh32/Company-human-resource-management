@@ -31,6 +31,7 @@ namespace CompanyHRManagement.GUI.user
         private RewardBUS rewardBUS = new RewardBUS();
         private DisciplineBUS disciplineBUS = new DisciplineBUS();
         private LoginForm login = new LoginForm();
+        private PositionBUS positionBUS = new PositionBUS();
 
         private string fullname;
         private int user_id;
@@ -52,8 +53,11 @@ namespace CompanyHRManagement.GUI.user
             this.user_id = emp.EmployeeID;
             this.fullname = emp.FullName;
             this.name_dapartment = db_BUS.LayTenPhongBanQuaID(emp.EmployeeID);
-            this.name_position = db_BUS.LayTenViTriChucVu(emp.EmployeeID);
+            this.name_position = positionBUS.LayTenChucVuTheoID(emp.PositionID);
             this.login = login;
+
+
+
 
             InitializeComponent();
         }
@@ -67,8 +71,9 @@ namespace CompanyHRManagement.GUI.user
             TaiLaiTatCaDuLieu();
 
             lblUsername.Text = fullname;
-            lblRole.Text = "Quyền hạn: USER";
+            lblRole.Text = "Quyền hạn:" + name_position;
             lblXinChao.Text = "Xin chào: " + fullname + " !";
+            lblPhongBan.Text = "Phòng ban: " + name_dapartment;
 
             // Gán mặc định là hôm nay
             dtpNgayBatDau.Value = DateTime.Today;
@@ -157,38 +162,69 @@ namespace CompanyHRManagement.GUI.user
 
         private void TaiBieuDoLuong()
         {
+            // Lấy dữ liệu tổng lương theo từng tháng của user
             var data = db_BUS.LayDuLieuLuong(user_id);
 
+            // Xóa toàn bộ series (dữ liệu cũ) và vùng biểu đồ hiện có
             chartSalary.Series.Clear();
             chartSalary.ChartAreas.Clear();
+
+            // Tạo vùng biểu đồ mới tên là "Area"
             chartSalary.ChartAreas.Add(new ChartArea("Area"));
 
+            // Cấu hình trục Y
             var area = chartSalary.ChartAreas[0];
-            area.AxisY.LabelStyle.Format = "#,##0 'VNĐ'";
-            area.AxisY.Title = "Tổng lương (VNĐ)";
-            area.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold);
-            area.AxisY.TitleForeColor = Color.DarkGreen;
-            area.AxisX.Title = "Tháng";
-            area.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold);
+            area.AxisY.LabelStyle.Format = "#,##0 'VNĐ'"; // Hiển thị đơn vị VNĐ
+            area.AxisY.Title = "Tổng lương (VNĐ)"; // Tiêu đề trục Y
+            area.AxisY.TitleFont = new Font("Arial", 10, FontStyle.Bold); // Font tiêu đề trục Y
+            area.AxisY.TitleForeColor = Color.DarkGreen; // Màu chữ tiêu đề trục Y
 
-            var series = new Series("Tổng lương") { ChartType = SeriesChartType.Column, Color = Color.Orange };
+            // Cấu hình trục X
+            area.AxisX.Title = "Tháng"; // Tiêu đề trục X
+            area.AxisX.TitleFont = new Font("Arial", 10, FontStyle.Bold); // Font tiêu đề trục X
+
+            // Tạo series (tập dữ liệu) mới cho cột "Tổng lương"
+            var series = new Series("Tổng lương")
+            {
+                ChartType = SeriesChartType.Column, // Kiểu biểu đồ cột
+                Color = Color.Orange // Màu cột
+            };
+
+            // Thêm dữ liệu vào biểu đồ: trục X là tháng, trục Y là tổng lương
             data.ForEach(item => series.Points.AddXY(item.MonthYear, item.TotalSalary));
+
+            // Thêm series vào biểu đồ
             chartSalary.Series.Add(series);
         }
 
         private void TaiBieuDoCong()
         {
+            // Lấy dữ liệu số ngày làm việc theo từng tháng của user
             var data = db_BUS.LayDuLieuChamCong(user_id);
+
+            // Xóa dữ liệu và biểu đồ cũ
             chartAttendance.Series.Clear();
             chartAttendance.ChartAreas.Clear();
+
+            // Tạo vùng biểu đồ mới
             chartAttendance.ChartAreas.Add(new ChartArea("Area"));
 
-            var series = new Series("Ngày công") { ChartType = SeriesChartType.Column };
+            // Tạo series mới để hiển thị "Ngày công"
+            var series = new Series("Ngày công")
+            {
+                ChartType = SeriesChartType.Column // Kiểu biểu đồ cột
+            };
+
+            // Thêm dữ liệu vào biểu đồ: trục X là tháng, trục Y là số ngày làm việc
             data.ForEach(item => series.Points.AddXY(item.MonthYear, item.WorkDays));
 
+            // Thêm series vào biểu đồ
             chartAttendance.Series.Add(series);
+
+            // Cấu hình tiêu đề trục Y
             chartAttendance.ChartAreas[0].AxisY.Title = "Số ngày công";
         }
+
 
         private void TaiDuLieuMoiCapNhat()
         {
@@ -407,22 +443,28 @@ namespace CompanyHRManagement.GUI.user
 
         private void TaiThuongNhanVien(int employeeId)
         {
-            var list = rewardBUS.LayDanhSachThuongTheoNhanVien(employeeId);
-            dgvThuong.DataSource = list;
+            // Lấy dữ liệu từ BUS 
+            var table = rewardBUS.LayDanhSachThuongTheoNhanVien(employeeId);
 
-            // Đặt tiêu đề cho các cột
+            // Gán dữ liệu vào DataGridView
+            dgvThuong.DataSource = table;
+
+            // Đặt tiêu đề cột
             dgvThuong.Columns["RewardID"].HeaderText = "Mã thưởng";
             dgvThuong.Columns["EmployeeID"].HeaderText = "Mã nhân viên";
             dgvThuong.Columns["Reason"].HeaderText = "Lý do";
             dgvThuong.Columns["RewardDate"].HeaderText = "Ngày thưởng";
             dgvThuong.Columns["Amount"].HeaderText = "Số tiền thưởng";
+            dgvLuong.Columns["FullName"].Visible = false;
+
         }
+
 
 
         private void TaiPhatNhanVien(int employeeId)
         {
-            var list = disciplineBUS.LayDanhSachPhatTheoNhanVien(employeeId);
-            dgvPhat.DataSource = list;
+            var table = disciplineBUS.LayDanhSachPhatTheoNhanVien(employeeId);
+            dgvPhat.DataSource = table;
 
             // Đổi tiêu đề các cột
             dgvPhat.Columns["DisciplineID"].HeaderText = "Mã kỷ luật";
@@ -431,8 +473,10 @@ namespace CompanyHRManagement.GUI.user
             dgvPhat.Columns["DisciplineDate"].HeaderText = "Ngày kỷ luật";
             dgvPhat.Columns["Amount"].HeaderText = "Số tiền phạt";
 
-            // (Tùy chọn) Định dạng cột số tiền
+            // Định dạng cột số tiền
             dgvPhat.Columns["Amount"].DefaultCellStyle.Format = "N0";
+            dgvLuong.Columns["FullName"].Visible = false;
+
         }
 
         private void TaiLuongNhanVien(int employeeId)
@@ -997,7 +1041,5 @@ namespace CompanyHRManagement.GUI.user
             panelNghiPhep.Visible = false;
             panelChat.Visible = false;
         }
-
-
     }
 }

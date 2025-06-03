@@ -2466,8 +2466,8 @@ namespace CompanyHRManagement.GUI.user
             // MainForm_user
             // 
             this.ClientSize = new System.Drawing.Size(1275, 787);
-            this.Controls.Add(this.panelThongTin);
             this.Controls.Add(this.panelTrangChu_user);
+            this.Controls.Add(this.panelThongTin);
             this.Controls.Add(this.panelNghiPhep);
             this.Controls.Add(this.panelChat);
             this.Controls.Add(this.sidebarPanel);
